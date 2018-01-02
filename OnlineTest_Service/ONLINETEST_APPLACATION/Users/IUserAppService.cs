@@ -21,7 +21,7 @@ namespace ONLINETEST_APPLICATION.Users
         /// <param name="password"></param>
         /// <param name="nikename"></param>
         /// <returns></returns>
-        bool CreateUser(string account, string password, string nikename);
+        bool CreateUser(string account, string password, string nikename, string status = "Common");
         /// <summary>
         /// 修改用户密码
         /// </summary>
@@ -39,5 +39,8 @@ namespace ONLINETEST_APPLICATION.Users
 
         User Login(string account, string password);
         User AdminLogin(string account, string password);
+        User GetUserById(int id);
+        List<User> GetUserListByStatus(string status);
+        List<User> SearchUser(string content);
     }
 }

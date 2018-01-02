@@ -66,7 +66,7 @@ namespace ONLINETEST_CORE.Users
             return user ?? null;
         }
         //创建一个用户
-        public bool CreateUser(string account, string password, string nikeName, string status = "Common")
+        public bool CreateUser(string account, string password, string nikeName,string status)
         {
             var isUser = _onlineTestContext.User.Where(u => u.Account.Equals(account)).ToList();
             string validataCode = System.Guid.NewGuid().ToString();

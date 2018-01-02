@@ -25,11 +25,36 @@ namespace ONLINETEST.Controllers
     {
         private readonly IUserAppService _userAppService;
         public IConfiguration _configuration;
+        private readonly string AdminUser = "Admin";
         public UserController(IUserAppService userAppService, IConfiguration configuration)
         {
             _userAppService = userAppService;
             _configuration = configuration;
         }
+
+        #region 公共
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <param name="nPassword">新密码</param>
+        /// <returns></returns>
+        [HttpPut]
+        public bool ModifyPassword(int userId, string nPassword)
+        {
+            string mPassword = _userAppService.Md5Encrypt(nPassword);
+            return _userAppService.ModifyPassword(userId, mPassword);
+        }
+
+        [HttpGet]
+        public JsonResult GetUserById(int uId)
+        {
+            return Json(_userAppService.GetUserById(uId));
+        }
+        #endregion
+
+        #region 前台
+
         /// <summary>
         /// 普通用户登录接口
         /// </summary>
@@ -56,13 +81,43 @@ namespace ONLINETEST.Controllers
         }
 
         /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="account">使用邮箱作为注册账号</param>
+        /// <param name="password"></param>
+        /// <param name="nikename"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public bool Register(string account, string password, string nikename)
+        {
+            string mPassword = _userAppService.Md5Encrypt(password);
+            return _userAppService.CreateUser(account, mPassword, nikename);
+        }
+
+        /// <summary>
+        /// 验证
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="validataCode">验证码</param>
+        /// <returns></returns>
+        [HttpGet]
+        public bool CheckRegister(string account, string validataCode)
+        {
+            return _userAppService.CheckRegister(account, validataCode);
+        }
+
+        #endregion
+
+        #region 后台管理
+
+        /// <summary>
         /// 管理员登录接口
         /// </summary>
         /// <param name="account"></param>
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult AdminLogin(string account,string password)
+        public JsonResult AdminLogin(string account, string password)
         {
             string mPassword = _userAppService.Md5Encrypt(password);
             User user = _userAppService.AdminLogin(account, mPassword);
@@ -80,29 +135,56 @@ namespace ONLINETEST.Controllers
             return Json(result);
         }
         /// <summary>
-        /// 注册
+        /// 添加管理员
         /// </summary>
-        /// <param name="account">使用邮箱作为注册账号</param>
+        /// <param name="account"></param>
         /// <param name="password"></param>
         /// <param name="nikename"></param>
         /// <returns></returns>
         [HttpPost]
-        public bool Register(string account, string password, string nikename)
+        public bool AddAdmin(string account,string password,string nikename)
         {
             string mPassword = _userAppService.Md5Encrypt(password);
-            return _userAppService.CreateUser(account, mPassword, nikename);
+            return _userAppService.CreateUser(account, mPassword, nikename,AdminUser);
         }
+
+        /// <summary>
+        /// 获取到所有的普通用户列表
+        /// </summary>
+        /// <param name="status">角色：Common,Admin</param>
+        /// <returns></returns>
         [HttpGet]
-        public bool CheckRegister(string account, string validataCode)
+        public JsonResult GetCommonUserList(string status)
         {
-            return _userAppService.CheckRegister(account, validataCode);
+            var userList = _userAppService.GetUserListByStatus(status);
+            var result = new
+            {
+                count = userList.Count(),
+                user = userList
+            };
+            return Json(result);
         }
-        [HttpPut]
-        public bool ModifyPassword(int userId, string nPassword)
+
+        /// <summary>
+        /// 根据昵称或账户搜索
+        /// </summary>
+        /// <param name="content">搜索内容</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult SearchUser(string content)
         {
-            string mPassword = _userAppService.Md5Encrypt(nPassword);
-            return _userAppService.ModifyPassword(userId, mPassword);
+            var userList = _userAppService.SearchUser(content);
+            var result = new
+            {
+                count = userList.Count(),
+                user = userList
+            };
+            return Json(result);
         }
+        #endregion
+
+
+
 
 
         #region jwt
