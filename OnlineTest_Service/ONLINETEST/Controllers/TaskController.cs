@@ -26,23 +26,24 @@ namespace ONLINETEST.Controllers
         public JsonResult GetSubjectList()
         {
             var subject = _taskAppService.GetSubList();
-            var subList;
-            foreach(var item in subject)
-            {
-                var sub = new
-                {
-                    id = item.Id,
-                    name = item.Name,
-                    queCount = item.QuestionCount,
-                };
-                subList.Add(sub);
-            }
-            var result = new {
-                count = subject.Count(),
-                sub = subList,
-            };
-           
-            return Json(result);
+            //var subList;
+            //foreach(var item in subject)
+            //{
+            //    var sub = new
+            //    {
+            //        id = item.Id,
+            //        name = item.Name,
+            //        queCount = item.QuestionCount,
+            //    };
+            //    subList.Add(sub);
+            //}
+            //var result = new {
+            //    count = subject.Count(),
+            //    sub = subList,
+            //};
+
+            //return Json(result);
+            return Json(subject);
         }
 #endregion
 
