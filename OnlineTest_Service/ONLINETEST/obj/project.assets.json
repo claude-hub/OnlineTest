@@ -7025,7 +7025,7 @@
       ]
     },
     "Microsoft.IdentityModel.Logging/1.1.4": {
-      "sha512": "53i5DFpR8DNk/6NM2HxWW8zFPu3xtdFwX9IfHnsFngO5ujGvP3QKihSAB286AmMgtZ2NUGGVcqM5M7T6ulcOXQ==",
+      "sha512": "j7t22EsDOuo0IXqAbp6ijdB1GuaY8cu3YoPNZpymOhUMTVC+wRTV0IHqxL31HacCnJHU/igsqe70fDKZgZu3oA==",
       "type": "package",
       "path": "microsoft.identitymodel.logging/1.1.4",
       "files": [
@@ -7070,7 +7070,7 @@
       ]
     },
     "Microsoft.IdentityModel.Tokens/5.1.4": {
-      "sha512": "BX9MJKta7dMYECCqdx6ySrkI+n4ULmbH4qZ9mb5FxE//A3IzFA9tsQ6+CPN902Gc8FcsOYja7iQiu1lCRF88XA==",
+      "sha512": "SsJbZVPvjSlKFDAQmR2wpL6ZD/vCFlIsf0jxRlBJwyzKXZy3Wi/Xo+fE2MzAerLsJgG1UCdtplRwqDyq1euayw==",
       "type": "package",
       "path": "microsoft.identitymodel.tokens/5.1.4",
       "files": [
@@ -9399,7 +9399,7 @@
       ]
     },
     "System.IdentityModel.Tokens.Jwt/5.1.4": {
-      "sha512": "1n6B9wxUh5c5CpEj8Bdyf6GDIGRRVqlIONian5HsM4kBlsvV2JfYfeddSMJAM7QQoZWVUh3IfZa4+pwCwjSPjQ==",
+      "sha512": "hLUU1N99aL9uyxiTraBnCKlpUKsbP/+5ygD7cswspH9/+M7fAAL0hRzt2aA4w7VEQlSSiu8j+xWFk3NRcqhfQQ==",
       "type": "package",
       "path": "system.identitymodel.tokens.jwt/5.1.4",
       "files": [
@@ -11099,7 +11099,7 @@
       ]
     },
     "System.Runtime.Serialization.Formatters/4.3.0": {
-      "sha512": "yIR6GOzX17erKr2Ni9moRTxbRTUktF2dqaJiWNmoVROqtDP9AK2dNV94EtvQ66eCFtqUhObmyVlHTbzW105vrQ==",
+      "sha512": "KT591AkTNFOTbhZlaeMVvfax3RqhH1EJlcwF50Wm7sfnBLuHiOeZRRKrr1ns3NESkM20KPZ5Ol/ueMq5vg4QoQ==",
       "type": "package",
       "path": "system.runtime.serialization.formatters/4.3.0",
       "files": [
@@ -12761,7 +12761,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Cloudy\\.nuget\\packages\\": {},
+    "C:\\Users\\Joy\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -12770,17 +12770,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "E:\\Code\\Projets\\OnlineTest\\OnlineTest_Service\\ONLINETEST\\ONLINETEST.csproj",
+      "projectUniqueName": "F:\\c#\\c#\\c#\\奇点\\c#\\Html\\OnLineTest\\ONLINETEST\\ONLINETEST.csproj",
       "projectName": "ONLINETEST",
-      "projectPath": "E:\\Code\\Projets\\OnlineTest\\OnlineTest_Service\\ONLINETEST\\ONLINETEST.csproj",
-      "packagesPath": "C:\\Users\\Cloudy\\.nuget\\packages\\",
-      "outputPath": "E:\\Code\\Projets\\OnlineTest\\OnlineTest_Service\\ONLINETEST\\obj\\",
+      "projectPath": "F:\\c#\\c#\\c#\\奇点\\c#\\Html\\OnLineTest\\ONLINETEST\\ONLINETEST.csproj",
+      "packagesPath": "C:\\Users\\Joy\\.nuget\\packages\\",
+      "outputPath": "F:\\c#\\c#\\c#\\奇点\\c#\\Html\\OnLineTest\\ONLINETEST\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Cloudy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Joy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12793,8 +12793,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "E:\\Code\\Projets\\OnlineTest\\OnlineTest_Service\\ONLINETEST_APPLACATION\\ONLINETEST_APPLICATION.csproj": {
-              "projectPath": "E:\\Code\\Projets\\OnlineTest\\OnlineTest_Service\\ONLINETEST_APPLACATION\\ONLINETEST_APPLICATION.csproj"
+            "F:\\c#\\c#\\c#\\奇点\\c#\\Html\\OnLineTest\\ONLINETEST_APPLACATION\\ONLINETEST_APPLICATION.csproj": {
+              "projectPath": "F:\\c#\\c#\\c#\\奇点\\c#\\Html\\OnLineTest\\ONLINETEST_APPLACATION\\ONLINETEST_APPLICATION.csproj"
             }
           }
         }

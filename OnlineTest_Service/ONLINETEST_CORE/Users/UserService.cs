@@ -9,7 +9,9 @@ namespace ONLINETEST_CORE.Users
 {
     public class UserService
     {
-        private readonly OnlineTextContext _onlineTestContext = new OnlineTextContext();
+        private readonly OnlineTestContext _onlineTestContext = new OnlineTestContext();
+        private readonly string CommonUser = "Common";
+        private readonly string AdminUser = "Adimin";
         public string Md5Encrypt(string password)
         {
             MD5 md5 = MD5.Create();
@@ -24,7 +26,7 @@ namespace ONLINETEST_CORE.Users
         /// <summary>
         /// 发送邮件
         /// </summary>
-        public bool SendEMail(string mailAddress,string validataCode)
+        public bool SendEMail(string mailAddress, string validataCode)
         {
             //string validataCode = System.Guid.NewGuid().ToString();
             try
@@ -52,13 +54,19 @@ namespace ONLINETEST_CORE.Users
                 return false;
             }
         }
-        public User Login(string account,string password)
+        
+        public User Login(string account, string password)
         {
             User user = _onlineTestContext.User.SingleOrDefault(u => u.Account.Equals(account) && u.Password.Equals(password));
             return user ?? null;
         }
+        public User AdminLogin(string account,string password)
+        {
+            User user = _onlineTestContext.User.SingleOrDefault(u => u.Account.Equals(account) && u.Password.Equals(password) && u.Password.Equals(AdminUser));
+            return user ?? null;
+        }
         //创建一个用户
-        public bool CreateUser(string account,string password,string nikeName,string status = "Common")
+        public bool CreateUser(string account, string password, string nikeName, string status = "Common")
         {
             var isUser = _onlineTestContext.User.Where(u => u.Account.Equals(account)).ToList();
             string validataCode = System.Guid.NewGuid().ToString();
@@ -76,12 +84,12 @@ namespace ONLINETEST_CORE.Users
                     IsVerification = -1
                 };
                 _onlineTestContext.User.Add(user);
-                _onlineTestContext.SaveChanges();                
+                _onlineTestContext.SaveChanges();
                 return SendEMail(account, validataCode);
-            }            
+            }
         }
         //更改用户密码
-        public bool ModifyPassword(int userId,string nPassword)
+        public bool ModifyPassword(int userId, string nPassword)
         {
             User user = _onlineTestContext.User.SingleOrDefault(u => u.UserId == userId);
             user.Password = nPassword;
@@ -89,16 +97,17 @@ namespace ONLINETEST_CORE.Users
             return true;
         }
         //验证邮箱
-        public bool CheckRegister(string account,string validataCode)
+        public bool CheckRegister(string account, string validataCode)
         {
             User user = _onlineTestContext.User.SingleOrDefault(u => u.Account.Equals(account) && u.VerificationCode.Equals(validataCode));
-            if(user != null)
+            if (user != null)
             {
                 user.IsVerification = 1;
                 _onlineTestContext.SaveChanges();
                 return true;
-            }else
-                return  false;
+            }
+            else
+                return false;
         }
     }
 }

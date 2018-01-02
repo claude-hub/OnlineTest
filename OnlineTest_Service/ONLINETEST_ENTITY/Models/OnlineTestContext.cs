@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ONLINETEST_ENTITY.Models
 {
-    public partial class OnlineTextContext : DbContext
+    public partial class OnlineTestContext : DbContext
     {
+        public virtual DbSet<Article> Article { get; set; }
         public virtual DbSet<Attachment> Attachment { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Jpaper> Jpaper { get; set; }
         public virtual DbSet<Options> Options { get; set; }
         public virtual DbSet<Paper> Paper { get; set; }
@@ -21,12 +23,36 @@ namespace ONLINETEST_ENTITY.Models
             {
 #warning
                 //To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-NQS2LUN\SQLEXPRESS;Database=OnlineText;Trusted_Connection=True;User ID=sa;Password=jxzxc1230;");
+                optionsBuilder.UseSqlServer(@"Server=DESKTOP-NQS2LUN\SQLEXPRESS;Database=OnlineTest;Trusted_Connection=True;User ID=sa;Password=jxzxc1230;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Article>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Author)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Content).IsRequired();
+
+                entity.Property(e => e.CreateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Label).HasMaxLength(50);
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Article)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_ARTICLE_REFERENCE_USER");
+            });
+
             modelBuilder.Entity<Attachment>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
@@ -36,6 +62,27 @@ namespace ONLINETEST_ENTITY.Models
                 entity.Property(e => e.AvatarType).HasColumnName("Avatar_type");
 
                 entity.Property(e => e.OwnerId).HasColumnName("Owner_id");
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Content).IsRequired();
+
+                entity.Property(e => e.CreateTime).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Article)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.ArticleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_COMMENT_REFERENCE_ARTICLE");
+
+                entity.HasOne(d => d.Owner)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.OwnerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_COMMENT_REFERENCE_USER");
             });
 
             modelBuilder.Entity<Jpaper>(entity =>
@@ -53,12 +100,12 @@ namespace ONLINETEST_ENTITY.Models
                 entity.HasOne(d => d.Pap)
                     .WithMany(p => p.Jpaper)
                     .HasForeignKey(d => d.PapId)
-                    .HasConstraintName("FK_JPAPER_REFERENCE_PAPER");
+                    .HasConstraintName("FK_具体试卷表_REFERENCE_PAPER");
 
                 entity.HasOne(d => d.Que)
                     .WithMany(p => p.Jpaper)
                     .HasForeignKey(d => d.QueId)
-                    .HasConstraintName("FK_JPAPER_REFERENCE_QUESTION");
+                    .HasConstraintName("FK_具体试卷表_REFERENCE_QUESTION");
             });
 
             modelBuilder.Entity<Options>(entity =>
@@ -113,6 +160,8 @@ namespace ONLINETEST_ENTITY.Models
                     .HasColumnName("Question_content");
 
                 entity.Property(e => e.QuestionType).HasColumnName("Question_type");
+
+                entity.Property(e => e.RightAnswer).IsRequired();
 
                 entity.Property(e => e.SubjectId).HasColumnName("Subject_id");
 
@@ -182,14 +231,14 @@ namespace ONLINETEST_ENTITY.Models
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(50);
+                entity.Property(e => e.IsVerification)
+                .IsRequired();
+                entity.Property(e => e.VerificationCode)
+                .IsRequired();
 
                 entity.Property(e => e.Status)
                     .IsRequired()
                     .HasMaxLength(10);
-                entity.Property(e => e.VerificationCode)
-                     .IsRequired()
-                     .HasMaxLength(100);
-                entity.Property(e => e.IsVerification).IsRequired();
             });
         }
     }

@@ -21,8 +21,9 @@ namespace ONLINETEST_APPLICATION.Tasks
         /// <param name="questionAnlysis">题目解析</param>
         /// <param name="questionType">题目类型</param>
         /// <param name="questionClass">题目难度</param>
+        /// <param name="rightAnswer">正确答案</param>
         /// <returns></returns>
-        bool CreateQuestion(int subjectId, string questionName,string questionAnlysis, int questionType, int questionClass);
+        bool CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass,string rightAnswer);
         /// <summary>
         /// 添加答案
         /// </summary>
@@ -35,7 +36,9 @@ namespace ONLINETEST_APPLICATION.Tasks
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        int CreatePaper(int userId,int subjectId,int paperClass);
+        int CreatePaper(int userId, int subjectId, int paperClass);
+
+        List<Subject> GetSubList();
         List<Question> GetJpaperById(int pid);
         Paper GetPaperById(int pid);
         Question GetQuestionBySearch(int subjectId, string searchContent);

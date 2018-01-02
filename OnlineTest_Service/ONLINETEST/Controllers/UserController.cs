@@ -30,6 +30,12 @@ namespace ONLINETEST.Controllers
             _userAppService = userAppService;
             _configuration = configuration;
         }
+        /// <summary>
+        /// 普通用户登录接口
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult Login(string account, string password)
         {
@@ -47,8 +53,31 @@ namespace ONLINETEST.Controllers
             };
 
             return Json(result);
+        }
 
+        /// <summary>
+        /// 管理员登录接口
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult AdminLogin(string account,string password)
+        {
+            string mPassword = _userAppService.Md5Encrypt(password);
+            User user = _userAppService.AdminLogin(account, mPassword);
+            var result = new
+            {
+                userInfo = new
+                {
+                    id = user.UserId,
+                    account = user.Account,
+                    nikename = user.NikeName,
+                },
+                token = Token(account, mPassword).Result.Value
+            };
 
+            return Json(result);
         }
         /// <summary>
         /// 注册
@@ -64,7 +93,7 @@ namespace ONLINETEST.Controllers
             return _userAppService.CreateUser(account, mPassword, nikename);
         }
         [HttpGet]
-        public bool CheckRegister(string account,string validataCode)
+        public bool CheckRegister(string account, string validataCode)
         {
             return _userAppService.CheckRegister(account, validataCode);
         }
@@ -74,7 +103,7 @@ namespace ONLINETEST.Controllers
             string mPassword = _userAppService.Md5Encrypt(nPassword);
             return _userAppService.ModifyPassword(userId, mPassword);
         }
-       
+
 
         #region jwt
         [HttpPost]
@@ -87,7 +116,7 @@ namespace ONLINETEST.Controllers
             {
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsync(JsonConvert.SerializeObject("账号或密码错误!"));
-                return Json("") ;
+                return Json("");
             }
             var audienceConfig = _configuration.GetSection("TokenAuthentication:Audience").Value;
             var symmetricKeyAsBase64 = _configuration.GetSection("TokenAuthentication:SecretKey").Value;

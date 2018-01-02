@@ -4,21 +4,14 @@
         <name>ONLINETEST</name>
     </assembly>
     <members>
-        <member name="M:ONLINETEST.Controllers.TaskController.GetPaperByPid(System.Int32)">
-            <summary>
-            根据试卷ID获取试卷
-            </summary>
-            <param name="pId">试卷id</param>
-            <returns></returns>
-        </member>
         <member name="M:ONLINETEST.Controllers.TaskController.AddSubject(System.String)">
             <summary>
             添加科目
             </summary>
-            <param name="subjectName"></param>
+            <param name="subjectName">科目名称</param>
             <returns></returns>
         </member>
-        <member name="M:ONLINETEST.Controllers.TaskController.AddQuestion(System.Int32,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:ONLINETEST.Controllers.TaskController.AddQuestion(System.Int32,System.String,System.String,System.Int32,System.Int32,System.String)">
             <summary>
             添加问题
             </summary>
@@ -27,6 +20,7 @@
             <param name="questionAnlysis">题目解析</param>
             <param name="questionType">题目类型</param>
             <param name="questionClass">题目难度</param>
+            <param name="rightAnswer">题目正确答案</param>
             <returns></returns>
         </member>
         <member name="M:ONLINETEST.Controllers.TaskController.AddAnswer(System.Int32,System.String)">
@@ -35,6 +29,13 @@
             </summary>
             <param name="questionId">所属问题ID</param>
             <param name="answerDescription">答案</param>
+            <returns></returns>
+        </member>
+        <member name="M:ONLINETEST.Controllers.TaskController.GetPaperByPid(System.Int32)">
+            <summary>
+            根据试卷ID获取试卷
+            </summary>
+            <param name="pId">试卷id</param>
             <returns></returns>
         </member>
         <member name="M:ONLINETEST.Controllers.TaskController.CreatePaper(System.Int32,System.Int32,System.Int32)">
@@ -87,6 +88,22 @@
             后台管理：根据科目找到所有的题目
             </summary>
             <param name="subjectId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ONLINETEST.Controllers.UserController.Login(System.String,System.String)">
+            <summary>
+            普通用户登录接口
+            </summary>
+            <param name="account"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ONLINETEST.Controllers.UserController.AdminLogin(System.String,System.String)">
+            <summary>
+            管理员登录接口
+            </summary>
+            <param name="account"></param>
+            <param name="password"></param>
             <returns></returns>
         </member>
         <member name="M:ONLINETEST.Controllers.UserController.Register(System.String,System.String,System.String)">

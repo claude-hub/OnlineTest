@@ -38,6 +38,6 @@ namespace ONLINETEST_APPLICATION.Users
         bool CheckRegister(string account, string validataCode);
 
         User Login(string account, string password);
-        
+        User AdminLogin(string account, string password);
     }
 }

@@ -25,10 +25,13 @@ namespace ONLINETEST_APPLICATION.Users
         {
             return _userService.Login(account, password);
         }
-
+        public User AdminLogin(string account,string password)
+        {
+            return _userService.AdminLogin(account, password);
+        }
         public string Md5Encrypt(string password)
         {
-            return _userService.Md5Encrypt(password); 
+            return _userService.Md5Encrypt(password);
         }
 
         public bool ModifyPassword(int userId, string nPassword)

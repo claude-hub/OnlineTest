@@ -5177,7 +5177,7 @@
     "Microsoft.IdentityModel.Logging/1.1.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-53i5DFpR8DNk/6NM2HxWW8zFPu3xtdFwX9IfHnsFngO5ujGvP3QKihSAB286AmMgtZ2NUGGVcqM5M7T6ulcOXQ==",
+      "sha512": "sha512-j7t22EsDOuo0IXqAbp6ijdB1GuaY8cu3YoPNZpymOhUMTVC+wRTV0IHqxL31HacCnJHU/igsqe70fDKZgZu3oA==",
       "path": "microsoft.identitymodel.logging/1.1.4",
       "hashPath": "microsoft.identitymodel.logging.1.1.4.nupkg.sha512"
     },
@@ -5198,7 +5198,7 @@
     "Microsoft.IdentityModel.Tokens/5.1.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BX9MJKta7dMYECCqdx6ySrkI+n4ULmbH4qZ9mb5FxE//A3IzFA9tsQ6+CPN902Gc8FcsOYja7iQiu1lCRF88XA==",
+      "sha512": "sha512-SsJbZVPvjSlKFDAQmR2wpL6ZD/vCFlIsf0jxRlBJwyzKXZy3Wi/Xo+fE2MzAerLsJgG1UCdtplRwqDyq1euayw==",
       "path": "microsoft.identitymodel.tokens/5.1.4",
       "hashPath": "microsoft.identitymodel.tokens.5.1.4.nupkg.sha512"
     },
@@ -5667,7 +5667,7 @@
     "System.IdentityModel.Tokens.Jwt/5.1.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1n6B9wxUh5c5CpEj8Bdyf6GDIGRRVqlIONian5HsM4kBlsvV2JfYfeddSMJAM7QQoZWVUh3IfZa4+pwCwjSPjQ==",
+      "sha512": "sha512-hLUU1N99aL9uyxiTraBnCKlpUKsbP/+5ygD7cswspH9/+M7fAAL0hRzt2aA4w7VEQlSSiu8j+xWFk3NRcqhfQQ==",
       "path": "system.identitymodel.tokens.jwt/5.1.4",
       "hashPath": "system.identitymodel.tokens.jwt.5.1.4.nupkg.sha512"
     },
@@ -5898,7 +5898,7 @@
     "System.Runtime.Serialization.Formatters/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yIR6GOzX17erKr2Ni9moRTxbRTUktF2dqaJiWNmoVROqtDP9AK2dNV94EtvQ66eCFtqUhObmyVlHTbzW105vrQ==",
+      "sha512": "sha512-KT591AkTNFOTbhZlaeMVvfax3RqhH1EJlcwF50Wm7sfnBLuHiOeZRRKrr1ns3NESkM20KPZ5Ol/ueMq5vg4QoQ==",
       "path": "system.runtime.serialization.formatters/4.3.0",
       "hashPath": "system.runtime.serialization.formatters.4.3.0.nupkg.sha512"
     },

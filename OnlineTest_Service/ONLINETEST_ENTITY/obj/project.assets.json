@@ -3448,7 +3448,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Cloudy\\.nuget\\packages\\": {},
+    "C:\\Users\\Joy\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -3457,17 +3457,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "E:\\Code\\Projets\\OnlineTest\\OnlineTest_Service\\ONLINETEST_ENTITY\\ONLINETEST_ENTITY.csproj",
+      "projectUniqueName": "F:\\c#\\c#\\c#\\奇点\\c#\\Html\\OnLineTest\\ONLINETEST_ENTITY\\ONLINETEST_ENTITY.csproj",
       "projectName": "ONLINETEST_ENTITY",
-      "projectPath": "E:\\Code\\Projets\\OnlineTest\\OnlineTest_Service\\ONLINETEST_ENTITY\\ONLINETEST_ENTITY.csproj",
-      "packagesPath": "C:\\Users\\Cloudy\\.nuget\\packages\\",
-      "outputPath": "E:\\Code\\Projets\\OnlineTest\\OnlineTest_Service\\ONLINETEST_ENTITY\\obj\\",
+      "projectPath": "F:\\c#\\c#\\c#\\奇点\\c#\\Html\\OnLineTest\\ONLINETEST_ENTITY\\ONLINETEST_ENTITY.csproj",
+      "packagesPath": "C:\\Users\\Joy\\.nuget\\packages\\",
+      "outputPath": "F:\\c#\\c#\\c#\\奇点\\c#\\Html\\OnLineTest\\ONLINETEST_ENTITY\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Cloudy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Joy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -18,7 +18,7 @@ namespace ONLINETEST_ENTITY.Models
         public int QuestionType { get; set; }
         public int QuestionClass { get; set; }
         public string QuestionAnlysis { get; set; }
-        public int RightAnswer { get; set; }
+        public string RightAnswer { get; set; }
 
         public Subject Subject { get; set; }
         public ICollection<Jpaper> Jpaper { get; set; }

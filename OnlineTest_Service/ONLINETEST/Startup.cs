@@ -11,14 +11,14 @@ using Microsoft.Extensions.Options;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using ONLINETEST_ENTITY.Models;
-using ONLINETEST_APPLICATION.Users;
-using ONLINETEST_APPLICATION.Tasks;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using Swashbuckle.AspNetCore.Swagger;
 using ONLINETEST.Authorization;
+using ONLINETEST_ENTITY.Models;
+using ONLINETEST_APPLICATION.Users;
+using ONLINETEST_APPLICATION.Tasks;
 
 namespace ONLINETEST
 {
@@ -123,7 +123,7 @@ namespace ONLINETEST
             //依赖注入
             services.AddTransient<IUserAppService, UserAppService>();
             services.AddTransient<ITaskAppService, TaskAppService>();
-            services.AddScoped<OnlineTextContext>();
+            services.AddScoped<OnlineTestContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

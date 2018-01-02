@@ -15,35 +15,48 @@ namespace ONLINETEST.Controllers
     public class TaskController : Controller
     {
         private readonly ITaskAppService _taskAppService;
+        
         public TaskController(ITaskAppService taskAppService)
         {
             _taskAppService = taskAppService;
         }
-        #region get
-        /// <summary>
-        /// 根据试卷ID获取试卷
-        /// </summary>
-        /// <param name="pId">试卷id</param>
-        /// <returns></returns>
-        [Authorize]
+
+        #region 公共
         [HttpGet]
-        public JsonResult GetPaperByPid (int pId)
+        public JsonResult GetSubjectList()
         {
-            Paper paper = _taskAppService.GetPaperById(pId);
-            var result = new
+            var subject = _taskAppService.GetSubList();
+            var subList;
+            foreach(var item in subject)
             {
-                paperName = paper.PaperName,
-                createTime = paper.CreateTime,
-                question = _taskAppService.GetJpaperById(pId)
-        };
+                var sub = new
+                {
+                    id = item.Id,
+                    name = item.Name,
+                    queCount = item.QuestionCount,
+                };
+                subList.Add(sub);
+            }
+            var result = new {
+                count = subject.Count(),
+                sub = subList,
+            };
+           
             return Json(result);
         }
 #endregion
-        #region add
+
+        #region 前台
+
+        #endregion
+
+
+        #region 后台管理
+
         /// <summary>
         /// 添加科目
         /// </summary>
-        /// <param name="subjectName"></param>
+        /// <param name="subjectName">科目名称</param>
         /// <returns></returns>
         [Authorize]
         [HttpPost]
@@ -51,6 +64,7 @@ namespace ONLINETEST.Controllers
         {
             return _taskAppService.CreateSubject(subjectName);
         }
+
         /// <summary>
         /// 添加问题
         /// </summary>
@@ -59,13 +73,15 @@ namespace ONLINETEST.Controllers
         /// <param name="questionAnlysis">题目解析</param>
         /// <param name="questionType">题目类型</param>
         /// <param name="questionClass">题目难度</param>
+        /// <param name="rightAnswer">题目正确答案</param>
         /// <returns></returns>
         [Authorize]
         [HttpPost]
-        public bool AddQuestion(int subjectId,string questionName,string questionAnlysis, int questionType,int questionClass)
+        public bool AddQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer)
         {
-            return _taskAppService.CreateQuestion(subjectId, questionName, questionAnlysis, questionType, questionClass);
+            return _taskAppService.CreateQuestion(subjectId, questionName, questionAnlysis, questionType, questionClass,rightAnswer);
         }
+
         /// <summary>
         /// 添加问题答案
         /// </summary>
@@ -74,17 +90,44 @@ namespace ONLINETEST.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpPost]
-        public JsonResult AddAnswer(int questionId,string answerDescription)
+        public JsonResult AddAnswer(int questionId, string answerDescription)
         {
             try
             {
                 return Json(_taskAppService.CreateOption(questionId, answerDescription));
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return Json("添加选项失败！");
             }
-            
+
         }
+        #endregion
+
+        #region get
+        /// <summary>
+        /// 根据试卷ID获取试卷
+        /// </summary>
+        /// <param name="pId">试卷id</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public JsonResult GetPaperByPid(int pId)
+        {
+            Paper paper = _taskAppService.GetPaperById(pId);
+            var result = new
+            {
+                paperName = paper.PaperName,
+                createTime = paper.CreateTime,
+                question = _taskAppService.GetJpaperById(pId)
+            };
+            return Json(result);
+        }
+        #endregion
+        #region add
+        
+        
+        
         /// <summary>
         /// 创建用户的试卷
         /// </summary>
@@ -94,17 +137,17 @@ namespace ONLINETEST.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpPost]
-        public JsonResult CreatePaper(int userId,int subjectId,int paperClass)
+        public JsonResult CreatePaper(int userId, int subjectId, int paperClass)
         {
             try
             {
                 int paperId = _taskAppService.CreatePaper(userId, subjectId, paperClass);
                 return Json(paperId);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json("创建试卷失败！");
-            }            
+            }
         }
         #endregion
 
@@ -133,7 +176,7 @@ namespace ONLINETEST.Controllers
         /// <param name="searchContent"></param>
         /// <returns></returns>
         [HttpGet("SearchQuestion")]
-        public string SearchQuestion(int subjectId,string searchContent)
+        public string SearchQuestion(int subjectId, string searchContent)
         {
 
             return "ww";
@@ -158,7 +201,7 @@ namespace ONLINETEST.Controllers
         /// <param name="questionId"></param>
         /// <returns></returns>
         [HttpPost("CalculationAccuracy")]
-        public string CalculationAccuracy(int userId,int questionId)
+        public string CalculationAccuracy(int userId, int questionId)
         {
             return "ww";
         }
@@ -176,7 +219,7 @@ namespace ONLINETEST.Controllers
         /// </summary>
         /// <param name="subjectId"></param>
         /// <returns></returns>
-        
+
         [HttpPost("GetQuestionsBySubjectId")]
         public string GetQuestionsBySubjectId(int subjectId)
         {
