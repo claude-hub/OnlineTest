@@ -1,9 +1,0 @@
-F:\c#\c#\c#\奇点\c#\Html\ONLINETEST\ONLINETEST_ENTITY\bin\Debug\netcoreapp2.0\ONLINETEST_ENTITY.deps.json
-F:\c#\c#\c#\奇点\c#\Html\ONLINETEST\ONLINETEST_ENTITY\bin\Debug\netcoreapp2.0\ONLINETEST_ENTITY.dll
-F:\c#\c#\c#\奇点\c#\Html\ONLINETEST\ONLINETEST_ENTITY\bin\Debug\netcoreapp2.0\ONLINETEST_ENTITY.pdb
-F:\c#\c#\c#\奇点\c#\Html\ONLINETEST\ONLINETEST_ENTITY\obj\Debug\netcoreapp2.0\ONLINETEST_ENTITY.csproj.CoreCompileInputs.cache
-F:\c#\c#\c#\奇点\c#\Html\ONLINETEST\ONLINETEST_ENTITY\obj\Debug\netcoreapp2.0\ONLINETEST_ENTITY.AssemblyInfoInputs.cache
-F:\c#\c#\c#\奇点\c#\Html\ONLINETEST\ONLINETEST_ENTITY\obj\Debug\netcoreapp2.0\ONLINETEST_ENTITY.AssemblyInfo.cs
-F:\c#\c#\c#\奇点\c#\Html\ONLINETEST\ONLINETEST_ENTITY\obj\Debug\netcoreapp2.0\ONLINETEST_ENTITY.dll
-F:\c#\c#\c#\奇点\c#\Html\ONLINETEST\ONLINETEST_ENTITY\obj\Debug\netcoreapp2.0\ONLINETEST_ENTITY.pdb
-F:\c#\c#\c#\奇点\c#\Html\OnLineTest\ONLINETEST_ENTITY\obj\Debug\netcoreapp2.0\ONLINETEST_ENTITY.csprojResolveAssemblyReference.cache
