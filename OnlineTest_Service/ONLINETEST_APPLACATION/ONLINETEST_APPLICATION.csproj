@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ONLINETEST_CORE\ONLINETEST_CORE.csproj" />
+    <ProjectReference Include="..\ONLINETEST_ENTITY\ONLINETEST_ENTITY.csproj" />
+  </ItemGroup>
+
+</Project>
