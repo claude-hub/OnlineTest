@@ -1,0 +1,20 @@
+#components-form-demo-normal-login,.login-form {
+    max-width: 300px;
+  }
+  #components-form-demo-normal-login {
+    float: right;
+  }
+  #components-form-demo-normal-login,.login-form-button {
+    width: 100%;
+  }
+  .login-form{
+    padding-top: 10%;
+    margin:auto;
+  }
+  .login-form p{
+    margin: auto;
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+  }

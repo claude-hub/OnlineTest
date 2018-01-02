@@ -22,7 +22,78 @@
   font-size: large;
 }
 
+#root {
+  min-width: 1000px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.logo {
+  /*width: 108px;*/
+  height: 48px;
+  background: #f7b22e;
+  font-size: 24px;
+  line-height: 48px;
+  padding: 0 10px;
+  border-radius: 5px;
+  margin: 7px 8px;
+}
+.main-menu-container {
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.main-menu-container .business-menu {
+  /*width: 890px*/
+  display: flex;
+  align-items: center;
+  width: auto !important;
+}
+.business-menu .ant-menu-horizontal {
+  display: flex;
+}
+.business-menu .more button {
+  background: #f6b12e;
+  color: #444;
+  font-weight: 400;
+  height: 30px;
+  border-color: #404040;
+  /*border-radius: 0;*/
+}
+/*.business-menu .more button{ border-width: 0 1px; border-right: #888 1px solid }*/
+.business-menu .more button i {
+  margin: 0;
+  min-width: 0;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-center-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main-menu-container .profile-bar {
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  z-index: 10 !important;
+  /*min-width: 375px;*/
+}
+.main-menu-container .profile-bar > .ant-input-affix-wrapper {
+  width: auto;
+  flex-grow: 1;
+}
+.main-menu-container .profile-bar .global-entrance-search {
+  background: rgba(255, 255, 255, 0.4);
+  border: 0;
+  color: #fff;
 }
