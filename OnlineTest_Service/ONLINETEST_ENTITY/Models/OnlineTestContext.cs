@@ -235,6 +235,8 @@ namespace ONLINETEST_ENTITY.Models
                 .IsRequired();
                 entity.Property(e => e.VerificationCode)
                 .IsRequired();
+                entity.Property(e => e.CreateTime)
+                .IsRequired();
 
                 entity.Property(e => e.Status)
                     .IsRequired()

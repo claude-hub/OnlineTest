@@ -20,6 +20,7 @@ namespace ONLINETEST_ENTITY.Models
         public string Status { get; set; }
         public int IsVerification { get; set; }
         public string VerificationCode { get; set; }
+        public DateTime CreateTime { get; set; }
 
         public ICollection<Article> Article { get; set; }
         public ICollection<Comment> Comment { get; set; }

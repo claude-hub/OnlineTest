@@ -66,18 +66,23 @@ namespace ONLINETEST.Controllers
         {
             string mPassword = _userAppService.Md5Encrypt(password);
             User user = _userAppService.Login(account, mPassword);
-            var result = new
+            if (user == null)
+                return Json(false);
+            else
             {
-                userInfo = new
+                var result = new
                 {
-                    id = user.UserId,
-                    account = user.Account,
-                    nikename = user.NikeName,
-                },
-                token = Token(account, mPassword).Result.Value
-            };
-
-            return Json(result);
+                    userInfo = new
+                    {
+                        id = user.UserId,
+                        account = user.Account,
+                        nikename = user.NikeName,
+                        isVerification = user.IsVerification,
+                    },
+                    token = Token(account, mPassword).Result.Value
+                };
+                return Json(result);
+            }           
         }
 
         /// <summary>
@@ -121,25 +126,33 @@ namespace ONLINETEST.Controllers
         {
             string mPassword = _userAppService.Md5Encrypt(password);
             User user = _userAppService.AdminLogin(account, mPassword);
-            var result = new
+            if(user != null)
             {
-                userInfo = new
+                var result = new
                 {
-                    id = user.UserId,
-                    account = user.Account,
-                    nikename = user.NikeName,
-                },
-                token = Token(account, mPassword).Result.Value
-            };
-
-            return Json(result);
+                    userInfo = new
+                    {
+                        id = user.UserId,
+                        account = user.Account,
+                        nikename = user.NikeName,
+                        isVerification = user.IsVerification,
+                    },
+                    token = Token(account, mPassword).Result.Value
+                };
+                return Json(result);
+            }
+            else
+            {
+                return Json(false);
+            }
+            
         }
         /// <summary>
         /// 添加管理员
         /// </summary>
-        /// <param name="account"></param>
-        /// <param name="password"></param>
-        /// <param name="nikename"></param>
+        /// <param name="account">使用邮箱注册</param>
+        /// <param name="password">密码</param>
+        /// <param name="nikename">昵称</param>
         /// <returns></returns>
         [HttpPost]
         public bool AddAdmin(string account,string password,string nikename)
@@ -149,38 +162,34 @@ namespace ONLINETEST.Controllers
         }
 
         /// <summary>
-        /// 获取到所有的普通用户列表
+        /// 根据角色获取到用户列表
         /// </summary>
         /// <param name="status">角色：Common,Admin</param>
+        /// <param name="currentPage">当前页数</param>
+        /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult GetCommonUserList(string status)
+        public JsonResult GetUserList(string status,int currentPage,int pageSize = 15)
         {
-            var userList = _userAppService.GetUserListByStatus(status);
-            var result = new
-            {
-                count = userList.Count(),
-                user = userList
-            };
-            return Json(result);
+            var userList = _userAppService.GetUserListByStatus(status,currentPage,pageSize);
+            return Json(userList);
         }
 
         /// <summary>
         /// 根据昵称或账户搜索
         /// </summary>
         /// <param name="content">搜索内容</param>
+        /// <param name="currentPage">当前页数</param>
+        /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult SearchUser(string content)
+        public JsonResult SearchUser(string content, int currentPage, int pageSize = 15)
         {
-            var userList = _userAppService.SearchUser(content);
-            var result = new
-            {
-                count = userList.Count(),
-                user = userList
-            };
-            return Json(result);
+            var userList = _userAppService.SearchUser(content,currentPage);
+            return Json(userList);
         }
+
+        
         #endregion
 
 
