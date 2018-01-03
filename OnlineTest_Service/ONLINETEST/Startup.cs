@@ -19,6 +19,7 @@ using ONLINETEST.Authorization;
 using ONLINETEST_ENTITY.Models;
 using ONLINETEST_APPLICATION.Users;
 using ONLINETEST_APPLICATION.Tasks;
+using ONLINETEST_APPLICATION.Communicate;
 
 namespace ONLINETEST
 {
@@ -123,6 +124,7 @@ namespace ONLINETEST
             //依赖注入
             services.AddTransient<IUserAppService, UserAppService>();
             services.AddTransient<ITaskAppService, TaskAppService>();
+            services.AddTransient<ICommunicateAppService, CommunicateAppService>();
             services.AddScoped<OnlineTestContext>();
         }
 

@@ -34,19 +34,18 @@ namespace ONLINETEST_ENTITY.Models
             {
                 entity.Property(e => e.Id).IsRequired();
 
-                entity.Property(e => e.Author)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
                 entity.Property(e => e.Content).IsRequired();
 
                 entity.Property(e => e.CreateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Label).HasMaxLength(50);
 
+                entity.Property(e => e.IsPublish).IsRequired();
+
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasMaxLength(50);
+
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Article)
