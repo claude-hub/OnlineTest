@@ -47,14 +47,15 @@ namespace ONLINETEST_APPLICATION.Users
             return user ?? null;
         }
 
-        public List<User> GetUserListByStatus(string status)
+        public object GetUserListByStatus(string status, int currentPage, int pageSize = 15)
         {
-            return _onlineTestContext.User.Where(u => u.Status.Equals(status)).ToList();
+            return _userService.GetUserListByStatus(status, currentPage, pageSize);
         }
 
-        public List<User> SearchUser(string content)
+        public object SearchUser(string query, int currentPage, int pageSize = 15)
         {
-            return _onlineTestContext.User.Where(u => u.NikeName.Contains(content)||u.Account.Contains(content)).ToList();
+            return _userService.SearchUser(query, currentPage, pageSize);
         }
+
     }
 }

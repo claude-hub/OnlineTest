@@ -33,6 +33,11 @@ namespace ONLINETEST_APPLICATION.Tasks
             return _taskService.CreateSubject(name);
         }
 
+        public bool DeleteQue(int queId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Question> GetJpaperById(int pid)
         {
             return _taskService.GetJpaperById(pid);
@@ -41,6 +46,11 @@ namespace ONLINETEST_APPLICATION.Tasks
         public Paper GetPaperById(int pid)
         {
             return _taskService.GetPaperById(pid);
+        }
+
+        public object GetQueList(string query, int currentPage, int pageSize = 15)
+        {
+            return _taskService.GetQueList(query, currentPage, pageSize);
         }
 
         public Question GetQuestionBySearch(int subjectId, string searchContent)

@@ -73,6 +73,46 @@ namespace ONLINETEST_CORE.Tasks
             Subject sub = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == subId);
             sub.QuestionCount++;
         }
+
+        public object GetQueList(string query, int currentPage, int pageSize = 15)
+        {
+            var queList = (from qu in _onlineTestContext.Question
+                           where qu.QuestionContent.Contains(query)
+                           select new
+                           {
+                               subName = _onlineTestContext.Subject.SingleOrDefault(s=>s.Id==qu.SubjectId).Name,
+                               queName = qu.QuestionContent,
+                               type = qu.QuestionType,
+                               grade = qu.QuestionClass,
+                               tightAnswer = qu.RightAnswer,
+                               options = qu.Options.Select(ops => new
+                               {
+                                   description = ops.Description,
+                                   id = ops.Id,
+                               }).ToList(),
+                           }).ToList();
+            var result = new
+            {
+                count = queList.Count(),
+                ques = queList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
+            return result;
+        }
+
+        public bool DeleteQue(int queId)
+        {
+            Question que = _onlineTestContext.Question.SingleOrDefault(qu => qu.Id == queId);
+            try
+            {
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
+
         #region   保存试卷到数据库
         /// <summary>
         /// 创建用户的试卷

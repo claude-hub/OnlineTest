@@ -93,7 +93,7 @@ namespace ONLINETEST.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpPost]
-        public JsonResult AddAnswer(int questionId, string answerDescription)
+        public JsonResult AddOptions(int questionId, string answerDescription)
         {
             try
             {
@@ -104,6 +104,32 @@ namespace ONLINETEST.Controllers
                 return Json("添加选项失败！");
             }
 
+        }
+
+        /// <summary>
+        /// 获取到题目列表
+        /// </summary>
+        /// <param name="query">搜索内容</param>
+        /// <param name="currentPage">当前页码</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <returns></returns>
+        ///[Authorize]
+        [HttpGet]
+        public JsonResult GetQueList(string query, int currentPage, int pageSize = 15)
+        {
+            var result = _taskAppService.GetQueList(query, currentPage, pageSize);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 根据id删除题目
+        /// </summary>
+        /// <param name="queId">题目编号</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public bool DeleteQue(int queId)
+        {
+            return true;
         }
         #endregion
 

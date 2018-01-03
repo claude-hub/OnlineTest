@@ -4,6 +4,8 @@ using System.Text;
 using System.Linq;
 using ONLINETEST_ENTITY.Models;
 using System.Net.Mail;
+using System;
+using System.Collections.Generic;
 
 namespace ONLINETEST_CORE.Users
 {
@@ -11,7 +13,7 @@ namespace ONLINETEST_CORE.Users
     {
         private readonly OnlineTestContext _onlineTestContext = new OnlineTestContext();
         private readonly string CommonUser = "Common";
-        private readonly string AdminUser = "Adimin";
+        private readonly string AdminUser = "Admin";
         public string Md5Encrypt(string password)
         {
             MD5 md5 = MD5.Create();
@@ -62,7 +64,7 @@ namespace ONLINETEST_CORE.Users
         }
         public User AdminLogin(string account,string password)
         {
-            User user = _onlineTestContext.User.SingleOrDefault(u => u.Account.Equals(account) && u.Password.Equals(password) && u.Password.Equals(AdminUser));
+            User user = _onlineTestContext.User.SingleOrDefault(u => u.Account.Equals(account) && u.Password.Equals(password) && u.Status.Equals(AdminUser));
             return user ?? null;
         }
         //创建一个用户
@@ -80,6 +82,7 @@ namespace ONLINETEST_CORE.Users
                     Password = password,
                     NikeName = nikeName,
                     Status = status,
+                    CreateTime = DateTime.Now,
                     VerificationCode = validataCode,
                     IsVerification = -1
                 };
@@ -108,6 +111,52 @@ namespace ONLINETEST_CORE.Users
             }
             else
                 return false;
+        }
+
+        public object GetUserListByStatus(string status, int currentPage, int pageSize = 15)
+        {
+            List<User> userList = _onlineTestContext.User.Where(u => u.Status.Equals(status)).OrderBy(u => u.UserId).ToList();
+            var result = new
+            {
+                count = userList.Count(),
+                user = ChangeUserType(userList.Skip((currentPage - 1) * pageSize).Take(pageSize))
+            };
+            return result;
+        }
+
+        public object SearchUser(string query, int currentPage, int pageSize = 15)
+        {
+            List<User> userList = _onlineTestContext.User.Where(u => u.NikeName.Contains(query) || u.Account.Contains(query)).OrderBy(u => u.UserId).ToList();
+            var result = new
+            {
+                count = userList.Count(),
+                user = ChangeUserType(userList.Skip((currentPage - 1) * pageSize).Take(pageSize))
+            };
+            return result;
+        }
+
+        //转换数据结构
+        public object ChangeUserType(IEnumerable<User> userList)
+        {
+            var uList = new List<object>();
+            foreach (var item in userList)
+            {
+                var user = new
+                {
+                    id = item.UserId,
+                    account = item.Account,
+                    name = item.NikeName,
+                    password = item.Password,
+                    createTime = item.CreateTime,
+                };
+                uList.Add(user);
+            }
+            //var result = new
+            //{
+            //    count = userList.Count(),
+            //    user = uList
+            //};
+            return uList;
         }
     }
 }
