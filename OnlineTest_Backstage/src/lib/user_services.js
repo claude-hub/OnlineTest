@@ -29,14 +29,14 @@ export default class Service {
     //登录
     static sign_in(data = {}) {
         return new Promise(function (resolve, reject) {
-            Service.sessionService.post(`/session/platform`, data).then((ret) => {
+            Service.sessionService.post(`/User/AdminLogin?account=${data.account}&password=${data.password}`, {}).then((ret) => {
                 Store.dispatch({
                     type: 'SESSION:UP',
-                    token: ret.data.token,
+                    token: ret.data.token.data.token,
                     user: {
-                        id: ret.data.id,
-                        name: ret.data.name,
-                        job:ret.data.position
+                        id: ret.data.userInfo.id,
+                        name: ret.data.userInfo.nikename,
+                        job: ret.data.userInfo.account
                     }
                 });
                 resolve(ret)
