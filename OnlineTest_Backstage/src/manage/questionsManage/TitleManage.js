@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 
-class UserManage extends Component {
-    key = 'userManager';
+class TitleManage extends Component {
+    key = 'titleManager';
     componentWillMount() {
         this.props.popKey(this.key);
     }
     render() {
         return (
-            <div>123</div>
+            <div>题目管理</div>
         )
     }
 }
-export default UserManage;
+export default TitleManage;

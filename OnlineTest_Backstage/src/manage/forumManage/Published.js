@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 
-class UserManage extends Component {
-    key = 'userManager';
+class Published extends Component {
+    key = 'published';
     componentWillMount() {
         this.props.popKey(this.key);
     }
     render() {
         return (
-            <div>123</div>
+            <div>已发布文章</div>
         )
     }
 }
-export default UserManage;
+export default Published;
