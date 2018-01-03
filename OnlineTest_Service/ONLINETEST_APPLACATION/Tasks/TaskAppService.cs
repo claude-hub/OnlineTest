@@ -48,6 +48,11 @@ namespace ONLINETEST_APPLICATION.Tasks
             return _taskService.GetPaperById(pid);
         }
 
+        public object GetQueById(int queId)
+        {
+            return _taskService.GetQueById(queId);
+        }
+
         public object GetQueList(string query, int currentPage, int pageSize = 15)
         {
             return _taskService.GetQueList(query, currentPage, pageSize);

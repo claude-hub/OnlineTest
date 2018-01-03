@@ -44,7 +44,7 @@ namespace ONLINETEST_CORE.Tasks
                     QuestionClass = questionClass,
                     QuestionType = questionType,
                     RightAnswer = rightAnswer,
-                    IsDelete = true,
+                    IsDelete = false,   //false表示未删除
                 };
                 _onlineTestContext.Question.Add(newQuestion);                
                 _onlineTestContext.SaveChanges();
@@ -94,11 +94,30 @@ namespace ONLINETEST_CORE.Tasks
         {
             return false;
         }
+
+        public object GetQueById(int queId)
+        {
+            Question que = _onlineTestContext.Question.SingleOrDefault(q => q.Id == queId && !q.IsDelete);
+            var result = new
+            {
+                subName = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == que.SubjectId).Name,
+                queName = que.QuestionContent,
+                type = que.QuestionType,
+                grade = que.QuestionClass,
+                rightAnswer = que.RightAnswer,
+                options = que.Options.Select(ops => new
+                {
+                    description = ops.Description,
+                    id = ops.Id,
+                }).ToList(),
+            };
+            return result;
+        }
         public object GetQueList(string query, int currentPage, int pageSize = 15)
         {
             query =string.IsNullOrEmpty(query) ? "" : query;
             var queList = (from qu in _onlineTestContext.Question
-                           where qu.IsDelete && qu.QuestionContent.Contains(query)
+                           where !qu.IsDelete && qu.QuestionContent.Contains(query)
                            select new
                            {
                                subName = _onlineTestContext.Subject.SingleOrDefault(s=>s.Id==qu.SubjectId).Name,
@@ -122,7 +141,7 @@ namespace ONLINETEST_CORE.Tasks
 
         public bool DeleteQue(int queId)
         {
-            Question que = _onlineTestContext.Question.SingleOrDefault(qu => qu.Id == queId && qu.IsDelete.Equals(true));
+            Question que = _onlineTestContext.Question.SingleOrDefault(qu => qu.Id == queId && !qu.IsDelete);
             try
             {
                 que.IsDelete = !que.IsDelete;

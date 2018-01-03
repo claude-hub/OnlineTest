@@ -22,6 +22,10 @@ namespace ONLINETEST.Controllers
         }
 
         #region 公共
+        /// <summary>
+        /// 获取科目列表
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public JsonResult GetSubjectList()
         {
@@ -45,7 +49,19 @@ namespace ONLINETEST.Controllers
 
             return Json(result);
         }
-#endregion
+
+        /// <summary>
+        /// 通过编号找到问题
+        /// </summary>
+        /// <param name="queId">问题编号</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetQueById(int queId)
+        {
+            var result = _taskAppService.GetQueById(queId);
+            return Json(result);
+        }
+        #endregion
 
         #region 前台
 
@@ -54,7 +70,7 @@ namespace ONLINETEST.Controllers
 
         #region 后台管理
 
-        
+
 
         /// <summary>
         /// 添加科目
@@ -122,16 +138,19 @@ namespace ONLINETEST.Controllers
             return Json(result);
         }
 
-
-
+        
 
         /// <summary>
-        /// 编辑问题
+        /// 保存编辑的问题
         /// </summary>
+        /// <param name="queId">问题编号</param>
+        /// <param name="queContent">问题描述</param>
+        /// <param name="queClass">问题等级</param>
+        /// <param name="rightAnswer">正确答案</param>
         /// <returns></returns>
         [Authorize]
         [HttpPut]
-        public bool EditorQue(int queId,string queContent,int queClass,string rightAnswer)
+        public bool SaveQue(int queId,string queContent,int queClass,string rightAnswer)
         {
 
             return _taskAppService.SaveQue(queId, queContent, queClass, rightAnswer);
