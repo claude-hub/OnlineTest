@@ -1,9 +1,9 @@
-﻿using ONLINETEST_CORE.Communicate;
+﻿using OnlineTest_Core.Communicate;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ONLINETEST_APPLICATION.Communicate
+namespace OnlineTest_Application.Communicate
 {
     public class CommunicateAppService : ICommunicateAppService
     {

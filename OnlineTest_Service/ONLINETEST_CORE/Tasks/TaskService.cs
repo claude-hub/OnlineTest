@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using ONLINETEST_ENTITY.Models;
+using OnlineTest_Entity.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ONLINETEST_CORE.Tasks
+namespace OnlineTest_Core.Tasks
 {
     public class TaskService
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ONLINETEST_ENTITY.Models
+namespace OnlineTest_Entity.Models
 {
     public partial class OnlineTestContext : DbContext
     {

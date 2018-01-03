@@ -1,12 +1,10 @@
-﻿
-using ONLINETEST_CORE.Users;
-using ONLINETEST_ENTITY.Models;
-using System.Linq;
+﻿using OnlineTest_Core.Users;
+using OnlineTest_Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ONLINETEST_APPLICATION.Users
+namespace OnlineTest_Application.Users
 {
     public class UserAppService : IUserAppService
     {
@@ -20,14 +18,14 @@ namespace ONLINETEST_APPLICATION.Users
 
         public bool CreateUser(string account, string password, string nikename, string status = "Common")
         {
-            return _userService.CreateUser(account, password, nikename,status);
+            return _userService.CreateUser(account, password, nikename, status);
         }
 
         public User Login(string account, string password)
         {
             return _userService.Login(account, password);
         }
-        public User AdminLogin(string account,string password)
+        public User AdminLogin(string account, string password)
         {
             return _userService.AdminLogin(account, password);
         }

@@ -2,12 +2,12 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
-using ONLINETEST_ENTITY.Models;
+using OnlineTest_Entity.Models;
 using System.Net.Mail;
 using System;
 using System.Collections.Generic;
 
-namespace ONLINETEST_CORE.Users
+namespace OnlineTest_Core.Users
 {
     public class UserService
     {

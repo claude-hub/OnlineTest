@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ONLINETEST_CORE\ONLINETEST_CORE.csproj" />
-    <ProjectReference Include="..\ONLINETEST_ENTITY\ONLINETEST_ENTITY.csproj" />
+    <ProjectReference Include="..\ONLINETEST_CORE\OnlineTest_Core.csproj" />
+    <ProjectReference Include="..\ONLINETEST_ENTITY\OnlineTest_Entity.csproj" />
   </ItemGroup>
 
 </Project>

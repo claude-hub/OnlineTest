@@ -1,9 +1,9 @@
-﻿using ONLINETEST_ENTITY.Models;
+﻿using OnlineTest_Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ONLINETEST_APPLICATION.Tasks
+namespace OnlineTest_Application.Tasks
 {
     public interface ITaskAppService
     {
@@ -23,7 +23,7 @@ namespace ONLINETEST_APPLICATION.Tasks
         /// <param name="questionClass">题目难度</param>
         /// <param name="rightAnswer">正确答案</param>
         /// <returns></returns>
-        bool CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass,string rightAnswer);
+        bool CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer);
         /// <summary>
         /// 添加答案
         /// </summary>

@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Threading.Tasks;
 
-namespace ONLINETEST.Authorization
+namespace OnlineTest.Authorization
 {
     public class HttpHeaderOperation : IOperationFilter
     {

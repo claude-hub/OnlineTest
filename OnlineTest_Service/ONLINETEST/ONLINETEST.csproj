@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ONLINETEST_APPLACATION\ONLINETEST_APPLICATION.csproj" />
+    <ProjectReference Include="..\OnlineTest_Application\OnlineTest_Application.csproj" />
   </ItemGroup>
 
 </Project>

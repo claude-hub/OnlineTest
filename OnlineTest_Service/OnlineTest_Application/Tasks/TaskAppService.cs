@@ -1,12 +1,11 @@
-﻿
-using ONLINETEST_CORE.Tasks;
+﻿using OnlineTest_Core.Tasks;
+using OnlineTest_Entity.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using ONLINETEST_ENTITY.Models;
 using System.Linq;
+using System.Text;
 
-namespace ONLINETEST_APPLICATION.Tasks
+namespace OnlineTest_Application.Tasks
 {
     public class TaskAppService : ITaskAppService
     {
@@ -23,7 +22,7 @@ namespace ONLINETEST_APPLICATION.Tasks
             return _taskService.CreatePaper(userId, subjectId, paperClass);
         }
 
-        public bool CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass,string rightAnswer)
+        public bool CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer)
         {
             return _taskService.CreateQuestion(subjectId, questionName, questionAnlysis, questionType, questionClass, rightAnswer);
         }

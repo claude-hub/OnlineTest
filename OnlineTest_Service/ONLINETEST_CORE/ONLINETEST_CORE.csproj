@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ONLINETEST_ENTITY\ONLINETEST_ENTITY.csproj" />
+    <ProjectReference Include="..\ONLINETEST_ENTITY\OnlineTest_Entity.csproj" />
   </ItemGroup>
 
 </Project>

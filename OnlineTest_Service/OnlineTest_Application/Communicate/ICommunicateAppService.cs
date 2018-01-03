@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ONLINETEST_APPLICATION.Communicate
+namespace OnlineTest_Application.Communicate
 {
     public interface ICommunicateAppService
     {

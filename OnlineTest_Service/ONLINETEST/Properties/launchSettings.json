@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ONLINETEST": {
+    "OnlineTest": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

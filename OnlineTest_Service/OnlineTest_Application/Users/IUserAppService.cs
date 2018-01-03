@@ -1,10 +1,9 @@
-﻿
-using ONLINETEST_ENTITY.Models;
+﻿using OnlineTest_Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ONLINETEST_APPLICATION.Users
+namespace OnlineTest_Application.Users
 {
     public interface IUserAppService
     {
@@ -41,6 +40,6 @@ namespace ONLINETEST_APPLICATION.Users
         User AdminLogin(string account, string password);
         User GetUserById(int id);
         object GetUserListByStatus(string status, int currentPage, int pageSize = 15);
-        object SearchUser(string query,int currentPage, int pageSize = 15);
+        object SearchUser(string query, int currentPage, int pageSize = 15);
     }
 }

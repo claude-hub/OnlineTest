@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using ONLINETEST_APPLICATION.Tasks;
-using ONLINETEST_ENTITY.Models;
+using OnlineTest_Application.Tasks;
+using OnlineTest_Entity.Models;
 
-namespace ONLINETEST.Controllers
+namespace OnlineTest.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]

@@ -15,13 +15,13 @@ using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using Swashbuckle.AspNetCore.Swagger;
-using ONLINETEST.Authorization;
-using ONLINETEST_ENTITY.Models;
-using ONLINETEST_APPLICATION.Users;
-using ONLINETEST_APPLICATION.Tasks;
-using ONLINETEST_APPLICATION.Communicate;
+using OnlineTest.Authorization;
+using OnlineTest_Entity.Models;
+using OnlineTest_Application.Users;
+using OnlineTest_Application.Tasks;
+using OnlineTest_Application.Communicate;
 
-namespace ONLINETEST
+namespace OnlineTest
 {
     public class Startup
     {
@@ -115,7 +115,7 @@ namespace ONLINETEST
                 });
                 //Set the comments path for the swagger json and ui.
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                var xmlPath = Path.Combine(basePath, "ONLINETEST.xml");
+                var xmlPath = Path.Combine(basePath, "OnlineTest.xml");
                 c.IncludeXmlComments(xmlPath);
                 c.OperationFilter<HttpHeaderOperation>(); // 添加httpHeader参数
             });

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ONLINETEST_ENTITY.Models
+namespace OnlineTest_Entity.Models
 {
     public partial class Article
     {

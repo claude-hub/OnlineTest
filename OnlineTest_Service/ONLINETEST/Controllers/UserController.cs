@@ -10,13 +10,13 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using ONLINETEST_ENTITY.Models;
-using ONLINETEST_APPLICATION.Users;
+using OnlineTest_Entity.Models;
+using OnlineTest_Application.Users;
 using Newtonsoft.Json;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Cors;
 
-namespace ONLINETEST.Controllers
+namespace OnlineTest.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
@@ -58,7 +58,7 @@ namespace ONLINETEST.Controllers
         #region 前台
 
         /// <summary>
-        /// 普通用户登录接口 994185184@qq.com
+        /// 994185184@qq.com 普通用户登录接口
         /// </summary>
         /// <param name="account"></param>
         /// <param name="password"></param>
@@ -118,7 +118,7 @@ namespace ONLINETEST.Controllers
         #region 后台管理
 
         /// <summary>
-        /// 管理员登录接口  1298520866@qq.com  3263250353@qq.com
+        /// 1298520866@qq.com 3263250353@qq.com 管理员登录接口  
         /// </summary>
         /// <param name="account"></param>
         /// <param name="password"></param>

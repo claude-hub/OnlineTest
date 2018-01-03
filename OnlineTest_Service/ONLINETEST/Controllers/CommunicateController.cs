@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ONLINETEST_APPLICATION.Communicate;
+using OnlineTest_Application.Communicate;
 
-namespace ONLINETEST.Controllers
+namespace OnlineTest.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]

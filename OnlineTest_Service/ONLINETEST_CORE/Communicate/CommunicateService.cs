@@ -1,9 +1,9 @@
-﻿using ONLINETEST_ENTITY.Models;
+﻿using OnlineTest_Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ONLINETEST_CORE.Communicate
+namespace OnlineTest_Core.Communicate
 {
     public class CommunicateService
     {
