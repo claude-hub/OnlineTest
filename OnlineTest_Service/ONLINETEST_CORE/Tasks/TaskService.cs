@@ -43,7 +43,8 @@ namespace ONLINETEST_CORE.Tasks
                     QuestionAnlysis = questionAnlysis,
                     QuestionClass = questionClass,
                     QuestionType = questionType,
-                    RightAnswer = rightAnswer
+                    RightAnswer = rightAnswer,
+                    IsDelete = true,
                 };
                 _onlineTestContext.Question.Add(newQuestion);                
                 _onlineTestContext.SaveChanges();
@@ -73,18 +74,38 @@ namespace ONLINETEST_CORE.Tasks
             Subject sub = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == subId);
             sub.QuestionCount++;
         }
-
+        public bool SaveQue(int queId, string queContent, int queClass, string rightAnswer)
+        {
+            Question que = _onlineTestContext.Question.SingleOrDefault(q => q.Id == queId);
+            try
+            {
+                que.QuestionContent = queContent;
+                que.QuestionClass = queClass;
+                que.RightAnswer = rightAnswer;
+                _onlineTestContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool SaveOptions()
+        {
+            return false;
+        }
         public object GetQueList(string query, int currentPage, int pageSize = 15)
         {
+            query =string.IsNullOrEmpty(query) ? "" : query;
             var queList = (from qu in _onlineTestContext.Question
-                           where qu.QuestionContent.Contains(query)
+                           where qu.IsDelete && qu.QuestionContent.Contains(query)
                            select new
                            {
                                subName = _onlineTestContext.Subject.SingleOrDefault(s=>s.Id==qu.SubjectId).Name,
                                queName = qu.QuestionContent,
                                type = qu.QuestionType,
                                grade = qu.QuestionClass,
-                               tightAnswer = qu.RightAnswer,
+                               rightAnswer = qu.RightAnswer,
                                options = qu.Options.Select(ops => new
                                {
                                    description = ops.Description,
@@ -101,9 +122,11 @@ namespace ONLINETEST_CORE.Tasks
 
         public bool DeleteQue(int queId)
         {
-            Question que = _onlineTestContext.Question.SingleOrDefault(qu => qu.Id == queId);
+            Question que = _onlineTestContext.Question.SingleOrDefault(qu => qu.Id == queId && qu.IsDelete.Equals(true));
             try
             {
+                que.IsDelete = !que.IsDelete;
+                _onlineTestContext.SaveChanges();
                 return true;
             }
             catch

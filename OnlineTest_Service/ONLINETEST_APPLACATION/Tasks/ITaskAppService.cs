@@ -41,6 +41,7 @@ namespace ONLINETEST_APPLICATION.Tasks
         List<Subject> GetSubList();
         object GetQueList(string query, int currentPage, int pageSize = 15);
         bool DeleteQue(int queId);
+        bool SaveQue(int queId, string queContent, int queClass, string rightAnswer);
         List<Question> GetJpaperById(int pid);
         Paper GetPaperById(int pid);
         Question GetQuestionBySearch(int subjectId, string searchContent);

@@ -35,7 +35,7 @@ namespace ONLINETEST_APPLICATION.Tasks
 
         public bool DeleteQue(int queId)
         {
-            throw new NotImplementedException();
+            return _taskService.DeleteQue(queId);
         }
 
         public List<Question> GetJpaperById(int pid)
@@ -61,6 +61,11 @@ namespace ONLINETEST_APPLICATION.Tasks
         public List<Subject> GetSubList()
         {
             return _onlineTestContext.Subject.ToList();
+        }
+
+        public bool SaveQue(int queId, string queContent, int queClass, string rightAnswer)
+        {
+            return _taskService.SaveQue(queId, queContent, queClass, rightAnswer);
         }
     }
 }

@@ -107,13 +107,14 @@ namespace ONLINETEST.Controllers
         }
 
         /// <summary>
-        /// 获取到题目列表
+        /// 获取到题目列表/根据题目搜索
         /// </summary>
         /// <param name="query">搜索内容</param>
         /// <param name="currentPage">当前页码</param>
         /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
         ///[Authorize]
+        [Authorize]
         [HttpGet]
         public JsonResult GetQueList(string query, int currentPage, int pageSize = 15)
         {
@@ -121,15 +122,31 @@ namespace ONLINETEST.Controllers
             return Json(result);
         }
 
+
+
+
+        /// <summary>
+        /// 编辑问题
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPut]
+        public bool EditorQue(int queId,string queContent,int queClass,string rightAnswer)
+        {
+
+            return _taskAppService.SaveQue(queId, queContent, queClass, rightAnswer);
+        }
+
         /// <summary>
         /// 根据id删除题目
         /// </summary>
         /// <param name="queId">题目编号</param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete]
         public bool DeleteQue(int queId)
         {
-            return true;
+            return _taskAppService.DeleteQue(queId);
         }
         #endregion
 

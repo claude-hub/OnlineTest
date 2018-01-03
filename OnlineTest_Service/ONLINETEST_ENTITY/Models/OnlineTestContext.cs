@@ -31,7 +31,7 @@ namespace ONLINETEST_ENTITY.Models
         {
             modelBuilder.Entity<Article>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).IsRequired();
 
                 entity.Property(e => e.Author)
                     .IsRequired()
@@ -66,7 +66,7 @@ namespace ONLINETEST_ENTITY.Models
 
             modelBuilder.Entity<Comment>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).IsRequired();
 
                 entity.Property(e => e.Content).IsRequired();
 
@@ -149,7 +149,7 @@ namespace ONLINETEST_ENTITY.Models
             {
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                    .IsRequired();
 
                 entity.Property(e => e.QuestionAnlysis).HasColumnName("Question_anlysis");
 
@@ -158,6 +158,8 @@ namespace ONLINETEST_ENTITY.Models
                 entity.Property(e => e.QuestionContent)
                     .IsRequired()
                     .HasColumnName("Question_content");
+                entity.Property(e => e.IsDelete)
+                .IsRequired();
 
                 entity.Property(e => e.QuestionType).HasColumnName("Question_type");
 
@@ -174,7 +176,7 @@ namespace ONLINETEST_ENTITY.Models
 
             modelBuilder.Entity<Result>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).IsRequired();
 
                 entity.Property(e => e.PaperId).HasColumnName("Paper_ID");
 

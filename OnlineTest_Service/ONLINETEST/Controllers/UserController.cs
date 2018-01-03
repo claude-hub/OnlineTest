@@ -39,6 +39,7 @@ namespace ONLINETEST.Controllers
         /// <param name="userId">用户ID</param>
         /// <param name="nPassword">新密码</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut]
         public bool ModifyPassword(int userId, string nPassword)
         {
@@ -46,6 +47,7 @@ namespace ONLINETEST.Controllers
             return _userAppService.ModifyPassword(userId, mPassword);
         }
 
+        [Authorize]
         [HttpGet]
         public JsonResult GetUserById(int uId)
         {
@@ -154,6 +156,7 @@ namespace ONLINETEST.Controllers
         /// <param name="password">密码</param>
         /// <param name="nikename">昵称</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         public bool AddAdmin(string account,string password,string nikename)
         {
@@ -168,6 +171,7 @@ namespace ONLINETEST.Controllers
         /// <param name="currentPage">当前页数</param>
         /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public JsonResult GetUserList(string status,int currentPage,int pageSize = 15)
         {
@@ -182,6 +186,7 @@ namespace ONLINETEST.Controllers
         /// <param name="currentPage">当前页数</param>
         /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public JsonResult SearchUser(string content, int currentPage, int pageSize = 15)
         {
