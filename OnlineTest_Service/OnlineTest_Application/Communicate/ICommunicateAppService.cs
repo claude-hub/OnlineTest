@@ -16,5 +16,10 @@ namespace OnlineTest_Application.Communicate
         /// isPublish: 发布：true
         /// <returns></returns>
         bool CreateArticle(int uId, string title, string content, string label);
+        object GetArticleById(int artId);
+        object GetArticleList(string query, bool isPublish, int currentPage, int pageSize = 15);
+        bool PublishArticle(int artId);
+        bool UnPublishArticle(int artId);
+        
     }
 }

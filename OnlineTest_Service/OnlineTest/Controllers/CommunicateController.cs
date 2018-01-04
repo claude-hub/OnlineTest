@@ -19,6 +19,17 @@ namespace OnlineTest.Controllers
             _communicateAppService = communicateAppService;
         }
         #region 公共
+        /// <summary>
+        /// 根据文章编号获取到文章
+        /// </summary>
+        /// <param name="artId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetArticleById(int artId)
+        {
+            var result = _communicateAppService.GetArticleById(artId);
+            return Json(result);
+        }
         #endregion
         #region 前台
         /// <summary>
@@ -37,6 +48,42 @@ namespace OnlineTest.Controllers
         }
         #endregion
         #region 后台管理
+        /// <summary>
+        /// 获取到已发布、未发布的文章
+        /// </summary>
+        /// <param name="query">搜索内容</param>
+        /// <param name="isPublish">状态</param>
+        /// <param name="currentPage">当前页码</param>
+        /// <param name="pageSize">页面数量</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetArticleList(string query,bool isPublish, int currentPage, int pageSize = 15)
+        {
+            var result = _communicateAppService.GetArticleList(query, isPublish, currentPage, pageSize);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 发布文章
+        /// </summary>
+        /// <param name="artId">文章编号</param>
+        /// <returns></returns>
+        [HttpPut]
+        public bool PublishArticle(int artId)
+        {
+            return _communicateAppService.PublishArticle(artId);
+        }
+
+        /// <summary>
+        /// 撤销文章
+        /// </summary>
+        /// <param name="artId">文章编号</param>
+        /// <returns></returns>
+        [HttpPut]
+        public bool UnPublishArticle(int artId)
+        {
+            return _communicateAppService.UnPublishArticle(artId);
+        }
 #endregion
     }
 }

@@ -12,5 +12,25 @@ namespace OnlineTest_Application.Communicate
         {
             return _communicateService.CreateArticle(uId, title, content, label);
         }
+
+        public object GetArticleById(int artId)
+        {
+            return _communicateService.GetArticleById(artId);
+        }
+
+        public object GetArticleList(string query, bool isPublish, int currentPage, int pageSize = 15)
+        {
+            return _communicateService.GetArticleList(query, isPublish, currentPage, pageSize);
+        }
+
+        public bool PublishArticle(int artId)
+        {
+            return _communicateService.PublishArticle(artId);
+        }
+
+        public bool UnPublishArticle(int artId)
+        {
+            return _communicateService.UnPublishArticle(artId);
+        }
     }
 }
