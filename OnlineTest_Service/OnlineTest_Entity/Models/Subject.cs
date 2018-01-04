@@ -14,6 +14,7 @@ namespace OnlineTest_Entity.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int QuestionCount { get; set; }
+        public bool IsDelete { get; set; }
 
         public ICollection<Paper> Paper { get; set; }
         public ICollection<Question> Question { get; set; }

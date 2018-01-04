@@ -31,20 +31,17 @@ namespace OnlineTest_Application.Tasks
         /// <param name="answerDescription">具体答案</param>
         /// <returns></returns>
         bool CreateOption(int questionId, string answerDescription);
-        /// <summary>
-        /// 创建用户的试卷
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        int CreatePaper(int userId, int subjectId, int paperClass);
-
-        List<Subject> GetSubList();
+        object CreatePaperByUser(int uId, int subId,int queClass);
+        bool CreatePaperByAdmin(int uId, int subId, int[] queIds);
+        object GetPaperList(string query, int currentPage, int pageSize = 15);
+        object GetPaperList(int currentPage, int pageSize = 8);
+        object GetSubjectList(string query, int currentPage, int pageSize = 15);
+        object GetSubjectList( int currentPage, int pageSize = 8);
+        object GetJPaperById(int pId);
         object GetQueById(int queId);
+        object GetQueListBySubId(int subId, int queClass);
         object GetQueList(string query, int currentPage, int pageSize = 15);
         bool DeleteQue(int queId);
         bool SaveQue(int queId, string queContent, int queClass, string rightAnswer);
-        List<Question> GetJpaperById(int pid);
-        Paper GetPaperById(int pid);
-        Question GetQuestionBySearch(int subjectId, string searchContent);
     }
 }

@@ -23,6 +23,7 @@ namespace OnlineTest_Core.Communicate
                 TrampleNum = DefaultNum,//踩
                 CommentNum = DefaultNum,
                 IsPublish = false,
+                IsDelete = false,
             };
             _onlineTestContext.Article.Add(article);
             _onlineTestContext.SaveChanges();
@@ -32,7 +33,7 @@ namespace OnlineTest_Core.Communicate
         public object GetArticleById(int artId)
         {
             var art = (from a in _onlineTestContext.Article
-                       where a.Id == artId
+                       where a.Id == artId && !a.IsDelete
                        select new
                        {
                            id = a.Id,
@@ -41,6 +42,9 @@ namespace OnlineTest_Core.Communicate
                            label = a.Label,
                            createTime = a.CreateTime,
                            content = a.Content,
+                           PraiseNum = a.PraiseNum,
+                           TrampleNum = a.TrampleNum,
+                           commentNum = a.CommentNum,                          
                        }).ToList();
             return art;
         }
@@ -49,7 +53,7 @@ namespace OnlineTest_Core.Communicate
         {
             query = string.IsNullOrEmpty(query) ? "" : query;
             var artList = (from art in _onlineTestContext.Article
-                           where art.IsPublish.Equals(isPublish) && (art.Title.Contains(query) || art.User.NikeName.Contains(query))
+                           where art.IsPublish.Equals(isPublish) && !art.IsDelete && (art.Title.Contains(query) || art.User.NikeName.Contains(query))
                            select new
                            {
                                id = art.Id,
@@ -59,7 +63,7 @@ namespace OnlineTest_Core.Communicate
                                createTime = art.CreateTime,
                                content = art.Content,
                                isPublish = art.IsPublish ? "已发布" : "未发布"
-                           }).OrderBy(a =>a.id).ToList();
+                           }).OrderBy(a => a.id).ToList();
             var result = new
             {
                 count = artList.Count(),
@@ -68,7 +72,7 @@ namespace OnlineTest_Core.Communicate
             return result;
         }
 
-        public bool  PublishArticle(int artId)
+        public bool PublishArticle(int artId)
         {
             Article art = _onlineTestContext.Article.SingleOrDefault(a => a.Id == artId && !a.IsPublish);
             try
@@ -80,7 +84,7 @@ namespace OnlineTest_Core.Communicate
             catch
             {
                 return false;
-            }            
+            }
         }
 
         public bool UnPublishArticle(int artId)
@@ -97,5 +101,31 @@ namespace OnlineTest_Core.Communicate
                 return false;
             }
         }
+
+        public object DeleteArticle(int artId)
+        {
+            Article art = _onlineTestContext.Article.SingleOrDefault(a => a.Id == artId);
+            var result = new object();
+            if (art.IsPublish)
+            {
+                result = new
+                {
+                    isSuccess = false,
+                    message = "请撤销文章后删除！"
+                };
+            }
+            else
+            {
+                art.IsDelete = !art.IsDelete;
+                _onlineTestContext.SaveChanges();
+                result = new
+                {
+                    isSuccess = true,
+                    message = "删除成功！"
+                };
+            }
+            return result;
+        }
+
     }
 }

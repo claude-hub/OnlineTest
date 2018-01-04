@@ -17,9 +17,14 @@ namespace OnlineTest_Application.Tasks
             return _taskService.CreateOption(questionId, answerDescription);
         }
 
-        public int CreatePaper(int userId, int subjectId, int paperClass)
+        public bool CreatePaperByAdmin(int uId, int subId, int[] queIds)
         {
-            return _taskService.CreatePaper(userId, subjectId, paperClass);
+            return _taskService.CreatePaperByAdmin(uId, subId, queIds);
+        }
+
+        public object CreatePaperByUser(int uId, int subId,int queClass)
+        {
+            return _taskService.CreatePaperByUser(uId, subId, queClass);
         }
 
         public bool CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer)
@@ -37,14 +42,19 @@ namespace OnlineTest_Application.Tasks
             return _taskService.DeleteQue(queId);
         }
 
-        public List<Question> GetJpaperById(int pid)
+        public object GetJPaperById(int pId)
         {
-            return _taskService.GetJpaperById(pid);
+            return _taskService.GetJpaperById(pId);
         }
 
-        public Paper GetPaperById(int pid)
+        public object GetPaperList(string query, int currentPage, int pageSize = 15)
         {
-            return _taskService.GetPaperById(pid);
+            return _taskService.GetPaperList(query, currentPage, pageSize);
+        }
+
+        public object GetPaperList(int currentPage, int pageSize = 8)
+        {
+            return _taskService.GetPaperList(currentPage, pageSize);
         }
 
         public object GetQueById(int queId)
@@ -57,14 +67,18 @@ namespace OnlineTest_Application.Tasks
             return _taskService.GetQueList(query, currentPage, pageSize);
         }
 
-        public Question GetQuestionBySearch(int subjectId, string searchContent)
+        public object GetQueListBySubId(int subId, int queClass)
         {
-            throw new NotImplementedException();
+            return _taskService.GetQueListBySubId(subId, queClass);
+        }
+        public object GetSubjectList(string query, int currentPage, int pageSize = 15)
+        {
+            return _taskService.GetSubjectList(query, currentPage, pageSize);
         }
 
-        public List<Subject> GetSubList()
+        public object GetSubjectList(int currentPage, int pageSize = 8)
         {
-            return _onlineTestContext.Subject.ToList();
+            return _taskService.GetSubjectList(currentPage, pageSize);
         }
 
         public bool SaveQue(int queId, string queContent, int queClass, string rightAnswer)

@@ -11,7 +11,7 @@ namespace OnlineTest_Application.Communicate
         public bool CreateArticle(int uId, string title, string content, string label)
         {
             return _communicateService.CreateArticle(uId, title, content, label);
-        }
+        }       
 
         public object GetArticleById(int artId)
         {
@@ -31,6 +31,11 @@ namespace OnlineTest_Application.Communicate
         public bool UnPublishArticle(int artId)
         {
             return _communicateService.UnPublishArticle(artId);
+        }
+
+        public object DeleteArticle(int artId)
+        {
+            return _communicateService.DeleteArticle(artId);
         }
     }
 }

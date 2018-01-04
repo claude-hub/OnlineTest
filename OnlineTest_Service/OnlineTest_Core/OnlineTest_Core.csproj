@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fast-Bitmap" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OnlineTest_Entity\OnlineTest_Entity.csproj" />
   </ItemGroup>
 

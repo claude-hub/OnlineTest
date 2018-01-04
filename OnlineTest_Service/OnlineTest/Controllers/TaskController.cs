@@ -22,33 +22,7 @@ namespace OnlineTest.Controllers
         }
 
         #region 公共
-        /// <summary>
-        /// 获取科目列表
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public JsonResult GetSubjectList()
-        {
-            var subject = _taskAppService.GetSubList();
-            var subList  = new List<object>();
-            foreach (var item in subject)
-            {
-                var sub = new
-                {
-                    id = item.Id,
-                    name = item.Name,
-                    queCount = item.QuestionCount,
-                };
-                subList.Add(sub);
-            }
-            var result = new
-            {
-                count = subject.Count(),
-                sub = subList,
-            };
-
-            return Json(result);
-        }
+        
 
         /// <summary>
         /// 通过编号找到问题
@@ -64,16 +38,90 @@ namespace OnlineTest.Controllers
         #endregion
 
         #region 前台
+        /// <summary>
+        /// 首页、专项练习部分显示科目列表（前）
+        /// </summary>
+        /// <param name="currentPage">当前页</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetSubjects(int currentPage, int pageSize = 8)
+        {
+            var result = _taskAppService.GetSubjectList(currentPage, pageSize);
+            return Json(result);
+        }
 
+        /// <summary>
+        /// 获取答题之前可供选择的试卷列表
+        /// </summary>
+        /// <param name="currentPage">当前页/param>
+        /// <param name="pageSize">页面数量</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetPapers(int currentPage, int pageSize = 8)
+        {
+            var result = _taskAppService.GetPaperList(currentPage, pageSize);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 用户通过专项练习选择科目创建试卷进行专项测试（前）
+        /// </summary>
+        /// <param name="uId"></param>
+        /// <param name="subId"></param>
+        /// <param name="queClass">题目等级</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult StartSpecialExercise(int uId,int subId,int queClass)
+        {
+            var result = _taskAppService.CreatePaperByUser(uId, subId, queClass);
+            return Json(result);
+        }       
+
+        /// <summary>
+        /// 获取到用户选择试卷的题目及其选项
+        /// </summary>
+        /// <param name="pId">试卷编号</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult StartExerciseByPId(int pId)
+        {
+            var result = _taskAppService.GetJPaperById(pId);
+            return Json(result);
+        }
         #endregion
 
 
         #region 后台管理
 
-
+        /// <summary>
+        /// 添加试卷时，根据所选科目，难度显示题目（后台管理）
+        /// </summary>
+        /// <param name="subId">科目编号</param>
+        /// <param name="queClass">题目难度</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetQueListBySubId(int subId,int queClass)
+        {
+            var result = _taskAppService.GetQueListBySubId(subId, queClass);
+            return Json(result);
+        }
 
         /// <summary>
-        /// 添加科目
+        /// 管理员选择题目后提交创建试卷（后台管理）
+        /// </summary>
+        /// <param name="uId">用户ID</param>
+        /// <param name="subId">科目ID</param>
+        /// <param name="queIds">问题id</param>
+        /// <returns></returns>
+        [HttpPost]
+        public bool CreatePaper(int uId, int subId, int[] queIds)
+        {
+            return _taskAppService.CreatePaperByAdmin(uId, subId, queIds);
+        }
+
+        /// <summary>
+        /// 添加科目(后台管理)
         /// </summary>
         /// <param name="subjectName">科目名称</param>
         /// <returns></returns>
@@ -85,7 +133,7 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 添加问题
+        /// 添加问题(后台管理)
         /// </summary>
         /// <param name="subjectId">科目ID</param>
         /// <param name="questionName">题目描述</param>
@@ -102,7 +150,7 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 添加问题答案
+        /// 添加问题答案(后台管理)
         /// </summary>
         /// <param name="questionId">所属问题ID</param>
         /// <param name="answerDescription">答案</param>
@@ -123,7 +171,36 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 获取到题目列表/根据题目搜索
+        /// 获取到试卷列表/按试卷名搜索（后台管理）
+        /// </summary>
+        /// <param name="query">搜索内容</param>
+        /// <param name="currentPage">当前页码</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetPaperList(string query, int currentPage, int pageSize = 15)
+        {
+            var result = _taskAppService.GetPaperList(query, currentPage, pageSize);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 获取到科目列表/搜索科目（后台管理）
+        /// </summary>
+        /// <param name="query">搜索内容</param>
+        /// <param name="currentPage">当前页码</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public JsonResult GetSubjectList(string query, int currentPage, int pageSize = 15)
+        {
+            var result = _taskAppService.GetSubjectList(query, currentPage, pageSize);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 获取到题目列表/根据题目搜索(后台管理)
         /// </summary>
         /// <param name="query">搜索内容</param>
         /// <param name="currentPage">当前页码</param>
@@ -138,10 +215,10 @@ namespace OnlineTest.Controllers
             return Json(result);
         }
 
-        
+
 
         /// <summary>
-        /// 保存编辑的问题
+        /// 保存编辑的问题(后台管理)
         /// </summary>
         /// <param name="queId">问题编号</param>
         /// <param name="queContent">问题描述</param>
@@ -157,7 +234,7 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 根据id删除题目
+        /// 根据id删除题目(后台管理)
         /// </summary>
         /// <param name="queId">题目编号</param>
         /// <returns></returns>
@@ -168,128 +245,10 @@ namespace OnlineTest.Controllers
             return _taskAppService.DeleteQue(queId);
         }
         #endregion
-
-        #region get
-        /// <summary>
-        /// 根据试卷ID获取试卷
-        /// </summary>
-        /// <param name="pId">试卷id</param>
-        /// <returns></returns>
-        [Authorize]
-        [HttpGet]
-        public JsonResult GetPaperByPid(int pId)
-        {
-            Paper paper = _taskAppService.GetPaperById(pId);
-            var result = new
-            {
-                paperName = paper.PaperName,
-                createTime = paper.CreateTime,
-                question = _taskAppService.GetJpaperById(pId)
-            };
-            return Json(result);
-        }
-        #endregion
-        #region add
+     
         
         
         
-        /// <summary>
-        /// 创建用户的试卷
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="subjectId">试卷科目ID</param>
-        /// <param name="paperClass">试卷题目难度</param>
-        /// <returns></returns>
-        [Authorize]
-        [HttpPost]
-        public JsonResult CreatePaper(int userId, int subjectId, int paperClass)
-        {
-            try
-            {
-                int paperId = _taskAppService.CreatePaper(userId, subjectId, paperClass);
-                return Json(paperId);
-            }
-            catch (Exception e)
-            {
-                return Json("创建试卷失败！");
-            }
-        }
-        #endregion
-
-        #region update
-        #endregion
-
-        #region delete
-        /// <summary>
-        /// 删除题目
-        /// </summary>
-        /// <param name="questionId"></param>
-        /// <returns></returns>
-        [HttpPost("DeleteQuestion")]
-        public string DeleteQuestion(int questionId)
-        {
-            //同时删除对应的题目的答案
-            return "ww";
-        }
-        #endregion
-
-        #region search
-        /// <summary>
-        /// 按照科目来模糊查找问题并给出正确答案
-        /// </summary>
-        /// <param name="subjectId"></param>
-        /// <param name="searchContent"></param>
-        /// <returns></returns>
-        [HttpGet("SearchQuestion")]
-        public string SearchQuestion(int subjectId, string searchContent)
-        {
-
-            return "ww";
-        }
-        /// <summary>
-        /// 根据题目ID查看题目详情
-        /// </summary>
-        /// <param name="questionId"></param>
-        /// <returns></returns>
-        [HttpPost("GetQuestionByQId")]
-        public string GetQuestionByQId(int questionId)
-        {
-            //并找到答案
-            return "ww";
-        }
-        #endregion
-        #region other
-        /// <summary>
-        /// 用户查看已经做过的某一题目的正确率
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="questionId"></param>
-        /// <returns></returns>
-        [HttpPost("CalculationAccuracy")]
-        public string CalculationAccuracy(int userId, int questionId)
-        {
-            return "ww";
-        }
-        /// <summary>
-        /// 判断用户提交的试卷测试答案是否正确
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("JudgeIsRight")]
-        public string JudgeIsRight()
-        {
-            return "ww";
-        }
-        /// <summary>
-        /// 后台管理：根据科目找到所有的题目
-        /// </summary>
-        /// <param name="subjectId"></param>
-        /// <returns></returns>
-
-        [HttpPost("GetQuestionsBySubjectId")]
-        public string GetQuestionsBySubjectId(int subjectId)
-        {
-            return "ww";
-        }
-        #endregion
+       
     }
 }

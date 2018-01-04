@@ -47,6 +47,19 @@ namespace OnlineTest.Controllers
             return _userAppService.ModifyPassword(userId, mPassword);
         }
 
+        /// <summary>
+        /// 验证
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="validataCode">验证码</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public bool CheckRegister(string account, string validataCode)
+        {
+            return _userAppService.CheckRegister(account, validataCode);
+        }
+
         [Authorize]
         [HttpGet]
         public JsonResult GetUserById(int uId)
@@ -58,7 +71,7 @@ namespace OnlineTest.Controllers
         #region 前台
 
         /// <summary>
-        /// 994185184@qq.com 普通用户登录接口
+        /// 994185184@qq.com 普通用户登录接口（前）
         /// </summary>
         /// <param name="account"></param>
         /// <param name="password"></param>
@@ -88,7 +101,7 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 注册
+        /// 注册（前）
         /// </summary>
         /// <param name="account">使用邮箱作为注册账号</param>
         /// <param name="password"></param>
@@ -101,24 +114,14 @@ namespace OnlineTest.Controllers
             return _userAppService.CreateUser(account, mPassword, nikename);
         }
 
-        /// <summary>
-        /// 验证
-        /// </summary>
-        /// <param name="account"></param>
-        /// <param name="validataCode">验证码</param>
-        /// <returns></returns>
-        [HttpGet]
-        public bool CheckRegister(string account, string validataCode)
-        {
-            return _userAppService.CheckRegister(account, validataCode);
-        }
+        
 
         #endregion
 
         #region 后台管理
 
         /// <summary>
-        /// 1298520866@qq.com 3263250353@qq.com 管理员登录接口  
+        /// 1298520866@qq.com 3263250353@qq.com 管理员登录接口  (后台管理)
         /// </summary>
         /// <param name="account"></param>
         /// <param name="password"></param>
@@ -150,7 +153,7 @@ namespace OnlineTest.Controllers
             
         }
         /// <summary>
-        /// 添加管理员
+        /// 添加管理员(后台管理)
         /// </summary>
         /// <param name="account">使用邮箱注册</param>
         /// <param name="password">密码</param>
@@ -165,7 +168,7 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 根据角色获取到用户列表
+        /// 根据角色获取到用户列表(后台管理)
         /// </summary>
         /// <param name="status">角色：Common,Admin</param>
         /// <param name="currentPage">当前页数</param>
@@ -180,7 +183,7 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 根据昵称或账户搜索
+        /// 根据昵称或账户搜索(后台管理)
         /// </summary>
         /// <param name="content">搜索内容</param>
         /// <param name="currentPage">当前页数</param>

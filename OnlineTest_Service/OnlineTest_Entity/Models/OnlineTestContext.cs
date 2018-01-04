@@ -41,6 +41,7 @@ namespace OnlineTest_Entity.Models
                 entity.Property(e => e.Label).HasMaxLength(50);
 
                 entity.Property(e => e.IsPublish).IsRequired();
+                entity.Property(e => e.IsDelete).IsRequired();
 
                 entity.Property(e => e.Title)
                     .IsRequired()
@@ -212,6 +213,7 @@ namespace OnlineTest_Entity.Models
             modelBuilder.Entity<Subject>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.IsDelete).IsRequired();
 
                 entity.Property(e => e.Name)
                     .IsRequired()

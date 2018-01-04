@@ -5,6 +5,7 @@ using System.Text;
 using System.Linq;
 using OnlineTest_Entity.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace OnlineTest_Core.Tasks
 {
@@ -12,6 +13,7 @@ namespace OnlineTest_Core.Tasks
     {
         private readonly OnlineTestContext _onlineTestContext = new OnlineTestContext();
         private readonly int DefaultQueCount = 0;
+        private static readonly object locker = new object();   //锁
         public bool CreateSubject(string name)
         {
             Subject subject = _onlineTestContext.Subject.SingleOrDefault(s => s.Name.Equals(name));
@@ -95,6 +97,77 @@ namespace OnlineTest_Core.Tasks
             return false;
         }
 
+        public object GetPaperList(string query, int currentPage, int pageSize = 15)
+        {
+            query = string.IsNullOrEmpty(query) ? "" : query;
+            var papList = (from p in _onlineTestContext.Paper
+                           where p.PaperName.Contains(query) || p.User.NikeName.Contains(query)
+                           select new
+                           {
+                               paperName = p.PaperName,
+                               subName = p.Sub.Name,
+                               userName = p.User.NikeName,
+                               createTime = p.CreateTime,
+                           }).ToList();
+            var result = new
+            {
+                count = papList.Count(),
+                paps = papList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
+            return result;
+        }
+
+        public object GetPaperList(int currentPage,int pageSize = 8)
+        {
+            var result = (from p in _onlineTestContext.Paper
+                          orderby p.Id descending
+                          select new
+                          {
+                              id = p.Id,
+                              name = p.PaperName,
+                              subjectName = p.Sub.Name,
+                          }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return result;
+        }
+
+        public object GetSubjectList(string query, int currentPage, int pageSize = 15)
+        {
+            query = string.IsNullOrEmpty(query) ? "" : query;
+            var subList = (from s in _onlineTestContext.Subject
+                       where s.Name.Contains(query) && !s.IsDelete
+                       select new
+                       {
+                           name = s.Name,
+                           queCount = s.QuestionCount,
+                           ques = s.Question.Select(qu => new
+                           {
+                               queContent = qu.QuestionContent,
+                               options = qu.Options.Select(op => new
+                               {
+                                   description = op.Description
+                               }).ToList()
+                           }).ToList()
+                       }).ToList();
+            var result = new
+            {
+                count = subList.Count(),
+                subs = subList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
+            return result;
+        }
+
+        public object GetSubjectList(int currentPage, int pageSize = 8)
+        {
+            var subList = (from s in _onlineTestContext.Subject
+                           where !s.IsDelete
+                           select new
+                           {
+                               name = s.Name,
+                               queCount = s.QuestionCount,                               
+                           }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return subList;
+        }
+
         public object GetQueById(int queId)
         {
             Question que = _onlineTestContext.Question.SingleOrDefault(q => q.Id == queId && !q.IsDelete);
@@ -113,6 +186,20 @@ namespace OnlineTest_Core.Tasks
             };
             return result;
         }
+
+        public object GetQueListBySubId(int subId, int queClass)
+        {
+            var result = (from qu in _onlineTestContext.Question
+                          where qu.SubjectId == subId && qu.QuestionClass == queClass && !qu.IsDelete
+                          orderby qu.Id descending
+                          select new
+                          {
+                              name = qu.QuestionContent,
+                              id = qu.Id,
+                          }).ToList();
+            return result;
+        }
+
         public object GetQueList(string query, int currentPage, int pageSize = 15)
         {
             query =string.IsNullOrEmpty(query) ? "" : query;
@@ -155,37 +242,74 @@ namespace OnlineTest_Core.Tasks
             
         }
 
-        #region   保存试卷到数据库
-        /// <summary>
-        /// 创建用户的试卷
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="subjectId"></param>
-        /// <param name="paperClass">难度等级</param>
-        /// <returns></returns>
-        public int CreatePaper(int userId, int subjectId, int paperClass)
+        public bool CreatePaperByAdmin(int uId, int subId, int[] queIds)
         {
-            DateTime time = DateTime.Now;
-            Paper paper = new Paper()
+            lock (locker)
             {
-                UserId = userId,
-                SubId = subjectId,
-                Accuracy = 0,
-                CreateTime = time,
-                PaperName = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == subjectId).Name + time,
-                PaperDeatail = "",
-            };
-            _onlineTestContext.Paper.Add(paper);
-            _onlineTestContext.SaveChanges();
-            int paperId = CreateSpecificPaper(time, subjectId, paperClass);
-            return paperId;
+                DateTime time = DateTime.Now;
+                Paper paper = new Paper()
+                {
+                    UserId = uId,
+                    SubId = subId,
+                    Accuracy = 0,
+                    CreateTime = time,
+                    PaperName = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == subId).Name + time + "测试试卷",
+                    PaperDeatail = "",
+                };
+                _onlineTestContext.Paper.Add(paper);
+                _onlineTestContext.SaveChanges();
+                return CreateJPaperByAdmin(time, subId, queIds);
+            }            
         }
 
-        public int CreateSpecificPaper(DateTime createTime, int subjectId, int paperClass)
+        public object CreatePaperByUser(int uId, int subId,int queClass)
         {
-            //找到题目
-            List<Question> testQuestions = GetTestQuestions(subjectId, paperClass);
-            var paperId = _onlineTestContext.Paper.SingleOrDefault(p => p.CreateTime.Equals(createTime)).Id;
+            lock (locker)
+            {
+                DateTime time = DateTime.Now;
+                Paper paper = new Paper()
+                {
+                    UserId = uId,
+                    SubId = subId,
+                    Accuracy = 0,
+                    CreateTime = time,
+                    PaperName = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == subId).Name + time + "专项测试",
+                    PaperDeatail = "",
+                };
+                _onlineTestContext.Paper.Add(paper);
+                _onlineTestContext.SaveChanges();
+                int paperId = CreateJPaperByUser(time, queClass, subId);
+                return GetJpaperById(paperId);
+            }            
+        }
+
+        private bool CreateJPaperByAdmin(DateTime createTime, int subId, int[] queIds)
+        {
+            try
+            {
+                int paperId = _onlineTestContext.Paper.SingleOrDefault(p => p.CreateTime.Equals(createTime) && p.SubId == subId).Id;
+                foreach(int id in queIds)
+                {
+                    Jpaper jpaper = new Jpaper()
+                    {
+                        PapId = paperId,
+                        QueId = id,
+                    };
+                    _onlineTestContext.Jpaper.Add(jpaper);
+                    _onlineTestContext.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        private int CreateJPaperByUser(DateTime createTime,int queClass, int subId)
+        {
+            int paperId = _onlineTestContext.Paper.SingleOrDefault(p => p.CreateTime.Equals(createTime) && p.SubId==subId).Id;
+            //找到题目ID
+            List<Question> testQuestions = GetTestQuestions(subId, queClass);
             foreach (var testQuestion in testQuestions)
             {
                 Jpaper jpaper = new Jpaper()
@@ -193,19 +317,44 @@ namespace OnlineTest_Core.Tasks
                     PapId = paperId,
                     QueId = testQuestion.Id,
                 };
+                _onlineTestContext.Jpaper.Add(jpaper);
+                _onlineTestContext.SaveChanges();
             }
-            _onlineTestContext.SaveChanges();
             return paperId;
         }
-        public List<Question> GetTestQuestions(int subjectId, int paperClass, int queCount = 30)
+
+        //根据试卷编号获得具体的试卷
+        public object GetJpaperById(int pId)
         {
-            var questions = _onlineTestContext.Question.Where(q => q.SubjectId == subjectId && q.QuestionClass == paperClass).ToList();
-            int[] qId = GetQuestionId(queCount, questions.Count - 1);
-            List<Question> testQuestions = new List<Question>();
-            foreach (int id in qId)
-                testQuestions.Add(questions[id]);
-            return testQuestions;
+            var result = (from paper in _onlineTestContext.Jpaper
+                          where paper.PapId == pId
+                          select new
+                          {
+                              paperName = paper.Pap.PaperName,
+                              createTime = paper.Pap.CreateTime,
+                              detail = paper.Pap.PaperDeatail,
+                              ques = GetOptions(paper.Que)
+                          }).ToList();
+            return result;
         }
+
+        //得到试卷的题目
+        public List<Question> GetTestQuestions(int subjectId, int paperClass, int queCount = 20)
+        {
+            //获取到该科目，该等级未删除的科目数量
+            var questions = _onlineTestContext.Question.Where(q => q.SubjectId == subjectId && q.QuestionClass == paperClass&&!q.IsDelete).ToList();
+            //随机获取30个题目
+            int[] qIds = GetQuestionId(queCount, questions.Count - 1);
+            //筛选30个题目未删除的题目
+            var qList = questions.Where(q =>qIds.Contains(q.Id)).ToList();
+            if(qList.Count() < 10)
+            {
+                qIds = GetQuestionId(queCount, questions.Count - 1);
+                qList = questions.Where(q => qIds.Contains(q.Id)).ToList();
+            }
+            return qList;             
+        }
+
         //随机生成题目编号
         public int[] GetQuestionId(int idCount, int maxId)
         {
@@ -224,41 +373,54 @@ namespace OnlineTest_Core.Tasks
             }
             return result;
         }
-        #endregion
-        public List<Question> GetJpaperById(int pid)
-        {
-            //得到题目ID
-            List<Jpaper> jps = _onlineTestContext.Jpaper.Where(jp => jp.PapId == pid).ToList();
-            List<Question> questions = new List<Question>();
-            foreach (var jp in jps)
-            {
-                var question = _onlineTestContext.Question.Include(qu => qu.Options).SingleOrDefault(q => q.Id == jp.QueId);
-                var result = GetQuestion(question);
-                questions.Add(result);
-            }
-            return questions;
 
-        }
-        public Paper GetPaperById(int pid)
+        private object  GetOptions(Question question)
         {
-            return _onlineTestContext.Paper.SingleOrDefault(p => p.Id == pid);
-        }
-        public Question GetQuestion(Question question)
-        {
-            Question result = new Question()
+            var result = new 
             {
-                QuestionContent = question.QuestionContent,
-                QuestionAnlysis = question.QuestionAnlysis,
-                RightAnswer = question.RightAnswer,
-                Id = question.Id,
-                Options = question.Options.Select(op => new Options()
+                queContent = question.QuestionContent,
+                queAnlysis = question.QuestionAnlysis,
+                rightAnswer = question.RightAnswer,
+                queId = question.Id,
+                options = question.Options.Select(op => new 
                 {
-                    Description = op.Description,
-                    Id = op.Id,
+                    description = op.Description,
+                    opId = op.Id,
                 }).ToList(),
             };
             return result;
         }
+
+        //private void CreateImage(string content)
+        //{
+        //    //判断字符串不等于空和null
+        //    if (string.IsNullOrEmpty(content))
+        //        return;
+        //    //创建一个位图对象
+        //    Bitmap image = new Bitmap((int)Math.Ceiling((content.Length * 18.0)), 30);
+        //    //创建Graphics
+        //    Graphics g = Graphics.FromImage(image);
+        //    try
+        //    {
+        //        //清空图片背景颜色
+        //        g.Clear(Color.White);
+        //        Font font = new Font("Arial", 15.5f, (FontStyle.Bold));
+        //        System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(new Rectangle(0, 0, image.Width, image.Height), Color.Black, Color.DarkRed, 1.2f, true);
+        //        g.DrawString(content, font, brush, 2, 2);
+        //        //画图片的边框线
+        //        g.DrawRectangle(new Pen(Color.Silver), 0, 0, image.Width - 1, image.Height - 1);
+        //        image.Save("d:/001.jpg");
+        //    }
+        //    finally
+        //    {
+        //        g.Dispose();
+        //        image.Dispose();
+        //    }
+        //}
+
+        
+        
+       
         public List<Question> GetQuestionBySearch(int subjectId, string searchContent)
         {
             var result = _onlineTestContext.Question.Include(qu => qu.Options).Where(q => q.SubjectId == subjectId &&

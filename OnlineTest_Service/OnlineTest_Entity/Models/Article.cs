@@ -20,6 +20,7 @@ namespace OnlineTest_Entity.Models
         public int TrampleNum { get; set; }
         public int CommentNum { get; set; }
         public bool IsPublish { get; set; }
+        public bool IsDelete { get; set; }
 
         public User User { get; set; }
         public ICollection<Comment> Comment { get; set; }

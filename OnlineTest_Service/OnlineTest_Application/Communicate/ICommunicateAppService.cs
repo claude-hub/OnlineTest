@@ -20,6 +20,7 @@ namespace OnlineTest_Application.Communicate
         object GetArticleList(string query, bool isPublish, int currentPage, int pageSize = 15);
         bool PublishArticle(int artId);
         bool UnPublishArticle(int artId);
+        object DeleteArticle(int artId);
         
     }
 }

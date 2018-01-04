@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineTest_Application.Communicate;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineTest.Controllers
 {
@@ -33,7 +34,7 @@ namespace OnlineTest.Controllers
         #endregion
         #region 前台
         /// <summary>
-        /// 创建文章
+        /// 创建文章（前）
         /// </summary>
         /// <param name="uId">用户ID</param>
         /// <param name="title">文章名</param>
@@ -41,6 +42,7 @@ namespace OnlineTest.Controllers
         /// <param name="label">文章标签</param>
         /// isPublish: 发布：true
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         public bool CreateArticle(int uId,string title,string content,string label)
         {
@@ -49,13 +51,14 @@ namespace OnlineTest.Controllers
         #endregion
         #region 后台管理
         /// <summary>
-        /// 获取到已发布、未发布的文章
+        /// 获取到已发布、未发布的文章(后台管理)
         /// </summary>
         /// <param name="query">搜索内容</param>
         /// <param name="isPublish">状态</param>
         /// <param name="currentPage">当前页码</param>
         /// <param name="pageSize">页面数量</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public JsonResult GetArticleList(string query,bool isPublish, int currentPage, int pageSize = 15)
         {
@@ -64,10 +67,11 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 发布文章
+        /// 发布文章(后台管理)
         /// </summary>
         /// <param name="artId">文章编号</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut]
         public bool PublishArticle(int artId)
         {
@@ -75,14 +79,29 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 撤销文章
+        /// 撤销发布文章(后台管理)
         /// </summary>
         /// <param name="artId">文章编号</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut]
         public bool UnPublishArticle(int artId)
         {
             return _communicateAppService.UnPublishArticle(artId);
+        }
+
+        /// <summary>
+        /// 删除文章(后台管理)
+        /// </summary>
+        /// <param name="artId">文章编号</param>
+        /// IsDelete: 未删除：false
+        /// <returns></returns>
+        [Authorize]
+        [HttpDelete]
+        public JsonResult DeleteArticle(int artId)
+        {
+            var result = _communicateAppService.DeleteArticle(artId);
+            return Json(result);
         }
 #endregion
     }
