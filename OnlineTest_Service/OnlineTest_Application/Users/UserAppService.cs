@@ -39,6 +39,11 @@ namespace OnlineTest_Application.Users
             return _userService.ModifyPassword(userId, nPassword);
         }
 
+        public bool ModifyNikeName(int uId, string nikeName)
+        {
+            return _userService.ModifyNikeName(uId, nikeName);
+        }
+
         public User GetUserById(int id)
         {
             User user = _onlineTestContext.User.Find(id);
@@ -55,5 +60,6 @@ namespace OnlineTest_Application.Users
             return _userService.SearchUser(query, currentPage, pageSize);
         }
 
+        
     }
 }

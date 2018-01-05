@@ -48,16 +48,99 @@ namespace OnlineTest.Controllers
         {
             return _communicateAppService.CreateArticle(uId, title, content, label);
         }
-        #endregion
-        #region 后台管理
+
         /// <summary>
-        /// 获取到已发布、未发布的文章(后台管理)
+        /// 获取文章列表（前）
         /// </summary>
-        /// <param name="query">搜索内容</param>
-        /// <param name="isPublish">状态</param>
-        /// <param name="currentPage">当前页码</param>
-        /// <param name="pageSize">页面数量</param>
+        /// <param name="currentPage"></param>
+        /// <param name="pageSize"></param>
         /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetArticles(int currentPage,int pageSize = 10)
+        {
+            var result = _communicateAppService.GetArticleList(currentPage, pageSize);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 获取文章的评论（前）
+        /// </summary>
+        /// <param name="artId">文章编号</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetCommentByArtId(int artId)
+        {
+            var result = _communicateAppService.GetCommentByArtId(artId);
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 增加文章赞数目（前）
+        /// </summary>
+        /// <param name="artId">文章编号</param>
+        /// <returns></returns>
+        [HttpPut]
+        public bool AddArticlePraiseNum(int artId)
+        {
+            return _communicateAppService.AddArticlePraiseNum(artId);
+        }
+
+        /// <summary>
+        /// 增加文章踩数目（前）
+        /// </summary>
+        /// <param name="artId">文章编号</param>
+        /// <returns></returns>
+        [HttpPut]
+        public bool AddArticleTrampleNum(int artId)
+        {
+            return _communicateAppService.AddArticleTrampleNum(artId);
+        }
+
+        /// <summary>
+        /// 增加评论赞数目（前）
+        /// </summary>
+        /// <param name="comId">评论编号</param>
+        /// <returns></returns>
+        [HttpPut]
+        public bool AddCommentPraiseNum(int comId)
+        {
+            return _communicateAppService.AddCommentPraiseNum(comId);
+        }
+
+        /// <summary>
+        /// 增加评论踩数目（前）
+        /// </summary>
+        /// <param name="comId">评论编号</param>
+        /// <returns></returns>
+        [HttpPut]
+        public bool AddCommentTrampleNum(int comId)
+        {
+            return _communicateAppService.AddCommentTrampleNum(comId);
+        }
+
+        /// <summary>
+        /// 添加评论（前）
+        /// </summary>
+        /// <param name="uId">评论者ID</param>
+        /// <param name="parentId">被评论者ID，默认0</param>
+        /// <param name="artId">文章ID</param>
+        /// <param name="content">评论内容</param>
+        /// <returns></returns>
+        [HttpPost]
+        public bool AddComment(int uId, int artId, string content, int parentId = 0)
+        { 
+            return _communicateAppService.AddComment(uId, artId, content, parentId);
+        }
+            #endregion
+            #region 后台管理
+            /// <summary>
+            /// 获取到已发布、未发布的文章(后台管理)
+            /// </summary>
+            /// <param name="query">搜索内容</param>
+            /// <param name="isPublish">状态</param>
+            /// <param name="currentPage">当前页码</param>
+            /// <param name="pageSize">页面数量</param>
+            /// <returns></returns>
         [Authorize]
         [HttpGet]
         public JsonResult GetArticleList(string query,bool isPublish, int currentPage, int pageSize = 15)

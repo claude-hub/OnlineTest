@@ -15,6 +15,8 @@ using OnlineTest_Application.Users;
 using Newtonsoft.Json;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Cors;
+using OnlineTest_Application.Tasks;
+using OnlineTest_Application.Communicate;
 
 namespace OnlineTest.Controllers
 {
@@ -24,11 +26,15 @@ namespace OnlineTest.Controllers
     public class UserController : Controller
     {
         private readonly IUserAppService _userAppService;
+        private readonly ITaskAppService _taskAppService;
+        private readonly ICommunicateAppService _communicateAppService;
         public IConfiguration _configuration;
         private readonly string AdminUser = "Admin";
-        public UserController(IUserAppService userAppService, IConfiguration configuration)
+        public UserController(IUserAppService userAppService,ITaskAppService taskAppService,ICommunicateAppService communicateAppService, IConfiguration configuration)
         {
             _userAppService = userAppService;
+            _taskAppService = taskAppService;
+            _communicateAppService = communicateAppService;
             _configuration = configuration;
         }
 
@@ -45,6 +51,19 @@ namespace OnlineTest.Controllers
         {
             string mPassword = _userAppService.Md5Encrypt(nPassword);
             return _userAppService.ModifyPassword(userId, mPassword);
+        }
+
+        /// <summary>
+        /// 修改昵称
+        /// </summary>
+        /// <param name="uId">用户编号</param>
+        /// <param name="nikeName">昵称</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPut]
+        public bool ModifyNikeName(int uId,string nikeName)
+        {
+            return _userAppService.ModifyNikeName(uId, nikeName);
         }
 
         /// <summary>
@@ -114,8 +133,35 @@ namespace OnlineTest.Controllers
             return _userAppService.CreateUser(account, mPassword, nikename);
         }
 
-        
+        /// <summary>
+        /// 个人中心显示所做的试卷（前）
+        /// </summary>
+        /// <param name="uId">用户编号</param>
+        /// <param name="currentPage">当前页</param>
+        /// <param name="pageSize">每页数量，默认10</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public JsonResult GetPaperListByUser(int uId,int currentPage,int pageSize = 10)
+        {
+            var result = _taskAppService.GetPaperListByUser(uId, currentPage, pageSize);
+            return Json(true);
+        }
 
+        /// <summary>
+        /// 个人中心显示所发布的文章(前)
+        /// </summary>
+        /// <param name="uId">用户编号</param>
+        /// <param name="currentPage">当前页</param>
+        /// <param name="pageSize">每页数量，默认10</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public JsonResult GetArticleListByUser(int uId,int currentPage,int pageSize = 10)
+        {
+            var result = _communicateAppService.GetArticleListByUser(uId, currentPage, pageSize);
+            return Json(result);
+        }
         #endregion
 
         #region 后台管理

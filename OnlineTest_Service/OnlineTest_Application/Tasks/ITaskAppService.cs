@@ -35,6 +35,7 @@ namespace OnlineTest_Application.Tasks
         bool CreatePaperByAdmin(int uId, int subId, int[] queIds);
         object GetPaperList(string query, int currentPage, int pageSize = 15);
         object GetPaperList(int currentPage, int pageSize = 8);
+        object GetPaperListByUser(int uId, int currentPage, int pageSize = 10);
         object GetSubjectList(string query, int currentPage, int pageSize = 15);
         object GetSubjectList( int currentPage, int pageSize = 8);
         object GetJPaperById(int pId);
@@ -42,6 +43,7 @@ namespace OnlineTest_Application.Tasks
         object GetQueListBySubId(int subId, int queClass);
         object GetQueList(string query, int currentPage, int pageSize = 15);
         bool DeleteQue(int queId);
+        Object SearchQue(string query, int currentPage = 1, int pageSize = 20);
         bool SaveQue(int queId, string queContent, int queClass, string rightAnswer);
     }
 }
