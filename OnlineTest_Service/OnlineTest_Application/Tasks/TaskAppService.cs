@@ -57,6 +57,11 @@ namespace OnlineTest_Application.Tasks
             return _taskService.GetPaperList(currentPage, pageSize);
         }
 
+        public object GetPaperListByUser(int uId, int currentPage, int pageSize = 10)
+        {
+            return _taskService.CreatePaperByUser(uId, currentPage, pageSize);
+        }
+
         public object GetQueById(int queId)
         {
             return _taskService.GetQueById(queId);
@@ -84,6 +89,11 @@ namespace OnlineTest_Application.Tasks
         public bool SaveQue(int queId, string queContent, int queClass, string rightAnswer)
         {
             return _taskService.SaveQue(queId, queContent, queClass, rightAnswer);
+        }
+
+        public object SearchQue(string query, int currentPage = 1, int pageSize = 20)
+        {
+            return _taskService.GetQueList(query, currentPage, pageSize);
         }
     }
 }

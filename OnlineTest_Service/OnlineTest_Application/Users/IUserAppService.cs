@@ -28,6 +28,7 @@ namespace OnlineTest_Application.Users
         /// <param name="nPassword"></param>
         /// <returns></returns>
         bool ModifyPassword(int userId, string nPassword);
+        bool ModifyNikeName(int uId, string nikeName);
         /// <summary>
         /// 注册验证邮箱
         /// </summary>

@@ -18,9 +18,23 @@ namespace OnlineTest_Application.Communicate
             return _communicateService.GetArticleById(artId);
         }
 
+        public object GetArticleList(int currentPage, int pageSize = 10)
+        {
+            return _communicateService.GetArticleList(currentPage, pageSize);
+        }
         public object GetArticleList(string query, bool isPublish, int currentPage, int pageSize = 15)
         {
             return _communicateService.GetArticleList(query, isPublish, currentPage, pageSize);
+        }
+
+        public object GetArticleListByUser(int uId, int currentPage, int pageSize = 10)
+        {
+            return _communicateService.GetArticleListByUser(uId, currentPage, pageSize);
+        }
+
+        public object GetCommentByArtId(int artId)
+        {
+            return _communicateService.GetCommentByArtId(artId);
         }
 
         public bool PublishArticle(int artId)
@@ -37,5 +51,32 @@ namespace OnlineTest_Application.Communicate
         {
             return _communicateService.DeleteArticle(artId);
         }
+
+        public bool AddComment(int uId, int artId, string content, int parentId = 0)
+        {
+            return _communicateService.AddComment(uId, artId, content, parentId);
+        }
+
+        public bool AddArticlePraiseNum(int artId)
+        {
+            return _communicateService.AddPraiseNum(artId);
+        }
+
+        public bool AddArticleTrampleNum(int artId)
+        {
+            return _communicateService.AddTrampleNum(artId);
+        }
+
+        public bool AddCommentPraiseNum(int comId)
+        {
+            return _communicateService.AddCommentPraiseNum(comId);
+        }
+
+        public bool AddCommentTrampleNum(int comId)
+        {
+            return _communicateService.AddCommentTrampleNum(comId);
+        }
+
+        
     }
 }

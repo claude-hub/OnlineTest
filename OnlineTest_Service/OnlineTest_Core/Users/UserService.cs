@@ -99,6 +99,14 @@ namespace OnlineTest_Core.Users
             _onlineTestContext.SaveChanges();
             return true;
         }
+
+        public bool ModifyNikeName(int uId, string nikeName)
+        {
+            User user = _onlineTestContext.User.SingleOrDefault(u => u.UserId == uId);
+            user.NikeName = nikeName;
+            _onlineTestContext.SaveChanges();
+            return true;
+        }
         //验证邮箱
         public bool CheckRegister(string account, string validataCode)
         {

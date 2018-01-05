@@ -130,6 +130,22 @@ namespace OnlineTest_Core.Tasks
             return result;
         }
 
+        public object GetPaperListByUser(int uId, int currentPage, int pageSize = 10)
+        {
+            var result = (from p in _onlineTestContext.Paper
+                          where p.UserId == uId
+                          orderby p.Id descending
+                          select new
+                          {
+                              id = p.Id,
+                              name = p.PaperName,
+                              subjectName = p.Sub.Name,
+                              accuracy = p.Accuracy,
+                              createTime = p.CreateTime,
+                          }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return result;
+        }
+
         public object GetSubjectList(string query, int currentPage, int pageSize = 15)
         {
             query = string.IsNullOrEmpty(query) ? "" : query;
@@ -418,14 +434,5 @@ namespace OnlineTest_Core.Tasks
         //    }
         //}
 
-        
-        
-       
-        public List<Question> GetQuestionBySearch(int subjectId, string searchContent)
-        {
-            var result = _onlineTestContext.Question.Include(qu => qu.Options).Where(q => q.SubjectId == subjectId &&
-            q.QuestionContent.Contains(searchContent)).ToList();
-            return result;
-        }
     }
 }

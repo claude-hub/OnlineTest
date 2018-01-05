@@ -38,6 +38,21 @@ namespace OnlineTest.Controllers
         #endregion
 
         #region 前台
+
+        /// <summary>
+        /// 搜索题目
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="currentPage">当前页</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult SearchQue(string query,int currentPage = 1,int pageSize = 20)
+        {
+            var result = _taskAppService.GetQueList(query, currentPage, pageSize);
+            return Json(result);
+        }
+
         /// <summary>
         /// 首页、专项练习部分显示科目列表（前）
         /// </summary>
@@ -52,7 +67,7 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 获取答题之前可供选择的试卷列表
+        /// 获取答题之前可供选择的试卷列表（前）
         /// </summary>
         /// <param name="currentPage">当前页/param>
         /// <param name="pageSize">页面数量</param>
@@ -76,10 +91,10 @@ namespace OnlineTest.Controllers
         {
             var result = _taskAppService.CreatePaperByUser(uId, subId, queClass);
             return Json(result);
-        }       
+        }
 
         /// <summary>
-        /// 获取到用户选择试卷的题目及其选项
+        /// 获取到用户选择试卷的题目及其选项（前）
         /// </summary>
         /// <param name="pId">试卷编号</param>
         /// <returns></returns>
