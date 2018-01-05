@@ -4,14 +4,14 @@ import axios from "axios";
 
 export default class Service {
     static get token(){
-        return global.Store.getState().Session.Token;
+        return global.Store.getState().Session.Authorization;
     }
 
     // 基服务
     static get commonService() {
         let service = axios.create({
             baseURL: `${config.service.url}/api/platform/common/filter_condition`,
-            headers: {'App-Version': '0.1.0',Token:Service.token}
+            headers: {'App-Version': '0.1.0',Authorization:Service.token}
         });
 
         service.defaults.timeout = 12000;

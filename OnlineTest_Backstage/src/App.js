@@ -135,7 +135,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        token: state.Session.Token,
+        token: state.Session.Authorization,
         user_name: state.Session.User.name,
         job: state.Session.User.job
     }

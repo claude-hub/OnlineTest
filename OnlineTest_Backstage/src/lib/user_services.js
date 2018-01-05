@@ -4,14 +4,14 @@ import config from './config';
 
 export default class Service {
     static get token() {
-        return global.Store.getState().Session.Token;
+       return global.Store.getState().Session.Authorization;
     }
 
     //带header的基服务
     static get commonService() {
         let service = axios.create({
             baseURL: `${config.service.url}/api`,
-            headers: {Token: Service.token, 'App-Version': '0.1.0'}
+            headers: { Authorization: Service.token, 'App-Version': '0.1.0' }
         });
         service.defaults.timeout = 12000;
         return service;
@@ -45,14 +45,23 @@ export default class Service {
     }
 
     //注销
-    static sign_out (){
+    static sign_out() {
         Store.dispatch({
             type: 'SESSION:DOWN',
         });
     }
-
     //修改密码
     static changePassword(data = {}) {
         return Service.commonService.put(`/session/put_password`, data)
+    }
+    //根据角色获取到用户列表
+    static getUserList(data = {}) {
+        return Service.commonService.get(`/User/GetUserList`, {
+            params: {
+                status: "Common",
+                currentPage: 1,
+                pageSize: 20,
+            }
+        })
     }
 }
