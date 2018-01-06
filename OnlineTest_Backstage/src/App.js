@@ -137,7 +137,7 @@ const mapStateToProps = (state) => {
     return {
         token: state.Session.Authorization,
         user_name: state.Session.User.name,
-        job: state.Session.User.job
+        account: state.Session.User.account
     }
 }
 App = connect(mapStateToProps)(App)

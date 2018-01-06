@@ -36,7 +36,7 @@ export default class Service {
                     user: {
                         id: ret.data.userInfo.id,
                         name: ret.data.userInfo.nikename,
-                        job: ret.data.userInfo.account
+                        account: ret.data.userInfo.account
                     }
                 });
                 resolve(ret)

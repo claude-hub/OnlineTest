@@ -1,7 +1,7 @@
 export default function (state, action) {
     state = state || JSON.parse(localStorage.getItem('online_test_admin_session')) || {
         Authorization: null,
-        User: {id: null, name: null, job: null}
+        User: {id: null, name: null, account: null}
     };
     let new_state;
     switch (action.type) {
