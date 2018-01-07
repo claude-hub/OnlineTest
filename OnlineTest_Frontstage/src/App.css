@@ -98,3 +98,18 @@
   border: 0;
   color: #fff;
 }
+
+
+/*用户默认头像*/
+.user-img{
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  border-radius: 50%;
+  background: #ccc;
+  text-align: center;
+}
+.user-img h1{
+  text-align: center;
+  color: #fff;
+}
