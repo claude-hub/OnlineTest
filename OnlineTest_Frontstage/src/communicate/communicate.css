@@ -1,0 +1,21 @@
+.article-box{
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.article-item{
+    padding-left: 10px;
+    width: 100%;
+}
+.article-item h2{
+    font-weight: 700;
+}
+.article-label{
+    border: 1px solid #FF6547;
+    display: inline-block;
+    color: #FF6547;
+    border-radius: 3px;
+    padding: 0px 6px;
+}

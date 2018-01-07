@@ -14,6 +14,7 @@
       display: inline-block
   }
   .header ul li a{
+    
     color: #ccc;
     font-size: 16px;
     line-height: 40px;    
@@ -45,3 +46,61 @@
   .caro img{
       margin: auto;
   }
+
+  /*typetab*/
+  .type-tab{
+    width:100%;
+    height: 180px;
+    padding: 30px 0 35px;
+    background-color: #fff;
+  }
+  .tab-content,.foot,.type-tab ul{
+    width: 77%;
+    margin: auto;
+  }
+  .type-tab ul li{
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+  }
+.type-tab ul li h2{
+  font-size: 16px;
+  font-weight: 700;
+  
+}
+
+.exercise-tab{
+  width:100%;
+  padding-top: 25px;
+}
+.tab-content h1{
+  font-size: 20px;
+  font-weight: 800;
+  padding-bottom: 15px;
+  border-bottom: 1px dotted #aaa;
+  text-align: center;
+}
+/*footer*/
+.foot{
+  display: flex;
+  justify-content: space-between;
+}
+.foot-m li{
+  color: #ccc;
+  font-size: 15px;
+  display: inline-block;
+}
+.foot-m li span{
+  margin: 0px 10px 0px 10px;
+}
+.foot-i li{
+  display: inline-block;
+  padding: 0px 10px 5px 10px;
+}
+.foot-i img{
+  width: 80px;
+  height: 80px;
+}
+.foot-i p{
+  color: #ccc;
+}

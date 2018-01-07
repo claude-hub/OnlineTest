@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Layout, Menu } from 'antd';
 import Head from './Head'
 import Carousels from './Carousels'
+import TypeTab from './TypeTab'
+import SpecialExerciseTab from './SpecialExerciseTab'
+import Foot from './Foot'
 import './homePage.css';
 
 const { Header, Content, Footer } = Layout;
@@ -12,15 +15,11 @@ class HomePage extends Component {
     }
     render() {
         return (
-            <Layout className="layout">
-                <Header
-                    style={{ lineHeight: '40px' ,height:'40px',background:'#3d444c'}}>
-                    <Head />
-                </Header>
-                <Content>
-                    <Carousels />
-                </Content>
-            </Layout>
+            <div>
+                <Carousels />
+                <TypeTab />
+                <SpecialExerciseTab />
+            </div>
         );
     }
 }

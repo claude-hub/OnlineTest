@@ -10,7 +10,7 @@ class Head extends Component {
         super(props);
         this.state = { 
             token:'',
-            login_btn:
+            login_btn:'',
         };
     }
     componentWillMount() {
@@ -43,9 +43,9 @@ class Head extends Component {
                 <div className="nav">
                     <div className="nav-bar">
                         <ul>
-                            <li><a>首页</a></li>
+                            <li><Link to='/'>首页</Link></li>
                             <li><a>题库</a></li>
-                            <li><a>讨论区</a></li>
+                            <li><Link to='/communicate'>讨论区</Link></li>
                         </ul>
                     </div>
                 </div>
