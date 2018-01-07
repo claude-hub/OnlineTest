@@ -50,16 +50,9 @@ namespace OnlineTest_Application.Users
             return user ?? null;
         }
 
-        public object GetUserListByStatus(string status, int currentPage, int pageSize = 15)
+        public object GetUserListByStatus(string query, string status, int currentPage, int pageSize = 15)
         {
-            return _userService.GetUserListByStatus(status, currentPage, pageSize);
+            return _userService.GetUserListByStatus(query,status, currentPage, pageSize);
         }
-
-        public object SearchUser(string query, int currentPage, int pageSize = 15)
-        {
-            return _userService.SearchUser(query, currentPage, pageSize);
-        }
-
-        
     }
 }

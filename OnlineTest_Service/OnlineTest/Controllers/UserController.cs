@@ -214,32 +214,18 @@ namespace OnlineTest.Controllers
         }
 
         /// <summary>
-        /// 根据角色获取到用户列表(后台管理)
+        /// 根据角色获取到用户列表(后台管理)/搜索
         /// </summary>
+        /// <param name="query">搜索内容</param>
         /// <param name="status">角色：Common,Admin</param>
         /// <param name="currentPage">当前页数</param>
         /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
         [Authorize]
         [HttpGet]
-        public JsonResult GetUserList(string status,int currentPage,int pageSize = 15)
+        public JsonResult GetUserList(string query,string status,int currentPage,int pageSize = 15)
         {
-            var userList = _userAppService.GetUserListByStatus(status,currentPage,pageSize);
-            return Json(userList);
-        }
-
-        /// <summary>
-        /// 根据昵称或账户搜索(后台管理)
-        /// </summary>
-        /// <param name="content">搜索内容</param>
-        /// <param name="currentPage">当前页数</param>
-        /// <param name="pageSize">每页数量</param>
-        /// <returns></returns>
-        [Authorize]
-        [HttpGet]
-        public JsonResult SearchUser(string content, int currentPage, int pageSize = 15)
-        {
-            var userList = _userAppService.SearchUser(content,currentPage);
+            var userList = _userAppService.GetUserListByStatus(query,status,currentPage,pageSize);
             return Json(userList);
         }
 
