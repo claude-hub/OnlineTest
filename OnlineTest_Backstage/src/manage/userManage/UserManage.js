@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Table} from 'antd'
 import { userServices,config } from '../../lib'
+
 class UserManage extends Component {
     key = 'userManager';
     constructor(props) {

@@ -121,9 +121,11 @@ namespace OnlineTest_Core.Users
                 return false;
         }
 
-        public object GetUserListByStatus(string status, int currentPage, int pageSize = 15)
+        public object GetUserListByStatus(string query, string status, int currentPage, int pageSize = 15)
         {
-            List<User> userList = _onlineTestContext.User.Where(u => u.Status.Equals(status)).OrderBy(u => u.UserId).ToList();
+            query = string.IsNullOrEmpty(query) ? "" : query;
+            List<User> userList = _onlineTestContext.User.Where(u => u.Status.Equals(status)&&
+                     (u.NikeName.Contains(query)||u.Account.Contains(query))).OrderBy(u => u.UserId).ToList();
             var result = new
             {
                 count = userList.Count(),
@@ -131,18 +133,6 @@ namespace OnlineTest_Core.Users
             };
             return result;
         }
-
-        public object SearchUser(string query, int currentPage, int pageSize = 15)
-        {
-            List<User> userList = _onlineTestContext.User.Where(u => u.NikeName.Contains(query) || u.Account.Contains(query)).OrderBy(u => u.UserId).ToList();
-            var result = new
-            {
-                count = userList.Count(),
-                user = ChangeUserType(userList.Skip((currentPage - 1) * pageSize).Take(pageSize))
-            };
-            return result;
-        }
-
         //转换数据结构
         public object ChangeUserType(IEnumerable<User> userList)
         {

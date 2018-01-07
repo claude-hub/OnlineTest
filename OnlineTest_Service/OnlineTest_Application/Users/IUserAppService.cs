@@ -40,7 +40,6 @@ namespace OnlineTest_Application.Users
         User Login(string account, string password);
         User AdminLogin(string account, string password);
         User GetUserById(int id);
-        object GetUserListByStatus(string status, int currentPage, int pageSize = 15);
-        object SearchUser(string query, int currentPage, int pageSize = 15);
+        object GetUserListByStatus(string query,string status, int currentPage, int pageSize = 15);
     }
 }

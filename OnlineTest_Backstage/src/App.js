@@ -27,6 +27,7 @@ class App extends Component {
 
     isAuthenticated() {
         let token = this.props.token;
+        console.log(token)
         if (!token) {
             this.props.history.push('/login');
             return;
