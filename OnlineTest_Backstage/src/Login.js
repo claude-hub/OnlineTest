@@ -27,14 +27,6 @@ class Login extends React.Component {
                     this.setState({loading: false})
                     message.error("登录失败！");
                 });
-                // userServices.sign_in(values).then((res) => {
-                //     this.setState({loading: false})
-                //     this.props.history.replace('/');
-                //     message.success("登录成功！")
-                // }).catch((err) => {
-                //     this.setState({loading: false})
-                //     message.error("登录失败！");
-                // });
             }
         });
     }

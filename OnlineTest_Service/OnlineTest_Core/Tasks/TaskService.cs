@@ -178,6 +178,7 @@ namespace OnlineTest_Core.Tasks
                            where !s.IsDelete
                            select new
                            {
+                               id = s.Id,
                                name = s.Name,
                                queCount = s.QuestionCount,                               
                            }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();

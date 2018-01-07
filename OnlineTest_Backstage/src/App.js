@@ -4,12 +4,11 @@ import { Col, Icon, Layout, Menu, Row } from 'antd';
 import { Switch, Route, Link } from "react-router-dom";
 import ChangePassword from './user/ChangePassword';
 import { Recycle, Published, Unpublished, SubjectManage, TitleManage, UserManage, AdminManage } from './manage'
-import { services, userServices } from './lib';
+import { userServices } from './lib';
 import './App.css';
 
 const { Header, Footer, Content, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 class App extends Component {
     constructor(props) {
@@ -59,7 +58,7 @@ class App extends Component {
                         selectedKeys={this.state.selectedKeys}
                         mode="inline"
                         defaultOpenKeys={['user']}
-                        defaultSelectedKeys="['userManager']"
+                        defaultSelectedKeys={['userManager']}
                     >
                         <SubMenu key="user" title={<span><Icon type="team" /><span>用户管理</span></span>}>
                             <Menu.Item key="userManager">
@@ -91,19 +90,22 @@ class App extends Component {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header>
-                        <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px', overflow: 'hidden' }}>
-                            <SubMenu
-                                style={{ float: 'right', marginRight: '40px' }}
-                                title={<span><Icon type="user" />{this.props.user_name}</span>}>
-                                <Menu.Item key="changePassword">
-                                    <a onClick={() => { this.setState({ visible: true }) }}><Icon type="key" />修改密码</a>
-                                </Menu.Item>
-                                <Menu.Item key="logout">
-                                    <a onClick={this.sign_out.bind(this)}><Icon type="logout" />退出登录</a>
-                                </Menu.Item>
-                            </SubMenu>
-                        </Menu>
+                    <Header className="header">
+                        <Row type="flex" className="profile-bar">
+                            <Col>
+                                <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
+                                    <Menu.SubMenu style={{ color: 'red' }} key="profile"
+                                        title={<span><Icon type="user" />{this.props.user_name}</span>}>
+                                        <Menu.Item key="changePassword">
+                                            <a onClick={() => { this.setState({ visible: true }) }}><Icon type="key" />修改密码</a>
+                                        </Menu.Item>
+                                        <Menu.Item key="logout">
+                                            <a onClick={this.sign_out.bind(this)}><Icon type="logout" />退出登录</a>
+                                        </Menu.Item>
+                                    </Menu.SubMenu>
+                                </Menu>
+                            </Col>
+                        </Row>
                     </Header>
                     <Content style={{ background: '#fff', margin: '15px 24px', minHeight: 280 }}>
                         <Switch>

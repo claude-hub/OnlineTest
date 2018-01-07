@@ -51,9 +51,14 @@
     border-radius: 5px;
     margin: 7px 8px;
 }
-.ant-menu,.ant-menu .ant-menu-item{
+.profile-bar{
+    display: flex;
+    justify-content: flex-end;
+    z-index: 10 !important;
+}
+/* .ant-menu,.ant-menu .ant-menu-item{
     font-size: 12px !important;
 }
 .ant-menu-submenu-active{
     color: white !important;
-}
+} */

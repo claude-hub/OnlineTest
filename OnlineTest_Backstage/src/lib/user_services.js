@@ -58,10 +58,15 @@ export default class Service {
     static getUserList(data = {}) {
         return Service.commonService.get(`/User/GetUserList`, {
             params: {
-                status: "Common",
-                currentPage: 1,
-                pageSize: 20,
+                status: data.status,
+                currentPage: data.currentPage,
+                pageSize: data.pageSize,
+                query:data.query
             }
         })
+    }
+    //添加管理员
+    static addAdmin(data = {}) {
+        return Service.commonService.post(`/User/AddAdmin?account=${data.account}&password=${data.password}&nikename=${data.nickname}`);
     }
 }
