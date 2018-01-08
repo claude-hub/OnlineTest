@@ -11,18 +11,18 @@ class ArticleList extends Component {
         this.state = {
             articles: [],
             total: 0,
-            currentPage:1,
-            pageSize:1
+            currentPage: 1,
+            pageSize: 1
         };
     }
     componentDidMount() {
-        this.loadData(this.state.currentPage,this.state.pageSize);
+        this.loadData(this.state.currentPage, this.state.pageSize);
         this.props.id;
     }
-    
+
     addArticlePraiseNum(artId) {
         communicateServices.addArticlePraiseNum({ artId: artId }).then((ret) => {
-            this.loadData(this.state.currentPage,this.state.pageSize);
+            this.loadData(this.state.currentPage, this.state.pageSize);
             message.success("点赞成功！")
         }).catch((err) => {
             message.error("点赞失败！")
@@ -30,30 +30,31 @@ class ArticleList extends Component {
     }
     addArticleTrampleNum(artId) {
         communicateServices.addArticleTrampleNum({ artId: artId }).then((ret) => {
-            this.loadData(this.state.currentPage,this.state.pageSize);
+            this.loadData(this.state.currentPage, this.state.pageSize);
             message.success("踩成功！")
         }).catch((err) => {
             message.error("失败！")
         })
     }
-    getPrePageArticles(){
+    getPrePageArticles() {
         // this.setState({currentPage:this.state.currentPage--})
         // this.loadData()
     }
-    getNextPageArticle(){
+    getNextPageArticle() {
         // this.setState({currentPage:this.state.currentPage++})
         // this.loadData()
     }
-    onChange(page,pageSize){
-        console.log(page,pageSize);
-        this.loadData(page,pageSize)
-    }
-    onShowSizeChange(page, pageSize){
+    onShowSizeChange(page, pageSize) {
         console.log(page, pageSize);
-        this.loadData.bind(page,pageSize)
+        this.loadData.bind(page, pageSize)
     }
 
-    loadData(currentPage,pageSize) {
+
+    onChange(page, pageSize) {
+        console.log(page, pageSize);
+        this.loadData(page, pageSize)
+    }
+    loadData(currentPage, pageSize) {
         const params = {
             currentPage: currentPage,
             pageSize: pageSize
@@ -76,7 +77,7 @@ class ArticleList extends Component {
                             <div key={value.id} className="article-box">
                                 <HeadImg text='J' style={{ width: '60px', height: '60px' }} />
                                 <div className="article-item"
-                                    
+
                                 >
                                     <h2>{value.title}</h2>
                                     <span className="article-label">{value.label}</span>
@@ -96,16 +97,16 @@ class ArticleList extends Component {
                         )
                     })}
                     <ul className="page-nation">
-                        <li><a onClick={()=>this.getPrePageArticles()}><Icon type="left" />上一页</a></li>
-                        <li><a onClick={()=>this.getNextPageArticle()}>下一页<Icon type="right" /></a></li>
+                        <li><a onClick={() => this.getPrePageArticles()}><Icon type="left" />上一页</a></li>
+                        <li><a onClick={() => this.getNextPageArticle()}>下一页<Icon type="right" /></a></li>
                     </ul>
                     <Pagination
-                    defaultPageSize={1}
-                    size="small" total={this.state.total} 
-                    onChange={this.onChange}
-                    showSizeChanger 
-                    showQuickJumper
-                    onShowSizeChange={this.onShowSizeChange}/>
+                        defaultPageSize={1}
+                        size="small" total={this.state.total}
+                        onChange={this.onChange.bind(this)}
+                        showSizeChanger
+                        showQuickJumper
+                        onShowSizeChange={this.onShowSizeChange.bind(this)} />
                 </Card>
             </div>
         );
