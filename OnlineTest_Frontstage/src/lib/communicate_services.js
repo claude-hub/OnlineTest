@@ -35,13 +35,19 @@ export default class Service {
             }
         })
     }
-
+     
+    //获取单个文章
     static getArticleById(data={}){
         return Service.sessionService.get(`/Communicate/GetArticleById`,{
             params:{
                 artId: data.artId
             }
         })
+    }
+
+    //添加文章
+    static addArticle(data={}){
+        return Service.commonService.post('/Communicate/AddArticle?')
     }
 
     //给文章点赞 Communicate/AddArticlePraiseNum

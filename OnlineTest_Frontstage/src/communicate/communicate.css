@@ -5,6 +5,9 @@
     padding-top: 10px;
     border-bottom: 1px solid #ccc;
 }
+.icon-css:hover{
+    color:#FF6547;
+}
 .article-item{
     padding-left: 10px;
     width: 100%;
@@ -49,4 +52,8 @@
 .page-nation li a:hover{
     transition: all 0.5s;
     color: #49a9ee;
+}
+.article-content-box{
+    padding: 15px;
+    background-color: #fff;
 }

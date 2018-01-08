@@ -36,14 +36,6 @@ class ArticleList extends Component {
             message.error("失败！")
         })
     }
-    getPrePageArticles() {
-        // this.setState({currentPage:this.state.currentPage--})
-        // this.loadData()
-    }
-    getNextPageArticle() {
-        // this.setState({currentPage:this.state.currentPage++})
-        // this.loadData()
-    }
     onShowSizeChange(page, pageSize) {
         console.log(page, pageSize);
         this.loadData.bind(page, pageSize)
@@ -76,31 +68,26 @@ class ArticleList extends Component {
                         return (
                             <div key={value.id} className="article-box">
                                 <HeadImg text='J' style={{ width: '60px', height: '60px' }} />
-                                <div className="article-item"
-
-                                >
-                                    <h2>{value.title}</h2>
+                                <div className="article-item">
+                                    <h2 onClick={() => this.props.history.push(`/readArticle/${value.id}`)}>{value.title}</h2>
                                     <span className="article-label">{value.label}</span>
                                     <span style={{ paddingLeft: '10px' }}>{value.author}</span>
                                     <span style={{ paddingLeft: '5px' }}> {value.createTime}</span>
                                     <span style={{ float: 'right' }}>
-                                        <a style={{ paddingLeft: '10px', color: '#000' }}
+                                        <a className="icon-css" style={{ paddingLeft: '10px', color: '#000' }}
                                             onClick={() => this.addArticlePraiseNum(value.id)}
                                         ><Icon type="like-o" />({value.praiseNum})</a>
-                                        <a style={{ paddingLeft: '10px', color: '#000' }}
+                                        <a className="icon-css" style={{ paddingLeft: '10px', color: '#000' }}
                                             onClick={() => this.addArticleTrampleNum(value.id)}><Icon type="dislike-o" />({value.trampleNum})</a>
-                                        <a style={{ paddingLeft: '10px', color: '#000' }}><Icon type="message" />({value.commentNum})</a>
+                                        <a className="icon-css" style={{ paddingLeft: '10px', color: '#000' }}><Icon type="message" />({value.commentNum})</a>
                                     </span>
                                 </div>
 
                             </div>
                         )
                     })}
-                    <ul className="page-nation">
-                        <li><a onClick={() => this.getPrePageArticles()}><Icon type="left" />上一页</a></li>
-                        <li><a onClick={() => this.getNextPageArticle()}>下一页<Icon type="right" /></a></li>
-                    </ul>
                     <Pagination
+                        style={{ float: 'right', paddingTop: '10px' }}
                         defaultPageSize={1}
                         size="small" total={this.state.total}
                         onChange={this.onChange.bind(this)}

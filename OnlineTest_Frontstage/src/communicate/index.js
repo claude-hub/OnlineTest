@@ -1,3 +1,4 @@
 import ArticleList from './ArticleList'
 import AddArticle from './AddArticle'
-export {ArticleList,AddArticle}
+import ReadArticle from './ReadArticle'
+export {ArticleList,AddArticle,ReadArticle}

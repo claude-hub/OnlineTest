@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout, Menu } from 'antd';
 import { Switch, Route } from "react-router-dom";
 import { Head, Foot, HomePage } from './homePage'
-import { ArticleList, AddArticle } from './communicate'
+import { ArticleList, AddArticle,ReadArticle } from './communicate'
 import './App.css'
 
 const { Header, Content, Footer } = Layout;
@@ -24,6 +24,8 @@ class App extends Component {
                             render={(props) => <ArticleList popKey={this.selectKeys} {...props} />} />
                         <Route path="/addArticle"
                             render={(props) => <AddArticle popKey={this.selectKeys}{...props} />} />
+                            <Route path="/readArticle/:id"
+                            render={(props) => <ReadArticle id={props.match.params.id} popKey={this.selectKeys}{...props} />} />
                         <Route path="/"
                             render={(props) => <HomePage popKey={this.selectKeys} {...props} />} />
                     </Switch>
