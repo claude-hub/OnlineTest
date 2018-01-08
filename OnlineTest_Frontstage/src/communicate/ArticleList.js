@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Icon, message, Pagination } from 'antd';
+import { Link } from "react-router-dom";
 import { HeadImg } from '../homePage'
 import { communicateServices } from '../lib'
 import './communicate.css'
@@ -68,7 +69,7 @@ class ArticleList extends Component {
         return (
             <div style={{ padding: '20px 0px 10px 0px' }}>
                 <Card title={<h2 style={{ fontSize: '17px', fontWeight: '700' }}><Icon type="book" style={{ color: '#FF6547' }} />分享与求助</h2>}
-                    extra={<a className="add-btn" href="#"><Icon style={{ paddingRight: '5px' }} type="edit" />我要添加</a>}
+                    extra={<Link to="/addArticle" className="add-btn" href="#"><Icon style={{ paddingRight: '5px' }} type="edit" />我要添加</Link>}
                     style={{ paddingTop: '10px', width: '71%', margin: 'auto' }}>
                     {this.state.articles.map((value, index) => {
                         return (
