@@ -12,7 +12,7 @@ const config = {
     success: success,
     development: {
         service: {
-            url: (process.env.REACT_APP_HOST || process.env.REACT_APP_HOST === '') ? process.env.REACT_APP_HOST : 'http://localhost:3000'
+            url: (process.env.REACT_APP_HOST || process.env.REACT_APP_HOST === '') ? process.env.REACT_APP_HOST : 'http://192.168.199.147:3000'
         }
     },
 };
