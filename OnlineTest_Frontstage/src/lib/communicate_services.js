@@ -28,9 +28,18 @@ export default class Service {
 
     //获取文章列表
     static getArticles(data = {}) {
-        return Service.commonService.get(`/Communicate/GetArticles`, {
+        return Service.sessionService.get(`/Communicate/GetArticles`, {
             params : {
-                currentPage:data.currentPage
+                currentPage:data.currentPage,
+                pageSize:data.pageSize
+            }
+        })
+    }
+
+    static getArticleById(data={}){
+        return Service.sessionService.get(`/Communicate/GetArticleById`,{
+            params:{
+                artId: data.artId
             }
         })
     }

@@ -12,10 +12,41 @@
 .article-item h2{
     font-weight: 700;
 }
+.article-item h2:hover{
+    transition: all 1s;
+    color: #FF6547;
+}
 .article-label{
     border: 1px solid #FF6547;
     display: inline-block;
     color: #FF6547;
     border-radius: 3px;
     padding: 0px 6px;
+}
+.add-btn{
+    transition: all 0.5s;
+    padding: 8px 15px 8px 15px;
+    background-color: #108ee9;
+    border-radius: 3px;
+    color: #fff;
+}
+.add-btn:hover{
+    color: #fff;
+    background-color: #49a9ee;
+}
+.page-nation{
+    float: right;
+    padding-top: 10px;
+}
+.page-nation li{
+    display: inline-block;
+}
+.page-nation li a{
+    transition: all 0.5s;
+    color: #000;
+    padding: 0px 5px;
+}
+.page-nation li a:hover{
+    transition: all 0.5s;
+    color: #49a9ee;
 }
