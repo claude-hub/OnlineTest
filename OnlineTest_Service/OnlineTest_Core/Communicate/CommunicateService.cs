@@ -64,8 +64,13 @@ namespace OnlineTest_Core.Communicate
                                praiseNum = art.PraiseNum,
                                trampleNum = art.TrampleNum,
                                commentNum = art.CommentNum,
-                           }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-            return artList;
+                           }).ToList();
+            var result = new
+            {
+                count = artList.Count(),
+                arts = artList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
+            return result;
         }
         public object GetArticleList(string query, bool isPublish, int currentPage, int pageSize = 15)
         {
