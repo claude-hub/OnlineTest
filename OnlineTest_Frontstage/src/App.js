@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Layout, Menu } from 'antd';
-import { Switch, Route} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { Head, Foot, HomePage } from './homePage'
-import {ArticleList} from './communicate'
+import { ArticleList, AddArticle } from './communicate'
 import './App.css'
 
 const { Header, Content, Footer } = Layout;
@@ -22,7 +22,8 @@ class App extends Component {
                     <Switch>
                         <Route path="/communicate"
                             render={(props) => <ArticleList popKey={this.selectKeys} {...props} />} />
-
+                        <Route path="/addArticle"
+                            render={(props) => <AddArticle popKey={this.selectKeys}{...props} />} />
                         <Route path="/"
                             render={(props) => <HomePage popKey={this.selectKeys} {...props} />} />
                     </Switch>
