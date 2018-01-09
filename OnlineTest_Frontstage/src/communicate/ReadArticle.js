@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, message } from 'antd'
 import { HeadImg } from '../homePage'
+import Comments from './Comments'
 import { communicateServices } from '../lib'
 class ReadArticle extends Component {
 
@@ -48,7 +49,7 @@ class ReadArticle extends Component {
     }
     render() {
         return (
-            <div style={{ paddingTop: '20px', paddingBottom: '20px', width: '70%', margin: 'auto' }}>
+            <div style={{ paddingTop: '20px', paddingBottom: '20px', width: '70%',minHeight:'500px', margin: 'auto' }}>
                 <div className="article-content-box">
                     <div style={{ paddingBottom: '5px', borderBottom: '1px solid #ccc' }}>
                         <h1 onClick={() => this.props.history.goBack()}>{this.state.title}</h1>
@@ -73,11 +74,11 @@ class ReadArticle extends Component {
                     <div>
                         {this.state.content}
                     </div>
+                </div >
+                <div style={{ marginTop: '10px', padding: '10px', background: '#fff' }}>
+                    <Comments artId={this.state.artId} commentNum={this.state.commentNum} />
                 </div>
 
-                <div>
-                    
-                </div>
             </div>
 
         );

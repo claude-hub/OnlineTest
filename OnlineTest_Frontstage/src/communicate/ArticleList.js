@@ -12,7 +12,7 @@ class ArticleList extends Component {
             articles: [],
             total: 0,
             currentPage: 1,
-            pageSize: 1
+            pageSize: 15
         };
     }
     componentDidMount() {
@@ -88,7 +88,7 @@ class ArticleList extends Component {
                     })}
                     <Pagination
                         style={{ float: 'right', paddingTop: '10px' }}
-                        defaultPageSize={1}
+                        defaultPageSize={15}
                         size="small" total={this.state.total}
                         onChange={this.onChange.bind(this)}
                         showSizeChanger

@@ -26,10 +26,40 @@ export default class Service {
         return service;
     }
 
+    //搜索题目
+    static searchQue(data={}){
+        return Service.sessionService.get(`/Task/SearchQue`,{
+            params:{
+                query:data.query,
+                currentPage:data.currentPage
+            }
+        })
+    }
+
     //获取科目列表
     static getSubjects(data = {}) {
         return Service.sessionService.get(`/Task/GetSubjects`, {
             params : {
+                currentPage:data.currentPage
+            }
+        })
+    }
+
+    //点击科目开始测试=》创建试卷 Task/StartSpecialExercise
+    static startSpecialExercise(data={}){
+        return Service.commonService.get(`/Task/StartSpecialExercise`,{
+            params:{
+                uId:data.uId,
+                subId:data.subId,
+                queClass:data.queClass
+            }
+        })
+    }
+    
+    //获取试卷列表
+    static getPapers(data={}){
+        return Service.sessionService.get(`/Task/GetPapers`,{
+            params:{
                 currentPage:data.currentPage
             }
         })

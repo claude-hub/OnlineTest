@@ -92,7 +92,7 @@ namespace OnlineTest_Entity.Models
 
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                    .IsRequired();
 
                 entity.Property(e => e.PapId).HasColumnName("Pap_Id");
 

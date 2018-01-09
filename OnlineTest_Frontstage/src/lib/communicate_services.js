@@ -59,4 +59,23 @@ export default class Service {
     static addArticleTrampleNum(data={}){
         return Service.sessionService.put(`/Communicate/AddArticleTrampleNum?artId=${data.artId}`)
     }
+
+    //赞评论
+    static addComPraiseNum(data={}){
+        return Service.sessionService.put(`/Communicate/AddCommentPraiseNum?comId=${data.comId}`)
+    }
+
+    //踩评论
+    static addComTrampleNum(data={}){
+        return Service.sessionService.put(`/Communicate/AddCommentTrampleNum?comId=${data.comId}`)
+    }
+
+    //获取文章评论
+    static getArticleComment(data={}){
+        return Service.sessionService.get('/Communicate/GetCommentByArtId',{
+            params:{
+                artId:data.artId
+            }
+        })
+    }
 }

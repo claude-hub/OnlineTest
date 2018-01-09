@@ -1,0 +1,23 @@
+.user-head li{
+    text-align: center;
+}
+.modify-btn{
+    width: 60%;
+    margin: auto;
+    padding: 11px 20px 11px 20px;
+    border-radius: 5px;
+    display: block;
+    color: #fff;
+    background-color: #108ee9;
+}
+.head-img{
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    background-color: #ccc;
+    
+}
+.head-img h1{
+    margin: auto;
+    color: #fff;
+}
