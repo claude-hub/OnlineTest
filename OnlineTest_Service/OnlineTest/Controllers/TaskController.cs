@@ -86,6 +86,7 @@ namespace OnlineTest.Controllers
         /// <param name="subId"></param>
         /// <param name="queClass">题目等级</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public JsonResult StartSpecialExercise(int uId,int subId,int queClass)
         {

@@ -75,6 +75,7 @@ namespace OnlineTest_Core.Tasks
         {
             Subject sub = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == subId);
             sub.QuestionCount++;
+            _onlineTestContext.SaveChanges();
         }
         public bool SaveQue(int queId, string queContent, int queClass, string rightAnswer)
         {
@@ -224,6 +225,7 @@ namespace OnlineTest_Core.Tasks
                            where !qu.IsDelete && qu.QuestionContent.Contains(query)
                            select new
                            {
+                               id = qu.Id,
                                subName = _onlineTestContext.Subject.SingleOrDefault(s=>s.Id==qu.SubjectId).Name,
                                queName = qu.QuestionContent,
                                type = qu.QuestionType,
@@ -335,8 +337,8 @@ namespace OnlineTest_Core.Tasks
                     QueId = testQuestion.Id,
                 };
                 _onlineTestContext.Jpaper.Add(jpaper);
-                _onlineTestContext.SaveChanges();
             }
+            _onlineTestContext.SaveChanges();
             return paperId;
         }
 

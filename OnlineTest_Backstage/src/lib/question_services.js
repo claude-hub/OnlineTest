@@ -39,4 +39,14 @@ export default class Service {
     static addSub(data = {}) {
         return Service.commonService.post(`/Task/AddSubject?subjectName=${data.subjectName}`);
     }
+     //获取题目列表
+     static getQueList(data = {}) {
+        return Service.commonService.get(`/Task/GetQueList`, {
+            params: {
+                currentPage: data.currentPage,
+                pageSize: data.pageSize,
+                query:data.query
+            }
+        })
+    }
 }
