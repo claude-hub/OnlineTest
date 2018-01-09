@@ -107,7 +107,7 @@ class App extends Component {
                             </Col>
                         </Row>
                     </Header>
-                    <Content style={{ background: '#fff', margin: '15px 24px', minHeight: 280 }}>
+                    <Content style={{ background: '#fff', margin: '15px 24px'}}>
                         <Switch>
                             <Route path="/recycle"
                                 render={(props) => <Recycle popKey={this.selectKeys} {...props} />} />
