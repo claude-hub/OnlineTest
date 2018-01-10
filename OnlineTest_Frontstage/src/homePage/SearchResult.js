@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { Icon, Card, Pagination, Badge } from 'antd'
 import { Link } from "react-router-dom";
+import ShowQue from './ShowQue'
 import { taskServices } from '../lib'
+import './homePage.css'
 class SearchResult extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             query: this.props.query,
+            add_modal: false,
             resultCount: 0,
             currentPage: 1,
             pageSize: 10,
@@ -51,12 +54,18 @@ class SearchResult extends Component {
                     style={{ width: '100%' }}>
                     {this.state.result.map((value, index) => {
                         return (
-                            <div key={value.id} style={{ padding: '5px 0px 10px 0px', borderBottom: '1px solid #ccc' }}>
-                                <h2 style={{ fontWeight: '600' }}>{value.queName}</h2>
-                                <p>正确答案：{value.rightAnswer}</p>
+                            <div key={value.id}>
+                                <div style={{ padding: '5px 0px 20px 0px', borderBottom: '1px solid #ccc' }}>
+                                    <a className="que-title" href="#" onClick={() => this.setState({ add_modal: true })} >{value.queName}</a>
+                                </div>
+                                {/* <ShowQue 
+                            visible={this.state.add_modal}
+                            onCancel={() => this.setState({ add_modal: false })}
+                            loadData={value}
+                            {...this.state}/> */}
                             </div>
-                        )
 
+                        )
                     })}
                     <Pagination
                         style={{ float: 'right', paddingTop: '10px' }}

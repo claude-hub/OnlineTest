@@ -47,7 +47,8 @@ export default class Service {
 
     //添加文章
     static addArticle(data={}){
-        return Service.commonService.post('/Communicate/AddArticle?')
+        return Service.commonService.post(`/Communicate/CreateArticle?uId=${data.uId}&title=${data.title}
+        &content=${data.content}&label=${data.label}`)
     }
 
     //给文章点赞 Communicate/AddArticlePraiseNum
@@ -68,6 +69,16 @@ export default class Service {
     //踩评论
     static addComTrampleNum(data={}){
         return Service.sessionService.put(`/Communicate/AddCommentTrampleNum?comId=${data.comId}`)
+    }
+
+    //评论文章
+    static commentArticle(data={}){
+        return Service.commonService.post(`/Communicate/AddComment?uId=${data.uId}&artId=${data.artId}&content=${data.content}`)
+    }
+
+    //回复评论
+    static replyComment(data={}){
+        return Service.commonService.post(`/Communicate/AddComment?uId=${data.uId}&artId=${data.artId}&content=${data.content}&parentId=${data.parentId}`)
     }
 
     //获取文章评论

@@ -55,6 +55,15 @@ export default class Service {
             }
         })
     }
+
+    //由试卷编号获取题目 Task/StartExerciseByPId
+    static startExerciseByPId(data={}){
+        return Service.commonService.get(`/Task/StartExerciseByPId`,{
+            params:{
+                pId:data.pId
+            }
+        })
+    }
     
     //获取试卷列表
     static getPapers(data={}){

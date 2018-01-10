@@ -8,7 +8,8 @@ class TaskPage extends Component {
         this.state={
             subId:this.props.id,
             queClass:this.props.queClass,
-            uId:this.props.uId
+            uId:this.props.uId,
+            ques:[]
         }
     }
     componentDidMount() {
@@ -22,6 +23,7 @@ class TaskPage extends Component {
         }
         taskServices.startSpecialExercise(params).then((ret)=>{
             console.log(ret.data)
+            this.setState({ques: ret.data})
         }).catch((err)=>{
 
         })
@@ -29,14 +31,17 @@ class TaskPage extends Component {
     render() {
         return (
             <div style={{ padding: '20px 0px', width: '70%', minHeight: '442px', margin: 'auto' }}>
+            {this.state.ques.map((value,index)=>{
                 <Card
-                    title={<h2>题目</h2>}
-                    extra={<a onClick={() => this.props.history.goBack()}>返回题库</a>}
-                    style={{ width: '100%',height:'100%' }}>
-                    <p>Card content</p>
-                    <p>Card content</p>
-                    <p>Card content</p>
-                </Card>
+                title={<h2>题目</h2>}
+                extra={<a onClick={() => this.props.history.goBack()}>返回题库</a>}
+                style={{ width: '100%',height:'100%' }}>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </Card>
+            })}
+                
             </div>
         );
     }

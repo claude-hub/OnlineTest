@@ -60,7 +60,7 @@ class TiKu extends Component {
             dataIndex: "action",
             render: (text, record, index) =>
                 (
-                    <Link to={'/taskPage/' + record.id + '/' + this.state.select_level}>立即开始</Link>
+                    <Button><Link to={'/taskPage/' + record.id + '/' + this.state.select_level}>立即开始</Link></Button>
                 ),
         }]
         const paperColums = [{
@@ -74,7 +74,7 @@ class TiKu extends Component {
             dataIndex: "action",
             render: (text, record, index) =>
                 (
-                    <Button>立即开始</Button>
+                    <Button><Link to={'/paperTask/' + record.id }>立即开始</Link></Button>
                 ),
         }]
         return (

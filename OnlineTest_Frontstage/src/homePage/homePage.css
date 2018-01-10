@@ -79,6 +79,16 @@
   border-bottom: 1px dotted #aaa;
   text-align: center;
 }
+
+/*search*/
+.que-title{
+  color: #000;
+  
+}
+.que-title:hover{
+  color: #49a9ee;
+  
+}
 /*footer*/
 .foot{
   display: flex;
