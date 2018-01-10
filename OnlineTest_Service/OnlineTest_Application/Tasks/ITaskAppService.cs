@@ -23,7 +23,7 @@ namespace OnlineTest_Application.Tasks
         /// <param name="questionClass">题目难度</param>
         /// <param name="rightAnswer">正确答案</param>
         /// <returns></returns>
-        bool CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer);
+        int CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer);
         /// <summary>
         /// 添加答案
         /// </summary>

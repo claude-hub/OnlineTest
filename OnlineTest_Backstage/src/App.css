@@ -62,3 +62,7 @@
 .ant-menu-submenu-active{
     color: white !important;
 } */
+
+.ant-card-body{
+    padding: 0 24px !important;
+}

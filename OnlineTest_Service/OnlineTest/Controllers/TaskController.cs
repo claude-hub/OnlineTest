@@ -93,12 +93,12 @@ namespace OnlineTest.Controllers
             var result = _taskAppService.CreatePaperByUser(uId, subId, queClass);
             return Json(result);
         }
-
         /// <summary>
         /// 获取到用户选择试卷的题目及其选项（前）
         /// </summary>
         /// <param name="pId">试卷编号</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public JsonResult StartExerciseByPId(int pId)
         {
@@ -160,7 +160,7 @@ namespace OnlineTest.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpPost]
-        public bool AddQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer)
+        public int AddQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer)
         {
             return _taskAppService.CreateQuestion(subjectId, questionName, questionAnlysis, questionType, questionClass,rightAnswer);
         }

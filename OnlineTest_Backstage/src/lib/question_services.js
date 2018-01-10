@@ -4,7 +4,7 @@ import config from './config';
 
 export default class Service {
     static get token() {
-       return global.Store.getState().Session.Authorization;
+        return global.Store.getState().Session.Authorization;
     }
 
     //带header的基服务
@@ -31,7 +31,7 @@ export default class Service {
             params: {
                 currentPage: data.currentPage,
                 pageSize: data.pageSize,
-                query:data.query
+                query: data.query
             }
         })
     }
@@ -39,14 +39,24 @@ export default class Service {
     static addSub(data = {}) {
         return Service.commonService.post(`/Task/AddSubject?subjectName=${data.subjectName}`);
     }
-     //获取题目列表
-     static getQueList(data = {}) {
+    //获取题目列表
+    static getQueList(data = {}) {
         return Service.commonService.get(`/Task/GetQueList`, {
             params: {
+                subId: data.subId,
                 currentPage: data.currentPage,
                 pageSize: data.pageSize,
-                query:data.query
+                query: data.query
             }
         })
+    }
+    //添加题目
+    static addTopic(data = {}) {
+        console.log(data)
+        return Service.commonService.post(`/Task/AddQuestion?subjectId=${data.subjectId}&questionName=${data.questionName}&questionAnlysis=${data.questionAnlysis}&questionType=${data.questionType}&questionClass=${data.questionClass}&rightAnswer=${data.rightAnswer}`);
+    }
+    //添加选项
+    static addOption(data = {}) {
+        return Service.commonService.post(`/Task/AddOptions?questionId=${data.questionId}&answerDescription=${data.answerDescription}`);
     }
 }

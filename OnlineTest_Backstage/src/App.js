@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { Col, Icon, Layout, Menu, Row } from 'antd';
 import { Switch, Route, Link } from "react-router-dom";
 import ChangePassword from './user/ChangePassword';
-import { Recycle, Published, Unpublished, SubjectManage, TitleManage, UserManage, AdminManage } from './manage'
+import { Recycle, Published, 
+    Unpublished, SubjectManage, 
+    TitleManage, UserManage, 
+    AdminManage, TopicManage } from './manage'
 import { userServices } from './lib';
 import './App.css';
 
@@ -69,8 +72,8 @@ class App extends Component {
                             </Menu.Item>
                         </SubMenu>
                         <SubMenu key="questions" title={<span><Icon type="exception" /><span>题库管理</span></span>}>
-                            <Menu.Item key="subjectManager">
-                                <Link to={`/subjectManager`}><Icon type="printer" />科目管理</Link>
+                            <Menu.Item key="subject">
+                                <Link to={`/subject`}><Icon type="printer" />科目管理</Link>
                             </Menu.Item>
                             <Menu.Item key="titleManager">
                                 <Link to={`/titleManager`}><Icon type="database" />题目管理</Link>
@@ -115,9 +118,13 @@ class App extends Component {
                                 render={(props) => <Unpublished popKey={this.selectKeys} {...props} />} />
                             <Route path="/published"
                                 render={(props) => <Published popKey={this.selectKeys} {...props} />} />
+                            <Route path="/subject/:id"
+                                render={(props) => <TopicManage 
+                                id={props.match.params.id}
+                                popKey={this.selectKeys} {...props} />} />
                             <Route path="/titleManager"
                                 render={(props) => <TitleManage popKey={this.selectKeys} {...props} />} />
-                            <Route path="/subjectManager"
+                            <Route path="/subject"
                                 render={(props) => <SubjectManage popKey={this.selectKeys} {...props} />} />
                             <Route path="/adminManager"
                                 render={(props) => <AdminManage popKey={this.selectKeys} {...props} />} />

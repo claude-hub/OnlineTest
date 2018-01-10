@@ -3,7 +3,7 @@ import {questionServices,config} from '../../lib'
 import { Table, Input, Button, Icon } from 'antd'
 import AddSub from './AddSub'
 class SubjectManage extends Component {
-    key = 'subjectManager';
+    key = 'subject';
     constructor(props) {
         super(props);
         this.state = {
@@ -44,7 +44,7 @@ class SubjectManage extends Component {
                     dataIndex: "action",
                     render: (text, record, index) =>
                         (
-                            <a href="javascript:void(0)">查看</a>
+                            <a href="javascript:void(0)" onClick = {() => this.props.history.push('/subject/'+record.id)}>查看</a>
                         ),
                 }
             ]

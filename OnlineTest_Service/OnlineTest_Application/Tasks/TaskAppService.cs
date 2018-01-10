@@ -27,7 +27,7 @@ namespace OnlineTest_Application.Tasks
             return _taskService.CreatePaperByUser(uId, subId, queClass);
         }
 
-        public bool CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer)
+        public int CreateQuestion(int subjectId, string questionName, string questionAnlysis, int questionType, int questionClass, string rightAnswer)
         {
             return _taskService.CreateQuestion(subjectId, questionName, questionAnlysis, questionType, questionClass, rightAnswer);
         }
