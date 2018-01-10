@@ -67,9 +67,9 @@ namespace OnlineTest_Application.Tasks
             return _taskService.GetQueById(queId);
         }
 
-        public object GetQueList(string query, int currentPage, int pageSize = 15)
+        public object GetQueList(int subId,string query, int currentPage, int pageSize = 15)
         {
-            return _taskService.GetQueList(query, currentPage, pageSize);
+            return _taskService.GetQueList(subId,query, currentPage, pageSize);
         }
 
         public object GetQueListBySubId(int subId, int queClass)
@@ -93,7 +93,7 @@ namespace OnlineTest_Application.Tasks
 
         public object SearchQue(string query, int currentPage = 1, int pageSize = 20)
         {
-            return _taskService.GetQueList(query, currentPage, pageSize);
+            return _taskService.SearchQue(query, currentPage, pageSize);
         }
     }
 }

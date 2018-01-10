@@ -41,7 +41,7 @@ namespace OnlineTest_Application.Tasks
         object GetJPaperById(int pId);
         object GetQueById(int queId);
         object GetQueListBySubId(int subId, int queClass);
-        object GetQueList(string query, int currentPage, int pageSize = 15);
+        object GetQueList(int subId,string query, int currentPage, int pageSize = 15);
         bool DeleteQue(int queId);
         Object SearchQue(string query, int currentPage = 1, int pageSize = 20);
         bool SaveQue(int queId, string queContent, int queClass, string rightAnswer);

@@ -9,6 +9,14 @@
     <NoWarn>1701;1702;1705;1591;</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1701;1702;1705;1591;</NoWarn>
+    <DocumentationFile>bin\Release\netcoreapp2.0\OnlineTest.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE;RELEASE;NETCOREAPP2_0;RELEASE;NETCOREAPP2_0</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />

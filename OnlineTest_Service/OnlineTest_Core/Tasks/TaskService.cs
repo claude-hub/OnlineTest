@@ -75,6 +75,7 @@ namespace OnlineTest_Core.Tasks
         {
             Subject sub = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == subId);
             sub.QuestionCount++;
+            _onlineTestContext.SaveChanges();
         }
         public bool SaveQue(int queId, string queContent, int queClass, string rightAnswer)
         {
@@ -216,14 +217,41 @@ namespace OnlineTest_Core.Tasks
                           }).ToList();
             return result;
         }
-
-        public object GetQueList(string query, int currentPage, int pageSize = 15)
+        public object SearchQue( string query, int currentPage, int pageSize = 15)
         {
-            query =string.IsNullOrEmpty(query) ? "" : query;
+            query = string.IsNullOrEmpty(query) ? "" : query;
             var queList = (from qu in _onlineTestContext.Question
                            where !qu.IsDelete && qu.QuestionContent.Contains(query)
                            select new
                            {
+                               id = qu.Id,
+                               subName = _onlineTestContext.Subject.SingleOrDefault(s => s.Id == qu.SubjectId).Name,
+                               queName = qu.QuestionContent,
+                               type = qu.QuestionType,
+                               grade = qu.QuestionClass,
+                               rightAnswer = qu.RightAnswer,
+                               options = qu.Options.Select(ops => new
+                               {
+                                   description = ops.Description,
+                                   id = ops.Id,
+                               }).ToList(),
+                           }).ToList();
+            var result = new
+            {
+                count = queList.Count(),
+                ques = queList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
+            return result;
+        }
+
+        public object GetQueList(int subId,string query, int currentPage, int pageSize = 15)
+        {
+            query =string.IsNullOrEmpty(query) ? "" : query;
+            var queList = (from qu in _onlineTestContext.Question
+                           where !qu.IsDelete && qu.QuestionContent.Contains(query)&&qu.SubjectId==subId
+                           select new
+                           {
+                               id = qu.Id,
                                subName = _onlineTestContext.Subject.SingleOrDefault(s=>s.Id==qu.SubjectId).Name,
                                queName = qu.QuestionContent,
                                type = qu.QuestionType,
@@ -335,8 +363,8 @@ namespace OnlineTest_Core.Tasks
                     QueId = testQuestion.Id,
                 };
                 _onlineTestContext.Jpaper.Add(jpaper);
-                _onlineTestContext.SaveChanges();
             }
+            _onlineTestContext.SaveChanges();
             return paperId;
         }
 

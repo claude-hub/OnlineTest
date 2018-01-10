@@ -49,7 +49,7 @@ namespace OnlineTest.Controllers
         [HttpGet]
         public JsonResult SearchQue(string query,int currentPage = 1,int pageSize = 20)
         {
-            var result = _taskAppService.GetQueList(query, currentPage, pageSize);
+            var result = _taskAppService.SearchQue(query, currentPage, pageSize);
             return Json(result);
         }
 
@@ -86,6 +86,7 @@ namespace OnlineTest.Controllers
         /// <param name="subId"></param>
         /// <param name="queClass">题目等级</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public JsonResult StartSpecialExercise(int uId,int subId,int queClass)
         {
@@ -217,6 +218,7 @@ namespace OnlineTest.Controllers
         /// <summary>
         /// 获取到题目列表/根据题目搜索(后台管理)
         /// </summary>
+        /// <param name="subId">科目编号</param>
         /// <param name="query">搜索内容</param>
         /// <param name="currentPage">当前页码</param>
         /// <param name="pageSize">每页数量</param>
@@ -224,9 +226,9 @@ namespace OnlineTest.Controllers
         ///[Authorize]
         [Authorize]
         [HttpGet]
-        public JsonResult GetQueList(string query, int currentPage, int pageSize = 15)
+        public JsonResult GetQueList(int subId,string query, int currentPage, int pageSize = 15)
         {
-            var result = _taskAppService.GetQueList(query, currentPage, pageSize);
+            var result = _taskAppService.GetQueList(subId,query, currentPage, pageSize);
             return Json(result);
         }
 

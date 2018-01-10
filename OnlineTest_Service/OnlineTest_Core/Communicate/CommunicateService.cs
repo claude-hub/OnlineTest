@@ -122,36 +122,36 @@ namespace OnlineTest_Core.Communicate
                            {
                                Id = com.Id,
                                ArticleId = com.ArticleId,
-                               ParentId = com.ParentId,
+                               ParentName = com.ParentId==0?"":_onlineTestContext.Comment.SingleOrDefault(u=>u.Id==com.ParentId).Owner.NikeName,
                                UserName = com.Owner.NikeName,
                                CreateTime = com.CreateTime,
                                PraiseNum = com.PraiseNum,
                                TrampleNum = com.TrampleNum,
                                Content = com.Content,
                            }).ToList();
-            List<Comments> result = GetParentComment(allComList);
-            return result;
+            
+            return allComList;
         }
 
-        public List<Comments> GetParentComment(List<Comments> allComList)
-        {
-            var pComments = allComList.Where(c => c.ParentId == 0).ToList();
-            foreach(var item in pComments)
-            {
-                item.Children = GetChildrenComment(item.Id, allComList);
-            }
-            return pComments;
-        }
+        //public List<Comments> GetParentComment(List<Comments> allComList)
+        //{
+        //    var pComments = allComList.Where(c => c.ParentId == 0).ToList();
+        //    foreach(var item in pComments)
+        //    {
+        //        item.Children = GetChildrenComment(item.Id, allComList);
+        //    }
+        //    return pComments;
+        //}
 
-        public List<Comments> GetChildrenComment(int parentId, List<Comments> allComList)
-        {
-            List<Comments> cComments = allComList.Where(c => c.ParentId == parentId).ToList();
-            foreach (var item in cComments)
-            {
-                item.Children = GetChildrenComment(item.Id, allComList);
-            }
-            return cComments;
-        }
+        //public List<Comments> GetChildrenComment(int parentId, List<Comments> allComList)
+        //{
+        //    List<Comments> cComments = allComList.Where(c => c.ParentId == parentId).ToList();
+        //    foreach (var item in cComments)
+        //    {
+        //        item.Children = GetChildrenComment(item.Id, allComList);
+        //    }
+        //    return cComments;
+        //}
 
         public bool PublishArticle(int artId)
         {
