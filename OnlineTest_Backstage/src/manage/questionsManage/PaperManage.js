@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {questionServices,config} from '../../lib'
 import { Table, Input, Button, Icon } from 'antd'
-import AddSub from './AddSub'
+import AddPaper from './AddPaper'
 class PaperManage extends Component {
     key = 'paperManager';
     constructor(props) {
@@ -34,7 +34,6 @@ class PaperManage extends Component {
             this.setState({ table_loading: false });
         });
     }
-    
     render() {
         const columns = [{
                     title: '所属科目',
@@ -79,7 +78,7 @@ class PaperManage extends Component {
                         />
                         <Button icon="search" type="primary" onClick={() => this.loadData()}>搜索</Button>
                     </div>
-                    <Button type="primary" onClick={() => this.setState({ add_modal: true })}><Icon type="plus" />新增科目</Button>
+                    <Button type="primary" onClick={() => this.setState({ add_modal: true })}><Icon type="plus" />新增试卷</Button>
                 </div>
                 <Table
                     style={{ marginTop: '20px' }}
@@ -89,7 +88,7 @@ class PaperManage extends Component {
                     columns={columns}
                     dataSource={this.state.papers}
                 />
-                <AddSub
+                <AddPaper
                     visible={this.state.add_modal}
                     onCancel={() => this.setState({ add_modal: false })}
                     loadData={() => this.loadData()}

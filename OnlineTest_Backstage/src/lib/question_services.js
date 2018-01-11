@@ -93,4 +93,10 @@ export default class Service {
             }
         })
     }
+    //创建试卷
+    static createPaper(data = {}) {
+        let queIds = data.queIds.join('&queIds=');
+        console.log(queIds)
+        return Service.commonService.post(`/Task/CreatePaper?uId=${data.uId}&subId=${data.subId}&queIds=${queIds}`)
+    }
 }

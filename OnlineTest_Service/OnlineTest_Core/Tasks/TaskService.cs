@@ -244,7 +244,11 @@ namespace OnlineTest_Core.Tasks
                               name = qu.QuestionContent,
                               id = qu.Id,
                               rightAnswer = qu.RightAnswer,
-                              options = qu.Options,
+                              options = qu.Options.Select(op => new
+                              {
+                                  description = op.Description,
+                                  optionId = op.Id,
+                              }).ToList()
                           }).ToList();
             var result = new
             {
@@ -436,7 +440,7 @@ namespace OnlineTest_Core.Tasks
         }
 
         //得到试卷的题目
-        public List<Question> GetTestQuestions(int subjectId, int paperClass, int queCount = 2)
+        public List<Question> GetTestQuestions(int subjectId, int paperClass, int queCount = 15)
         {
             //获取到该科目，该等级未删除的科目数量
             var questions = _onlineTestContext.Question.Where(q => q.SubjectId == subjectId && q.QuestionClass == paperClass && !q.IsDelete).ToList();
