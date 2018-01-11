@@ -73,4 +73,13 @@ export default class Service {
             }
         })
     }
+    //用户个人中心获取所做的试卷 User/GetPaperListByUser
+    static getPaperListByUser(data={}){
+        return Service.commonService.get(`/User/GetPaperListByUser`,{
+            params:{
+                uId:data.uId,
+                currentPage:data.currentPage
+            }
+        })
+    }
 }

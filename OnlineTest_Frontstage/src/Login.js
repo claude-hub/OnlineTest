@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form, Icon, Input, Button, message} from 'antd';
 import {userServices} from './lib';
+import { Link } from "react-router-dom";
 
 import './Login.css';
 
@@ -59,6 +60,7 @@ class Login extends React.Component {
                                 className="login-form-button">
                             登 录
                         </Button>
+                        <Link to='/register'>没有账号，前往注册!</Link>
                     </FormItem>
                 </Form>
             </div>

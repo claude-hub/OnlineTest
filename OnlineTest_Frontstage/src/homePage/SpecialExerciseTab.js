@@ -21,7 +21,7 @@ class SpecialExerciseTab extends Component {
             currentPage: 1
         };
         taskServices.getSubjects(params).then((ret) => {
-            this.setState({ subjects: ret.data });
+            this.setState({ subjects: ret.data.subList });
             console.log(ret)
         }).catch((err) => {
 

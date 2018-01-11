@@ -62,10 +62,10 @@ class ReadArticle extends Component {
                                 <p style={{ float: 'left' }}>时间：{this.state.createTime}</p>
                                 <span style={{ float: 'right' }}>
                                     <a className="icon-css" style={{ paddingLeft: '10px', color: '#000' }}
-                                        onClick={() => this.addArticlePraiseNum(this.state.praiseNum)}
+                                        onClick={() => this.addArticlePraiseNum(this.state.artId)}
                                     ><Icon type="like-o" />({this.state.praiseNum})</a>
                                     <a className="icon-css" style={{ paddingLeft: '10px', color: '#000' }}
-                                        onClick={() => this.addArticleTrampleNum(this.state.trampleNum)}><Icon type="dislike-o" />({this.state.trampleNum})</a>
+                                        onClick={() => this.addArticleTrampleNum(this.state.artId)}><Icon type="dislike-o" />({this.state.trampleNum})</a>
                                     <a className="icon-css" style={{ paddingLeft: '10px', color: '#000' }}><Icon type="message" />({this.state.commentNum})</a>
                                 </span>
                             </div>

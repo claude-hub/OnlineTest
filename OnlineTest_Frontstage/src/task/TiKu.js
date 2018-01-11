@@ -22,12 +22,12 @@ class TiKu extends Component {
             currentPage: 1
         };
         taskServices.getSubjects(params).then((ret) => {
-            this.setState({ exerciseDatas: ret.data })
+            this.setState({ exerciseDatas: ret.data.subList })
         }).catch((err) => {
         });
         taskServices.getPapers(params).then((ret) => {
             console.log(ret.data)
-            this.setState({ paperDatas: ret.data })
+            this.setState({ paperDatas: ret.data.paperList })
         }).catch((err) => {
 
         });

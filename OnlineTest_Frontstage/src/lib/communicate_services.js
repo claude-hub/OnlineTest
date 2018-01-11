@@ -35,6 +35,16 @@ export default class Service {
             }
         })
     }
+
+    //获取用户文章
+    static getArticleListByUser(data={}){
+        return Service.commonService.get('/User/GetArticleListByUser',{
+            params:{
+                uId:data.uId,
+                currentPage:data.currentPage
+            }
+        })
+    }
      
     //获取单个文章
     static getArticleById(data={}){

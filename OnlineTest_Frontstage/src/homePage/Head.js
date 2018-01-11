@@ -3,6 +3,7 @@ import { Icon, Input } from 'antd';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { userServices, taskServices } from '../lib'
+import {UserPage} from '../user'
 import './homePage.css';
 const Search = Input.Search;
 class Head extends Component {
@@ -18,8 +19,10 @@ class Head extends Component {
     }
     sign_out() {
         userServices.sign_out();
+        this.setState({token:''})
         // this.props.history.push('/login');
-        window.location.href="/login"
+       // window.location.href="/login"
+      // this.checkUserLogin()
     }
     onChange(value) {
         console.log(value)
@@ -40,13 +43,13 @@ class Head extends Component {
             return (
                 <div className="login_register">
                     <Link to='/login' className="btn login">登录</Link>
-                    <Link to='/register' className="btn">注册</Link>
+                    <a href='/register' className="btn">注册</a>
                 </div>
             );
         } else {
             return (
                 <div className="login_register">
-                    <a className="btn">{this.props.user_name}</a>
+                    <Link to="/userPage" className="btn">{this.props.user_name}</Link>
                     <Link to="/" className="btn" onClick={this.sign_out.bind(this)}>注销</Link>
                 </div>
             );

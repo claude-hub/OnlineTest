@@ -14,7 +14,8 @@ class SearchResult extends Component {
             resultCount: 0,
             currentPage: 1,
             pageSize: 10,
-            result: []
+            result: [],
+            itemQue:[],
         }
     }
     componentDidMount() {
@@ -37,8 +38,6 @@ class SearchResult extends Component {
         console.log(page, pageSize);
         this.loadData.bind(page, pageSize)
     }
-
-
     onChange(page, pageSize) {
         console.log(page, pageSize);
         this.loadData(page, pageSize)
@@ -56,13 +55,8 @@ class SearchResult extends Component {
                         return (
                             <div key={value.id}>
                                 <div style={{ padding: '5px 0px 20px 0px', borderBottom: '1px solid #ccc' }}>
-                                    <a className="que-title" href="#" onClick={() => this.setState({ add_modal: true })} >{value.queName}</a>
+                                    <a className="que-title" href="#" onClick={() => this.setState({ add_modal: true,itemQue:value })} >{value.queName}</a>
                                 </div>
-                                {/* <ShowQue 
-                            visible={this.state.add_modal}
-                            onCancel={() => this.setState({ add_modal: false })}
-                            loadData={value}
-                            {...this.state}/> */}
                             </div>
 
                         )
@@ -75,6 +69,11 @@ class SearchResult extends Component {
                         showSizeChanger
                         showQuickJumper
                         onShowSizeChange={this.onShowSizeChange.bind(this)} />
+                    <ShowQue
+                        visible={this.state.add_modal}
+                        onCancel={() => this.setState({ add_modal: false })}
+                        itemQue={this.state.itemQue}
+                        {...this.state} />
                 </Card>
             </div>
         );

@@ -43,6 +43,10 @@ export default class Service {
             }).catch(reject)
         });
     }
+    static register(data={}){
+        return Service.sessionService.post(`/User/Register?account=${data.account}
+        &password=${data.password}&nikename=${data.nikename}`)
+    }
 
     //注销
     static sign_out (){
@@ -50,9 +54,26 @@ export default class Service {
             type: 'SESSION:DOWN',
         });
     }
+    //修改昵称
+    static changeNickname(data={}){
+        return new Promise(function (resolve, reject) {
+            Service.commonService.put(`/User/ModifyNikeName?uId=${data.uId}&nikeName=${data.nikeName}`).then((ret) => {
+                Store.dispatch({
+                    type: 'USER:SET',
+                    token: ret.data.token.data.token,
+                    user: {
+                        id: ret.data.userInfo.id,
+                        name: ret.data.userInfo.nikename,
+                        account: ret.data.userInfo.account
+                    }
+                });
+                resolve(ret)
+            }).catch(reject)
+        });
+    }
 
     //修改密码
     static changePassword(data = {}) {
-        return Service.commonService.put(`/session/put_password`, data)
+        return Service.commonService.put(`/User/ModifyPassword?userId=${data.uId}&nPassword=${data.nPassword}`)
     }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Icon, Pagination } from 'antd'
+import { Card, Icon, Pagination, Checkbox, Row, Col } from 'antd'
 import { connect } from 'react-redux';
 import { communicateServices, taskServices } from '../lib/index';
 
@@ -10,7 +10,9 @@ class PaperTask extends Component {
         this.state = {
             uId: this.props.uId,
             quesList: [],
-            que:'',
+            que: '',
+            queIds: [],
+            selectOptions: [],
             queCount: 0,
             paperId: this.props.paperId,
         }
@@ -23,35 +25,44 @@ class PaperTask extends Component {
             console.log(ret.data.ques)
             this.setState({ quesList: ret.data.ques, queCount: ret.data.queCount, que: ret.data.ques[0] })
         }).catch((err) => {
-
         })
     }
     onChange(page) {
-        console.log(page)
-        this.setState({que: this.state.quesList[page-1]})
+        const queIds = this.state.queIds
+        queIds.push(this.state.que.queId)
+        this.setState({ queIds: queIds, que: this.state.quesList[page - 1] })
+    }
+    selectOption(checkedValues) {
+        console.log(checkedValues)
     }
     render() {
         return (
             <div style={{ padding: '20px 0px', width: '70%', minHeight: '442px', margin: 'auto' }}>
-            <div style={{backgroundColor:'#fff',paddingBottom:'20px;'}}>
-            <Card key={this.state.que.queId}
-                    title={<h2>{this.state.que.queContent}</h2>}
-                    extra={<a onClick={() => this.props.history.goBack()}>返回题库</a>}
-                    style={{ width: '100%', height: '100%' }}>
-                    {/* {value.options.map((item,keys)=>{
-                                return(
-                                    <p>222</p>
-                                )                                
+                <div style={{ backgroundColor: '#fff', paddingBottom: '20px' }}>
+                    <Card key={this.state.que.queId}
+                        title={<h2>{this.state.que.queContent}</h2>}
+                        extra={<a onClick={() => this.props.history.goBack()}>返回题库</a>}
+                        style={{ width: '100%', height: '100%' }}>
+                        <Checkbox.Group onChange={this.selectOption.bind(this)}>
+                            {/* {value.options.map((item, keys) => {
+                                return (
+                                    <Row>
+                                        <Col ><Checkbox value={item.opId}>item.description</Checkbox></Col>
+                                    </Row>
+                                )
                             })} */}
-                </Card>
-                <Pagination
-                style={{paddingTop:'20px'}}
-                onChange={this.onChange.bind(this)}
-                 defaultPageSize={1} 
-                 defaultCurrent={1} 
-                 total={this.state.queCount} />
-            </div>
-                
+
+                        </Checkbox.Group>,
+
+                    </Card>
+                    <Pagination
+                        style={{ paddingTop: '20px', textAlign: 'right' }}
+                        onChange={this.onChange.bind(this)}
+                        defaultPageSize={1}
+                        defaultCurrent={1}
+                        total={this.state.queCount} />
+                </div>
+
 
             </div>
         );
