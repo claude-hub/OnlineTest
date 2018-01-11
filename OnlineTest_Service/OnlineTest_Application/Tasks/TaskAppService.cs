@@ -100,5 +100,10 @@ namespace OnlineTest_Application.Tasks
         {
             return _taskService.SearchQue(query, currentPage, pageSize);
         }
+
+        public object SubmitAnswer(int userId, int paperId, int[] queIds, int[] selectAnswerIds)
+        {
+            return _taskService.SubmitAnswer(userId, paperId, queIds, selectAnswerIds);
+        }
     }
 }

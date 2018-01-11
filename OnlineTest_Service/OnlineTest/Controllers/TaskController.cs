@@ -105,6 +105,22 @@ namespace OnlineTest.Controllers
             var result = _taskAppService.GetJPaperById(pId);
             return Json(result);
         }
+
+        /// <summary>
+        /// 提交试卷答案
+        /// </summary>
+        /// <param name="userId">用户编号</param>
+        /// <param name="paperId">试卷编号</param>
+        /// <param name="queIds">问题编号</param>
+        /// <param name="selectAnswerIds">用户选择的答案</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost]
+        public JsonResult SubmitAnswer(int userId,int paperId,int[] queIds,int[] selectAnswerIds)
+        {
+            var result = _taskAppService.SubmitAnswer(userId, paperId, queIds, selectAnswerIds);
+            return Json(result);
+        }
         #endregion
 
 

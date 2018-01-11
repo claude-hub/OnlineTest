@@ -77,7 +77,7 @@ class AddArticle extends Component {
                             </FormItem>
                             <FormItem label="内容：">
                                 {getFieldDecorator('contents')(
-                                    <TextArea onChange={value=>this.setState({content: value.target.value})} placeholder="请输入文章内容" autosize={{ minRows: 5,maxHeight: 12 }} />
+                                    <TextArea onChange={value=>this.setState({content: value.target.value})} placeholder="请输入文章内容" autosize={{ minRows: 5,maxRows: 12 }} />
                                 )}
                             </FormItem>
                             <FormItem style={{ paddingTop: '10px' }}>

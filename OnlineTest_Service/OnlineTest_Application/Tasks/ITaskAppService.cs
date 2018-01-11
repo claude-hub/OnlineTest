@@ -43,8 +43,9 @@ namespace OnlineTest_Application.Tasks
         object GetQueListBySubId(int subId, int queClass, int currentPage, int pageSize, string query);
         object GetQueList(int subId,string query, int currentPage, int pageSize = 15);
         bool DeleteQue(int queId);
-        Object SearchQue(string query, int currentPage = 1, int pageSize = 20);
+        object SearchQue(string query, int currentPage = 1, int pageSize = 20);
         bool SaveQue(int queId, string queContent, int queClass, string rightAnswer);
         object GetSubNames();
+        object SubmitAnswer(int userId, int paperId, int[] queIds, int[] selectAnswerIds);
     }
 }

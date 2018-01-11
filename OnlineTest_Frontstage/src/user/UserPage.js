@@ -25,11 +25,12 @@ class UserPage extends Component {
     render() {
         return (
             <div style={{ paddingTop: '20px', display: 'flex', justifyContent: 'flex-start', paddingBottom: '20px', width: '70%', minHeight: '500px', margin: 'auto' }}>
-                <div style={{ width: '30%', height: '350px', backgroundColor: '#fff', padding: '30px' }}>
+                <div style={{ width: '30%', height: '400px', backgroundColor: '#fff', padding: '30px' }}>
                     <ul className="user-head">
                         <li>
                             <div className="head-img"><h1>J</h1></div>
                         </li>
+                        <li style={{ padding: '10px 0px' }}>{this.props.user_account}</li>
                         <li style={{ padding: '10px 0px' }}><a href="#" onClick={()=>this.setState({modifyNickName:true})} className="modify-btn"><Icon type="edit" />修改昵称</a></li>
                         <li style={{ padding: '10px 0px' }}><a href="#" onClick={()=>this.setState({modifyPassword:true})} className="modify-btn"><Icon type="edit" />修改密码</a></li>
                     </ul>
@@ -65,6 +66,7 @@ const mapStateToProps = (state) => {
     return {
       uId: state.Session.User.id,
       user_name: state.Session.User.name,
+      user_account:state.Session.User.account
     }
   }
   UserPage = connect(mapStateToProps)(UserPage)

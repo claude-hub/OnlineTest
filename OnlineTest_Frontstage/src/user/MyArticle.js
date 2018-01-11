@@ -51,7 +51,7 @@ class MyArticle extends Component {
           dataSource={this.state.articleList}
         />
         <Pagination
-          style={{ float: 'right',padding:'10px 0px 20px 0px' }}
+          style={{ textAlign: 'right',padding:'10px 0px 0px 0px' }}
           defaultPageSize={8}
           defaultCurrent={1} total={this.state.articleCount}
           onChange={this.onChange.bind(this)}
