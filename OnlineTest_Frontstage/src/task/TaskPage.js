@@ -13,6 +13,7 @@ class TaskPage extends Component {
             quesList: [],
             que: [],
             queIds: [],
+            question:[],
             selectOptions: [],
             queCount: 0,
             paperId: 0,
@@ -38,9 +39,9 @@ class TaskPage extends Component {
     }
 
     onChange(page) {
-        const queIds = this.state.queIds
-        queIds.push(this.state.que.queId)
-        this.setState({ queIds: queIds, que: this.state.quesList[page - 1] })
+        const question = this.state.question
+        question.push(this.state.que)
+        this.setState({ question: question, que: this.state.quesList[page - 1] })
     }
     selectOption(checkedValues) {
         const selectOptions = this.state.selectOptions
@@ -48,9 +49,15 @@ class TaskPage extends Component {
         this.setState({ selectOptions: selectOptions })
     }
     onSubmit(){
+        const question = this.state.question
         const queIds = this.state.queIds
-        queIds.push(this.state.que.queId)
-        this.setState({ queIds: queIds})
+        question.push(this.state.que)
+        this.setState({ question: question})
+        question.map((value,index)=>{
+            value.map((item,key)=>{
+                queIds.push(item.queId)
+            })
+        })
         const params = {
             uId : this.state.uId,
             paperId : this.state.paperId,

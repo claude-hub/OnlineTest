@@ -5,13 +5,17 @@ class ShowQue extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            que: [],
-            options: []
+            que: [{
+                options:[],
+            }],
+            options: [],
         }
     }
     componentWillReceiveProps(nextProps) {
         this.setState({ que: nextProps.itemQue })
-        this.setState({ options: nextProps.itemQue.options })
+        const optionslist = this.state.options
+        const options =[]
+        console.log(this.state.options)
     }
     ergodicMap(value) {
         switch (value) {
@@ -26,18 +30,6 @@ class ShowQue extends Component {
             case 1: return 'B'
             case 2: return 'C'
             case 3: return 'D'
-        }
-    }
-    rightAnswer(value) {
-        if (isNaN(value)) {
-            return value
-        } else {
-            switch (Number(value)) {
-                case 1: return 'A'
-                case 2: return 'B'
-                case 3: return 'C'
-                case 4: return 'D'
-            }
         }
     }
     render() {
@@ -62,7 +54,7 @@ class ShowQue extends Component {
                 })} */}
                 <div
                     style={{ margin: ' 12px 0' }}
-                >正确答案:&nbsp;{this.rightAnswer(this.state.que.rightAnswer)}</div>
+                >正确答案:&nbsp;{this.state.que.rightAnswer}</div>
             </Modal>
         );
     }
