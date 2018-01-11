@@ -55,18 +55,6 @@ class AddPaper extends Component {
     selectSub(e) {
         this.setState({ subId: e.target.value }, () => this.loadData());
     }
-    rightAnswer(value) {
-        if (isNaN(value)) {
-            return value
-        } else {
-            switch (Number(value)) {
-                case 1: return 'A'
-                case 2: return 'B'
-                case 3: return 'C'
-                case 4: return 'D'
-            }
-        }
-    }
     selectIndex(value) {
         switch (value) {
             case 0: return 'A'

@@ -37,57 +37,7 @@ class ModifyTopic extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.setState({ submitting: true });
-                const params = {
-                    subjectId: this.props.subId,
-                    questionName: values.questionName,
-                    questionAnlysis: this.state.anlysis,
-                    questionType: this.state.type,
-                    questionClass: this.state.difficulty,
-                    rightAnswer: values.rightAnswer
-                }
-                questionServices.addTopic(params).then(ret => {
-                    if (ret.data > 0) {
-                        const optionA = {
-                            questionId: ret.data,
-                            answerDescription: values.optionA,
-                        }
-                        const optionB = {
-                            questionId: ret.data,
-                            answerDescription: values.optionB,
-                        }
-                        const optionC = {
-                            questionId: ret.data,
-                            answerDescription: values.optionC,
-                        }
-                        const optionD = {
-                            questionId: ret.data,
-                            answerDescription: values.optionD,
-                        }
-                        try {
-                            questionServices.addOption(optionA)
-                            questionServices.addOption(optionB)
-                            questionServices.addOption(optionC)
-                            questionServices.addOption(optionD)
-                            this.setState({ submitting: false });
-                            this.props.onCancel();
-                            this.props.loadData();
-                            config.success("添加成功!");
-                        } catch (err) {
-                            this.setState({ submitting: false });
-                            this.props.onCancel();
-                            this.props.loadData();
-                            config.error("添加选项失败，请找到该题目，重新添加选项!");
-                        }
-                    } else {
-                        this.setState({ submitting: false });
-                        config.error("已经有这个题目了!");
-                    }
-                }).catch(ret => {
-                    console.log(ret)
-                    config.error("添加失败!");
-                    this.setState({ submitting: false });
-                });
+                
             }
         });
     }
