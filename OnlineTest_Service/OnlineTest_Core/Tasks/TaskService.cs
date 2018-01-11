@@ -471,6 +471,51 @@ namespace OnlineTest_Core.Tasks
             return result;
         }
 
+        public object SubmitAnswer(int userId, int paperId, int[] queIds, int[] selectAnswerIds)
+        {
+            try
+            {
+                for (int index = 0; index < queIds.Length; index++)
+                {
+                    Result result = new Result()
+                    {
+                        UserId = userId,
+                        PaperId = paperId,
+                        QueId = queIds[index],
+                        Content = selectAnswerIds[index],
+                        IsRight = _onlineTestContext.Question.SingleOrDefault(q => q.Id == queIds[index]).RightAnswer.
+                        Equals(_onlineTestContext.Options.SingleOrDefault(op => op.Id == selectAnswerIds[index]).Description)
+                    };
+                    _onlineTestContext.Result.Add(result);
+                }
+                _onlineTestContext.SaveChanges();
+                float accuracy = CalculationAccuracy(userId, paperId);
+                ChangePaperAccuracy(paperId, accuracy);
+                return accuracy;
+            }
+            catch
+            {
+                return false;
+            }        
+            
+        }
+
+        private void ChangePaperAccuracy(int paperId,float accuracy)
+        {
+            Paper paper = _onlineTestContext.Paper.SingleOrDefault(p => p.Id == paperId);
+            paper.Accuracy = accuracy;
+            _onlineTestContext.SaveChanges();
+        }
+
+        private float CalculationAccuracy(int uId,int paperId)
+        {
+            //获取题目总数
+            var queTotal = _onlineTestContext.Result.Where(r => r.PaperId == paperId && r.UserId == uId).ToList();
+            //获取正确题目总数
+            var rightQue = queTotal.Where(r => r.IsRight).ToList();
+            return rightQue.Count() == 0 ? 0 :(float) rightQue.Count / queTotal.Count();
+        }
+
         //private void CreateImage(string content)
         //{
         //    //判断字符串不等于空和null

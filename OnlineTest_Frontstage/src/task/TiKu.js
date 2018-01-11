@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Card, Table, Button, Select } from 'antd'
+import { Icon, Card, Table, Button, Select,Pagination } from 'antd'
 import { Link } from "react-router-dom";
 import { taskServices } from '../lib'
 const Option = Select.Option;
@@ -7,7 +7,8 @@ class TiKu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPage: 1,
+            currentSubPage: 1,
+            currentPapPage: 1,
             exerciseDatas: [],
             paperDatas: [],
             select_level: 1,
@@ -18,19 +19,27 @@ class TiKu extends Component {
         this.props.id;
     }
     loadData() {
-        const params = {
-            currentPage: 1
-        };
-        taskServices.getSubjects(params).then((ret) => {
+        this.getSubjectList()
+        this.getPaperList()
+    }
+    getSubjectList() {
+        taskServices.getSubjects({ currentSubPage: this.state.currentSubPage }).then((ret) => {
             this.setState({ exerciseDatas: ret.data.subList })
         }).catch((err) => {
         });
-        taskServices.getPapers(params).then((ret) => {
+    }
+    getPaperList() {
+        taskServices.getPapers({ currentPapPage: this.state.currentPapPage }).then((ret) => {
             console.log(ret.data)
             this.setState({ paperDatas: ret.data.paperList })
         }).catch((err) => {
-
         });
+    }
+    changeSpecialPage(page) {
+        this.setState({ currentSubPage: page }, () => this.getSubjectList())
+    }
+    changePaperPage(page) {
+        this.setState({ currentPapPage: page }, () => this.getPaperList())
     }
 
     render() {
@@ -74,7 +83,7 @@ class TiKu extends Component {
             dataIndex: "action",
             render: (text, record, index) =>
                 (
-                    <Button><Link to={'/paperTask/' + record.id }>立即开始</Link></Button>
+                    <Button><Link to={'/paperTask/' + record.id}>立即开始</Link></Button>
                 ),
         }]
         return (
@@ -85,7 +94,13 @@ class TiKu extends Component {
                         <Table
                             rowKey='id'
                             columns={exerciseColumns}
+                            pagination={false}
                             dataSource={this.state.exerciseDatas} />
+                        <Pagination
+                            style={{ textAlign: 'right', padding: '10px 0px 0px 0px' }}
+                            defaultPageSize={8}
+                            defaultCurrent={1} total={this.state.articleCount}
+                            onChange={this.changeSpecialPage.bind(this)} />
                     </Card>
                 </div>
                 <div style={{ paddingTop: '20px' }}>
@@ -94,7 +109,13 @@ class TiKu extends Component {
                         <Table
                             rowKey='id'
                             columns={paperColums}
+                            pagination={false}
                             dataSource={this.state.paperDatas} />
+                        <Pagination
+                            style={{ textAlign: 'right', padding: '10px 0px 0px 0px' }}
+                            defaultPageSize={8}
+                            defaultCurrent={1} total={this.state.articleCount}
+                            onChange={this.changePaperPage.bind(this)} />
                     </Card>
                 </div>
 

@@ -29,7 +29,7 @@ class ModifyNickName extends Component{
                 onCancel={() => this.props.onCancel()}
                 footer={null}>
                 <Input onChange={(obj)=>this.setState({nickname: obj.target.value})} placeholder={this.props.user_name} />
-                <Button type="primary" style={{float:'right',padding:'10px 0px 20px 0px'}} onClick={()=>this.onclick()} >确定</Button>
+                <Button type="primary" style={{textAlign: 'right',padding:'10px 0px 10px 0px'}} onClick={()=>this.onclick()} >确定</Button>
             </Modal>
         );
     }
