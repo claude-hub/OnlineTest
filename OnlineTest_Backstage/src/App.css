@@ -66,3 +66,6 @@
 .ant-card-body{
     padding: 0 24px !important;
 }
+.ant-radio-wrapper{
+    margin-bottom: 10px;
+}

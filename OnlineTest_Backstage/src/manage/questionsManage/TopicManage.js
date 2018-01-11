@@ -126,8 +126,9 @@ class TopicManage extends Component {
                 {this.state.topics.map((ques, quesIndex) => {
                     return (
                         <Card
+                            key={quesIndex}
                             title={ques.queName}
-                            style={{ width: '31%', float: 'left', margin: '12px 1% 12px 0px', minHeight: '200px' }}
+                            style={{ width: '31%', float: 'left', margin: '12px 1% 12px 0px', minHeight: '205px' }}
                             extra={
                                 <Dropdown overlay={
                                     <Menu
@@ -149,7 +150,7 @@ class TopicManage extends Component {
                             >难度:&nbsp;{this.ergodicMap(ques.grade)}</div>
                             {ques.options.map((option, optionIndex) => {
                                 return (
-                                    <div>
+                                    <div key={optionIndex}>
                                         <span>{this.selectIndex(optionIndex)}:&nbsp;</span>
                                         <span>{option.description}</span>
                                     </div>

@@ -53,14 +53,30 @@ class AddTopic extends Component {
                             answerDescription: values.optionD,
                         }
                         try{
-                            questionServices.addOption(optionA)
-                            questionServices.addOption(optionB)
-                            questionServices.addOption(optionC)
-                            questionServices.addOption(optionD)
-                            this.setState({ submitting: false });
-                            this.props.onCancel();
-                            this.props.loadData();
-                            config.success("添加成功!");
+                            questionServices.addOption(optionA).then((ret)=>{
+                                console.log(ret.data)
+                                questionServices.addOption(optionB).then((ret)=>{
+                                    console.log(ret.data)
+                                    questionServices.addOption(optionC).then((ret)=>{
+                                        console.log(ret.data)
+                                        questionServices.addOption(optionD).then((ret)=>{
+                                            console.log(ret.data)
+                                            this.setState({ submitting: false });
+                                            this.props.onCancel();
+                                            this.props.loadData();
+                                            config.success("添加成功!");
+                                        }).catch((err)=>{
+                                            config.error("添加选项失败，请找到该题目，重新添加选项!");
+                                        })
+                                    }).catch((err)=>{
+                                        config.error("添加选项失败，请找到该题目，重新添加选项!");
+                                    })
+                                 }).catch((err)=>{
+                                    config.error("添加选项失败，请找到该题目，重新添加选项!");
+                                })
+                            }).catch((err)=>{
+                                config.error("添加选项失败，请找到该题目，重新添加选项!");
+                            })
                         }catch(err){
                             this.setState({ submitting: false });
                             this.props.onCancel();

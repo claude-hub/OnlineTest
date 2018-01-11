@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Form, Input, Card, Icon, Button, message, Popconfirm } from 'antd';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import Editor from 'react-umeditor'
 import { communicateServices } from '../lib'
 const { TextArea } = Input;
 

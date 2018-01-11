@@ -56,8 +56,8 @@ namespace OnlineTest_Core.Tasks
         }
         public bool CreateOption(int questionId, string answerDescription)
         {
-            Options option = _onlineTestContext.Options.SingleOrDefault(a => a.Description.Equals(answerDescription));
-            if (option != null)
+            var question = _onlineTestContext.Question.SingleOrDefault(a => a.Id==questionId);
+            if (question == null)
                 return false;
             else
             {
@@ -184,6 +184,17 @@ namespace OnlineTest_Core.Tasks
             };
             return result;
         }
+        public object GetSubNames()
+        {
+            var subList = (from sub in _onlineTestContext.Subject
+                           select new
+                           {
+                               subId = sub.Id,
+                               subName = sub.Name,
+                           }
+                ).ToList();
+            return subList;
+        }
 
         public object GetSubjectList(int currentPage, int pageSize = 8)
         {
@@ -222,16 +233,28 @@ namespace OnlineTest_Core.Tasks
             return result;
         }
 
-        public object GetQueListBySubId(int subId, int queClass)
+        public object GetQueListBySubId(int subId, int queClass,int currentPage,int pageSize,string query)
         {
-            var result = (from qu in _onlineTestContext.Question
-                          where qu.SubjectId == subId && qu.QuestionClass == queClass && !qu.IsDelete
+            query = string.IsNullOrEmpty(query) ? "" : query;
+            var queList = (from qu in _onlineTestContext.Question
+                          where qu.QuestionContent.Contains(query)&& qu.SubjectId == subId && qu.QuestionClass == queClass && !qu.IsDelete
                           orderby qu.Id descending
                           select new
                           {
                               name = qu.QuestionContent,
                               id = qu.Id,
+                              rightAnswer = qu.RightAnswer,
+                              options = qu.Options.Select(op => new
+                              {
+                                  description = op.Description,
+                                  optionId = op.Id,
+                              }).ToList()
                           }).ToList();
+            var result = new
+            {
+                count = queList.Count(),
+                queList = queList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
             return result;
         }
         public object SearchQue(string query, int currentPage, int pageSize = 15)
@@ -417,7 +440,7 @@ namespace OnlineTest_Core.Tasks
         }
 
         //得到试卷的题目
-        public List<Question> GetTestQuestions(int subjectId, int paperClass, int queCount = 2)
+        public List<Question> GetTestQuestions(int subjectId, int paperClass, int queCount = 15)
         {
             //获取到该科目，该等级未删除的科目数量
             var questions = _onlineTestContext.Question.Where(q => q.SubjectId == subjectId && q.QuestionClass == paperClass && !q.IsDelete).ToList();
