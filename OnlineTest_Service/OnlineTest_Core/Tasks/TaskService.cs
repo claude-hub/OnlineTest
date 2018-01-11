@@ -411,28 +411,36 @@ namespace OnlineTest_Core.Tasks
         //根据试卷编号获得具体的试卷
         public object GetJpaperById(int pId)
         {
-            var paperResult = (from paper in _onlineTestContext.Jpaper
-                               where paper.PapId == pId
-                               select new
-                               {
-                                   paperName = paper.Pap.PaperName,
-                                   createTime = paper.Pap.CreateTime,
-                                   detail = paper.Pap.PaperDeatail,
-                                   ques = GetOptions(paper.Que)
-                               }).ToList();
-            if (paperResult.Count == 0)
-                return null;
+            Paper paper = _onlineTestContext.Paper.SingleOrDefault(p => p.Id == pId);
+            List<Jpaper> papers = _onlineTestContext.Jpaper.Where(item => item.PapId == pId).ToList();
             var ques = new List<object>();
-            foreach (var item in paperResult)
+            foreach (var item in papers)
             {
-                ques.Add(item.ques);
+               var queItem = GetOptions(item.QueId);
+                ques.Add(queItem);
             }
+            //var paperResult = (from paper in _onlineTestContext.Jpaper
+            //                   where paper.PapId == pId
+            //                   select new
+            //                   {
+            //                       paperName = paper.Pap.PaperName,
+            //                       createTime = paper.Pap.CreateTime,
+            //                       detail = paper.Pap.PaperDeatail,
+            //                       ques = paper.Pap.
+            //                   }).ToList();
+            //if (paperResult.Count == 0)
+            //    return null;
+            //var ques = new List<object>();
+            //foreach (var item in paperResult)
+            //{
+            //    ques.Add(item.ques);
+            //}
             var result = new
             {
                 paperId = pId,
-                paperName = paperResult.First().paperName,
-                createTime = paperResult.First().createTime,
-                detail = paperResult.First().detail,
+                paperName = paper.PaperName,
+                createTime = paper.CreateTime,
+                detail = paper.PaperDeatail,
                 queCount = ques.Count(),
                 ques = ques,
             };
@@ -477,21 +485,27 @@ namespace OnlineTest_Core.Tasks
             return result;
         }
 
-        private object GetOptions(Question question)
+        private object GetOptions(int queId)
         {
-            var result = new
+            lock (locker)
             {
-                queContent = question.QuestionContent,
-                queAnlysis = question.QuestionAnlysis,
-                rightAnswer = question.RightAnswer,
-                queId = question.Id,
-                options = question.Options.Select(op => new
-                {
-                    description = op.Description,
-                    opId = op.Id,
-                }).ToList(),
-            };
-            return result;
+                var result = (from que in _onlineTestContext.Question
+                              where que.Id == queId
+                              select new
+                              {
+                                  queContent = que.QuestionContent,
+                                  queAnlysis = que.QuestionAnlysis,
+                                  rightAnswer = que.RightAnswer,
+                                  queId = que.Id,
+                                  options = que.Options.Select(op => new
+                                  {
+                                      description = op.Description,
+                                      opId = op.Id,
+                                  }).ToList(),
+                              }).ToList();
+                return result;
+            }
+            
         }
 
         public object SubmitAnswer(int userId, int paperId, int[] queIds, int[] selectAnswerIds)

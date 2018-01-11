@@ -94,9 +94,9 @@ namespace OnlineTest_Entity.Models
                     .HasColumnName("ID")
                     .IsRequired();
 
-                entity.Property(e => e.PapId).HasColumnName("Pap_Id");
+                entity.Property(e => e.PapId).IsRequired().HasColumnName("Pap_Id");
 
-                entity.Property(e => e.QueId).HasColumnName("Que_Id");
+                entity.Property(e => e.QueId).IsRequired().HasColumnName("Que_Id");
 
                 entity.HasOne(d => d.Pap)
                     .WithMany(p => p.Jpaper)
