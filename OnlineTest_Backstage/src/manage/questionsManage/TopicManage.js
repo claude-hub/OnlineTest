@@ -127,7 +127,7 @@ class TopicManage extends Component {
                     return (
                         <Card
                             title={ques.queName}
-                            style={{ width: '31%', float: 'left', margin: '12px 1% 12px 0px', minHeight: '200px' }}
+                            style={{ width: '31%', float: 'left', margin: '12px 1% 12px 0px', minHeight: '205px' }}
                             extra={
                                 <Dropdown overlay={
                                     <Menu

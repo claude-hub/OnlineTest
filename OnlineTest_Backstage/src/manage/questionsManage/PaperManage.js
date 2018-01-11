@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import {questionServices,config} from '../../lib'
 import { Table, Input, Button, Icon } from 'antd'
 import AddSub from './AddSub'
-class TitleManage extends Component {
-    key = 'titleManager';
+class PaperManage extends Component {
+    key = 'paperManager';
     constructor(props) {
         super(props);
         this.state = {
             table_loading: false,
             query: '',
             add_modal: false,
-            subjects:[],
+            papers:[],
         }
     }
     componentWillMount() {
@@ -26,9 +26,9 @@ class TitleManage extends Component {
             pageSize: 20,
             query: this.state.query
         };
-        questionServices.getQueList(params).then((ret) => {
+        questionServices.getPaperList(params).then((ret) => {
             console.log(ret)
-            this.setState({ subjects: ret.data.ques, table_loading: false });
+            this.setState({ papers: ret.data.paps, table_loading: false });
         }).catch((err) => {
             config.error('连接超时！');
             this.setState({ table_loading: false });
@@ -41,21 +41,17 @@ class TitleManage extends Component {
                     dataIndex: 'subName',
                     key: 'subName',
                 },{
-                    title: '题目',
-                    dataIndex: 'queName',
-                    key: 'queName',
+                    title: '试卷名字',
+                    dataIndex: 'paperName',
+                    key: 'paperName',
                 },{
-                    title: '类型',
-                    dataIndex: 'type',
-                    key: 'type',
+                    title: '创建时间',
+                    dataIndex: 'createTime',
+                    key: 'createTime',
                 },{
-                    title: '难度',
-                    dataIndex: 'grade',
-                    key: 'grade',
-                },{
-                    title: '正确选择',
-                    dataIndex: 'rightAnswer',
-                    key: 'rightAnswer',
+                    title: '创建者',
+                    dataIndex: 'userName',
+                    key: 'userName',
                 },{
                     title: '操作',
                     dataIndex: "action",
@@ -69,14 +65,14 @@ class TitleManage extends Component {
             <div style={{ margin: '20px 40px' }}>
                 <h1
                     style={{ marginBottom: '20px' }}
-                >题目管理</h1>
+                >试卷管理</h1>
                 <div
                     style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
                     <div>
                         <Input
                             size="large"
-                            placeholder="题目名称"
+                            placeholder="试卷名称"
                             onChange={(value) => this.setState({ query: value.target.value })}
                             style={{ width: '200px', marginRight: '20px' }}
                             onPressEnter={() => this.loadData()}
@@ -91,7 +87,7 @@ class TitleManage extends Component {
                     bordered
                     loading={this.state.table_loading}
                     columns={columns}
-                    dataSource={this.state.subjects}
+                    dataSource={this.state.papers}
                 />
                 <AddSub
                     visible={this.state.add_modal}
@@ -103,4 +99,4 @@ class TitleManage extends Component {
         )
     }
 }
-export default TitleManage;
+export default PaperManage;

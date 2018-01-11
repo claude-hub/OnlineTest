@@ -67,4 +67,30 @@ export default class Service {
             }
         })
     }
+    //获取试卷列表
+    static getPaperList(data = {}) {
+        return Service.commonService.get(`/Task/GetPaperList`, {
+            params: {
+                currentPage: data.currentPage,
+                query:data.query,
+                pageSize:data.pageSize,
+            }
+        })
+    }
+    //获取所有科目名
+    static getSubNames(data = {}) {
+        return Service.commonService.get(`/Task/GetSubNames`)
+    }
+    //获取科目下的所有题目
+    static getQueListBySubId(data = {}) {
+        return Service.commonService.get(`/Task/GetQueListBySubId`, {
+            params: {
+                subId:data.subId,
+                queClass:data.queClass,
+                currentPage: data.currentPage,
+                query:data.query,
+                pageSize:data.pageSize,
+            }
+        })
+    }
 }

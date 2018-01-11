@@ -109,17 +109,26 @@ namespace OnlineTest.Controllers
 
 
         #region 后台管理
-
+        [Authorize]
+        [HttpGet]
+        public JsonResult GetSubNames()
+        {
+            return Json(_taskAppService.GetSubNames());
+        }
         /// <summary>
         /// 添加试卷时，根据所选科目，难度显示题目（后台管理）
         /// </summary>
         /// <param name="subId">科目编号</param>
         /// <param name="queClass">题目难度</param>
+        /// <param name="query">搜索</param>
+        /// <param name="currentPage">当前页</param>
+        /// <param name="pageSize">页大小</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
-        public JsonResult GetQueListBySubId(int subId,int queClass)
+        public JsonResult GetQueListBySubId(int subId,int queClass, string query, int currentPage = 1, int pageSize = 10)
         {
-            var result = _taskAppService.GetQueListBySubId(subId, queClass);
+            var result = _taskAppService.GetQueListBySubId(subId, queClass,currentPage,pageSize,query);
             return Json(result);
         }
 
