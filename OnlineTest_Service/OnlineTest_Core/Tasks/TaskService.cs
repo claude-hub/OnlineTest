@@ -121,20 +121,25 @@ namespace OnlineTest_Core.Tasks
 
         public object GetPaperList(int currentPage, int pageSize = 8)
         {
-            var result = (from p in _onlineTestContext.Paper
+            var paperList = (from p in _onlineTestContext.Paper
                           orderby p.Id descending
                           select new
                           {
                               id = p.Id,
                               name = p.PaperName,
                               subjectName = p.Sub.Name,
-                          }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                          }).ToList();
+            var result = new
+            {
+                AddQueCount = paperList.Count(),
+                paperList = paperList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
             return result;
         }
 
         public object GetPaperListByUser(int uId, int currentPage, int pageSize = 10)
         {
-            var result = (from p in _onlineTestContext.Paper
+            var paperList = (from p in _onlineTestContext.Paper
                           where p.UserId == uId
                           orderby p.Id descending
                           select new
@@ -144,7 +149,12 @@ namespace OnlineTest_Core.Tasks
                               subjectName = p.Sub.Name,
                               accuracy = p.Accuracy,
                               createTime = p.CreateTime,
-                          }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                          }).ToList();
+            var result = new
+            {
+                count = paperList.Count(),
+                paperList = paperList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
             return result;
         }
 
@@ -184,8 +194,13 @@ namespace OnlineTest_Core.Tasks
                                id = s.Id,
                                name = s.Name,
                                queCount = s.QuestionCount,
-                           }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-            return subList;
+                           }).ToList();
+            var result = new
+            {
+                count = subList.Count(),
+                subList = subList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
+            return result;
         }
 
         public object GetQueById(int queId)

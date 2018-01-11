@@ -59,7 +59,7 @@ namespace OnlineTest_Application.Tasks
 
         public object GetPaperListByUser(int uId, int currentPage, int pageSize = 10)
         {
-            return _taskService.CreatePaperByUser(uId, currentPage, pageSize);
+            return _taskService.GetPaperListByUser(uId, currentPage, pageSize);
         }
 
         public object GetQueById(int queId)

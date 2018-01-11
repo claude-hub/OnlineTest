@@ -142,10 +142,10 @@ namespace OnlineTest.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet]
-        public JsonResult GetPaperListByUser(int uId,int currentPage,int pageSize = 10)
+        public JsonResult GetPaperListByUser(int uId,int currentPage,int pageSize = 8)
         {
             var result = _taskAppService.GetPaperListByUser(uId, currentPage, pageSize);
-            return Json(true);
+            return Json(result);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace OnlineTest.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet]
-        public JsonResult GetArticleListByUser(int uId,int currentPage,int pageSize = 10)
+        public JsonResult GetArticleListByUser(int uId,int currentPage,int pageSize = 8)
         {
             var result = _communicateAppService.GetArticleListByUser(uId, currentPage, pageSize);
             return Json(result);

@@ -109,8 +109,13 @@ namespace OnlineTest_Core.Communicate
                                label = art.Label,
                                createTime = art.CreateTime,
                                isPublish = art.IsPublish ? "已发布" : "未发布"
-                           }).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-            return artList;
+                           }).ToList();
+            var result = new
+            {
+                count = artList.Count(),
+                artList = artList.Skip((currentPage - 1) * pageSize).Take(pageSize)
+            };
+            return result;
         }
 
         public object GetCommentByArtId(int artId)

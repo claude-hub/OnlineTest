@@ -60,7 +60,7 @@ namespace OnlineTest.Controllers
         /// <param name="pageSize">每页数量</param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult GetSubjects(int currentPage, int pageSize = 8)
+        public JsonResult GetSubjects(int currentPage, int pageSize = 5)
         {
             var result = _taskAppService.GetSubjectList(currentPage, pageSize);
             return Json(result);
@@ -73,7 +73,7 @@ namespace OnlineTest.Controllers
         /// <param name="pageSize">页面数量</param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult GetPapers(int currentPage, int pageSize = 8)
+        public JsonResult GetPapers(int currentPage, int pageSize = 5)
         {
             var result = _taskAppService.GetPaperList(currentPage, pageSize);
             return Json(result);
