@@ -3,7 +3,7 @@ import { Form, Modal, Button, Input, Switch, message, Select, Icon } from 'antd'
 import { questionServices, config } from '../../lib'
 const Option = Select.Option
 const FormItem = Form.Item
-class AddTopic extends Component {
+class ModifyTopic extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,13 +13,25 @@ class AddTopic extends Component {
             type: 1,
             difficulty: 1,
             anlysis: '',
+            ques: [],
+            queName:'',
         }
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
+        if (nextProps.topicId == 0)
+            return;
         this.setState({
             visible: nextProps.visible
         })
+        this.loadData(nextProps.topicId);
+    }
+    loadData(value) {
+        questionServices.getQueById({ queId: value }).then((ret) => {
+            this.setState({ ques: ret.data,queName:ret.data.queName })
+            console.log(ret)
+        }).catch((err) => {
+            config.error('连接超时！');
+        });
     }
     handleSubmit = (e) => {
         e.preventDefault();
@@ -52,7 +64,7 @@ class AddTopic extends Component {
                             questionId: ret.data,
                             answerDescription: values.optionD,
                         }
-                        try{
+                        try {
                             questionServices.addOption(optionA)
                             questionServices.addOption(optionB)
                             questionServices.addOption(optionC)
@@ -61,7 +73,7 @@ class AddTopic extends Component {
                             this.props.onCancel();
                             this.props.loadData();
                             config.success("添加成功!");
-                        }catch(err){
+                        } catch (err) {
                             this.setState({ submitting: false });
                             this.props.onCancel();
                             this.props.loadData();
@@ -93,20 +105,13 @@ class AddTopic extends Component {
         };
         return (
             <Modal
-                title='新增题目'
+                title='修改题目'
                 visible={this.props.visible}
                 onCancel={() => this.props.onCancel()}
                 footer={null}>
                 <Form onSubmit={this.handleSubmit}>
                     <FormItem label="题目名称" {...formItemLayout}>
-                        {getFieldDecorator('questionName', {
-                            rules: [{
-                                required: true,
-                                message: '不能为空'
-                            }]
-                        })(
-                            <Input placeholder="题目名称" maxLength="20" />
-                            )}
+                            <Input onChange={(obj)=>this.setState({queName:obj.target.value})} placeholder="题目名称" value={this.state.queName} maxLength="20" />
                     </FormItem>
                     <FormItem label="类型" {...formItemLayout}>
                         <Select
@@ -193,5 +198,5 @@ class AddTopic extends Component {
         )
     }
 }
-AddTopic = Form.create()(AddTopic);
-export default AddTopic;
+ModifyTopic = Form.create()(ModifyTopic);
+export default ModifyTopic;

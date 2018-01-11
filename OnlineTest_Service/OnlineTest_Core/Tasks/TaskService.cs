@@ -397,6 +397,8 @@ namespace OnlineTest_Core.Tasks
                                    detail = paper.Pap.PaperDeatail,
                                    ques = GetOptions(paper.Que)
                                }).ToList();
+            if (paperResult.Count == 0)
+                return null;
             var ques = new List<object>();
             foreach (var item in paperResult)
             {

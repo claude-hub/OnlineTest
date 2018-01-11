@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { questionServices, config } from '../../lib'
 import { Table, Input, Button, Icon, List, Card, Col, Row, Tooltip, Dropdown, Menu } from 'antd'
 import AddTopic from './AddTopic'
+import ModifyTopic from './ModifyTopic'
 import index from 'antd/lib/progress';
+import Modal from 'antd/lib/modal/Modal';
+const confirm = Modal.confirm;
 class TopicManage extends Component {
     key = 'subject';
     constructor(props) {
@@ -12,6 +15,8 @@ class TopicManage extends Component {
             query: '',
             add_modal: false,
             topics: [],
+            modify_modal: false,
+            topicId: 0,
         }
     }
     componentWillMount() {
@@ -64,13 +69,24 @@ class TopicManage extends Component {
             }
         }
     }
-    itemMenu(value){
-        return(
-            <Menu>
-                <Menu.Item>
-                    <Icon type="edit" />&nbsp;&nbsp;修改题目
+    clickMenu(item,value){
+        var arr=item.key.split(",");
+        console.log(item)
+        if(arr[0]==('modify')){
+            this.setState({modify_modal:true,topicId:arr[1]})
+        }else if(arr[0]==('delete')){
+
+        }
+    }
+    itemMenu(value) {
+        // this.setState({topicId:value})
+        return (
+            <Menu
+                onClick={this.click}>
+                <Menu.Item key="modify">
+                    <Icon type="edit"/>&nbsp;&nbsp;修改题目
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item key="delete">
                     <Icon type="delete" />&nbsp;&nbsp;删除题目
                 </Menu.Item>
             </Menu>
@@ -109,14 +125,27 @@ class TopicManage extends Component {
                 </div>
                 {this.state.topics.map((ques, quesIndex) => {
                     return (
-                        <Card 
-                            title={ques.queName} 
-                            style={{ width: '31%', float: 'left',marginRight:'1%',marginTop:'24px',minHeight:'200px' }}
-                            extra={<Dropdown overlay={this.itemMenu(ques.id)}><Icon
-                            style={{fontSize:'24px'}} type="ellipsis" /></Dropdown>}
+                        <Card
+                            title={ques.queName}
+                            style={{ width: '31%', float: 'left', margin: '12px 1% 12px 0px', minHeight: '200px' }}
+                            extra={
+                                <Dropdown overlay={
+                                    <Menu
+                                        onClick={this.clickMenu.bind(this)}>
+                                        <Menu.Item 
+                                            key={'modify,' + ques.id}
+                                        >
+                                            <Icon type="edit" />&nbsp;&nbsp;修改题目
+                                        </Menu.Item>
+                                        <Menu.Item key={'delete,' + ques.id}>
+                                            <Icon type="delete" />&nbsp;&nbsp;删除题目
+                                        </Menu.Item>
+                                    </Menu>
+                                }>
+                                <Icon style={{ fontSize: '24px' }} type="ellipsis" /></Dropdown>}
                         >
                             <div
-                                style={{margin:' 12px 0'}}
+                                style={{ margin: ' 12px 0' }}
                             >难度:&nbsp;{this.ergodicMap(ques.grade)}</div>
                             {ques.options.map((option, optionIndex) => {
                                 return (
@@ -127,16 +156,24 @@ class TopicManage extends Component {
                                 )
                             })}
                             <div
-                                style={{margin:' 12px 0'}}
+                                style={{ margin: ' 12px 0' }}
                             >正确答案:&nbsp;{this.rightAnswer(ques.rightAnswer)}</div>
                         </Card>
                     )
                 })}
 
                 <AddTopic
-                    subId = {this.props.id}
+                    subId={this.props.id}
                     visible={this.state.add_modal}
                     onCancel={() => this.setState({ add_modal: false })}
+                    loadData={() => this.loadData()}
+                    {...this.state}
+                />
+                <ModifyTopic
+                    subId={this.props.id}
+                    topicId={this.state.topicId}
+                    visible={this.state.modify_modal}
+                    onCancel={() => this.setState({ modify_modal: false })}
                     loadData={() => this.loadData()}
                     {...this.state}
                 />

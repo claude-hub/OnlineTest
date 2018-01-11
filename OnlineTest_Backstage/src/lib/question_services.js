@@ -59,4 +59,12 @@ export default class Service {
     static addOption(data = {}) {
         return Service.commonService.post(`/Task/AddOptions?questionId=${data.questionId}&answerDescription=${data.answerDescription}`);
     }
+    //获取题目列表
+    static getQueById(data = {}) {
+        return Service.commonService.get(`/Task/GetQueById`, {
+            params: {
+                queId: data.queId
+            }
+        })
+    }
 }
