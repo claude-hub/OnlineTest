@@ -158,7 +158,7 @@ class TopicManage extends Component {
                             })}
                             <div
                                 style={{ margin: ' 12px 0' }}
-                            >正确答案:&nbsp;{this.rightAnswer(ques.rightAnswer)}</div>
+                            >正确答案:&nbsp;{ques.rightAnswer}</div>
                         </Card>
                     )
                 })}

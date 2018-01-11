@@ -83,4 +83,14 @@ export default class Service {
             }
         })
     }
+
+    //提交试卷答案  Task/SubmitAnswer
+    static submitAnswer(data={}){
+        console.log(data)
+        let queIds = data.queIds.join('&queIds=');
+        console.log(queIds)
+        let selectAnswerIds = data.selectAnswerIds.join('&selectAnswerIds=');
+        console.log(selectAnswerIds)
+        return Service.commonService.post(`/Task/SubmitAnswer?userId=${data.uId}&paperId=${data.paperId}&queIds=${queIds}&selectAnswerIds=${selectAnswerIds}`)
+    }
 }

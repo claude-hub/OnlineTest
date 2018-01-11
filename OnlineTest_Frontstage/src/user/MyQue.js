@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Icon, Pagination } from 'antd';
+import { Link } from "react-router-dom";
 import { userServices, taskServices, communicateServices } from '../lib'
 class MyQue extends Component {
 
@@ -32,7 +33,9 @@ class MyQue extends Component {
     const columns = [{
       title: '名称',
       dataIndex: 'name',
-      render: text => <a href="#">{text}</a>,
+      render: (text, record, index) => (
+        <Link to={'/paperTask/' + record.id}>{text}</Link>
+      ),
     }, {
       title: '创建时间',
       dataIndex: 'createTime',
@@ -49,7 +52,7 @@ class MyQue extends Component {
           dataSource={this.state.paperList}
         />
         <Pagination
-          style={{ textAlign: 'right',padding:'10px 0px 0px 0px' }}
+          style={{ textAlign: 'right', padding: '10px 0px 0px 0px' }}
           defaultPageSize={8}
           defaultCurrent={1} total={this.state.paperCount}
           onChange={this.onChange.bind(this)}

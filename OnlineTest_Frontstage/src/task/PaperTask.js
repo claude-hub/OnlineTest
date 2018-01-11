@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Card, Icon, Pagination, Checkbox, Row, Col } from 'antd'
+import { Card, Icon, Pagination, Checkbox, Row, Col,message } from 'antd'
 import { connect } from 'react-redux';
 import { communicateServices, taskServices } from '../lib/index';
+import { Button } from 'antd/lib/radio';
 
 class PaperTask extends Component {
 
@@ -11,7 +12,6 @@ class PaperTask extends Component {
             uId: this.props.uId,
             quesList: [],
             que: [],
-            options:[],
             queIds: [],
             selectOptions: [],
             queCount: 0,
@@ -23,48 +23,80 @@ class PaperTask extends Component {
     }
     loadData() {
         taskServices.startExerciseByPId({ pId: this.props.paperId }).then((ret) => {
-            console.log(ret.data)
-            this.setState({ quesList: ret.data.ques, queCount: ret.data.queCount, 
-                que: ret.data.ques[0],options: ret.data.ques[0].options})
-            console.log(777)
-            console.log(this.state.options)
+            this.setState({
+                quesList: ret.data.ques, queCount: ret.data.queCount,
+                que: ret.data.ques[0]
+            })
+            console.log(this.state.que)
         }).catch((err) => {
         })
     }
     onChange(page) {
         const queIds = this.state.queIds
+        console.log(queIds)
         queIds.push(this.state.que.queId)
+        console.log(queIds)
         this.setState({ queIds: queIds, que: this.state.quesList[page - 1] })
     }
     selectOption(checkedValues) {
-        console.log(checkedValues)
+        const selectOptions = this.state.selectOptions
+        selectOptions.push(checkedValues)
+        this.setState({ selectOptions: selectOptions })
+    }
+    onSubmit(){
+        const queIds = this.state.queIds
+        queIds.push(this.state.que.queId)
+        this.setState({ queIds: queIds})
+        const params = {
+            uId : this.state.uId,
+            paperId : this.state.paperId,
+            queIds : this.state.queIds,
+            selectAnswerIds : this.state.selectOptions
+        }
+        taskServices.submitAnswer(params).then((ret)=>{
+            message.success("提交成功！")
+            console.log(ret)
+            window.location.href="/"
+        }).catch((err)=>{
+            message.error("失败！")
+        })
     }
     render() {
         return (
             <div style={{ padding: '20px 0px', width: '70%', minHeight: '442px', margin: 'auto' }}>
-                <div style={{ backgroundColor: '#fff', paddingBottom: '20px' }}>
-                    <Card key={this.state.que.queId}
-                        title={<h2>{this.state.que.queContent}</h2>}
-                        extra={<a onClick={() => this.props.history.goBack()}>返回题库</a>}
-                        style={{ width: '100%', height: '100%' }}>
-                        <Checkbox.Group onChange={this.selectOption.bind(this)}>
-                            {this.state.options.map((item, keys) => {
-                                return (
-                                    <Row>
-                                        <Col ><Checkbox value={item.opId}>{item.description}</Checkbox></Col>
-                                    </Row>
-                                )
+                <div style={{ backgroundColor: '#fff', padding: '20px' }}>
+                    {this.state.que.map((item, keys) => {
+                        return (
+                            <Card key={item.queId}
+                                title={<h2>{item.queContent}</h2>}
+                                extra={<a onClick={() => this.props.history.goBack()}>返回题库</a>}
+                                style={{ width: '100%', height: '100%' }}>
+                                <Checkbox.Group onChange={this.selectOption.bind(this)}>
+
+                                    <div key={keys}>
+                                        {item.options.map((option, optionIndex) => {
+                                            return (
+                                                <Row key={optionIndex}>
+                                                    <Col span={8}><Checkbox value={option.opId}>{option.description}</Checkbox></Col>
+                                                </Row>
+                                            )
+                                        })}
+                                    </div>
+                                    </Checkbox.Group>
+
+                             </Card>
+                        )
                             })}
-
-                        </Checkbox.Group>,
-
-                    </Card>
-                    <Pagination
-                        style={{ paddingTop: '20px', textAlign: 'right' }}
-                        onChange={this.onChange.bind(this)}
-                        defaultPageSize={1}
-                        defaultCurrent={1}
-                        total={this.state.queCount} />
+                    <div style={{display:'flex',justifyContent:'flex-end',paddingTop: '20px'}}>
+                        <Pagination
+                            style={{ paddingRight: '20px' }}
+                            onChange={this.onChange.bind(this)}
+                            defaultPageSize={1}
+                            defaultCurrent={1}
+                            total={this.state.queCount} />
+                        <Button onClick={() => this.onSubmit()} >提交</Button>
+                    </div>
+                    
                 </div>
 
 

@@ -127,7 +127,7 @@ class AddPaper extends Component {
             dataIndex: 'rightAnswer',
             render: (text, record, index) =>
                 (
-                    <div>{this.rightAnswer(record.rightAnswer)}</div>
+                    <div>{record.rightAnswer}</div>
                 ),
         }]
         const hasSelected = selectedRowKeys.length > 0;
