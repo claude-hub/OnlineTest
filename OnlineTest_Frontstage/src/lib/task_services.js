@@ -40,7 +40,8 @@ export default class Service {
     static getSubjects(data = {}) {
         return Service.sessionService.get(`/Task/GetSubjects`, {
             params : {
-                currentPage:data.currentPage
+                currentPage:data.currentPage,
+                pageSize:data.pageSize
             }
         })
     }

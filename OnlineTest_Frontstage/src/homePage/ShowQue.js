@@ -46,7 +46,11 @@ class ShowQue extends Component {
                 visible={this.props.visible}
                 onCancel={() => this.props.onCancel()}
                 footer={null}>
-                <p>难度：&nbsp;{this.ergodicMap(this.state.que.grade)}</p>
+                <h3>{this.state.que.queName}</h3>
+                <p style={{padding:'10px 0px'}}>
+                    <span style={{paddingRight:' 10px'}}>科目：&nbsp;{this.state.que.subName}</span>
+                    <span>难度：&nbsp;{this.ergodicMap(this.state.que.grade)}</span>
+                </p>
                 <p>备选项：</p>
                 {/* {this.state.options.map((value, index) => {
                     return (

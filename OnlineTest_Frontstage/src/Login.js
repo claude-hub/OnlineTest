@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import './Login.css';
 
 const FormItem = Form.Item;
+const logo = require('./images/logo1.png');
 
 class Login extends React.Component {
     constructor(props) {
@@ -35,6 +36,8 @@ class Login extends React.Component {
     render() {
         const {getFieldDecorator} = this.props.form;
         return (
+            <div style={{minHeight:document.documentElement.clientHeight,height:'auto', padding:'20px',backgroundColor:'rgb(242,242,242)'}}>
+                <Link to='/'><img style={{width:'100px',height:'60px'}} src={logo}/></Link>
             <div className="login-form">
                 <div>
                     <p>用户登录</p>
@@ -63,6 +66,7 @@ class Login extends React.Component {
                         <Link to='/register'>没有账号，前往注册!</Link>
                     </FormItem>
                 </Form>
+            </div>
             </div>
         );
     }

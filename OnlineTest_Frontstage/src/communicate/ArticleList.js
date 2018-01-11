@@ -60,7 +60,7 @@ class ArticleList extends Component {
     }
     render() {
         return (
-            <div style={{ padding: '20px 0px 10px 0px' }}>
+            <div style={{ padding: '20px 0px 10px 0px',minHeight:'442px' }}>
                 <Card title={<h2 style={{ fontSize: '17px', fontWeight: '700' }}><Icon type="book" style={{ color: '#FF6547' }} />分享与求助</h2>}
                     extra={<Link to="/addArticle" className="add-btn" href="#"><Icon style={{ paddingRight: '5px' }} type="edit" />我要添加</Link>}
                     style={{ paddingTop: '10px', width: '71%', margin: 'auto' }}>

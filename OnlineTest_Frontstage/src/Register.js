@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Form, Input, Tooltip, Icon, Button, message } from 'antd';
 import { userServices } from './lib';
+import { Link } from "react-router-dom";
 import './Login.css';
 
 const FormItem = Form.Item;
+const logo = require('./images/logo1.png');
 class Register extends React.Component {
 
     state = {
@@ -69,6 +71,8 @@ class Register extends React.Component {
         };
 
         return (
+            <div style={{minHeight:document.documentElement.clientHeight,height:'auto', padding:'20px',backgroundColor:'rgb(242,242,242)'}}>
+                <Link to='/'><img style={{width:'100px',height:'60px'}} src={logo}/></Link>
             <div style={{ width: '50%', margin: 'auto',paddingTop: '10%' }}>
                 <p style={{
                     textAlign: 'center',paddingBottom:'10px'
@@ -135,6 +139,7 @@ class Register extends React.Component {
                         <Button className="login-form-button" type="primary" htmlType="submit">注册</Button>
                     </FormItem>
                 </Form>
+            </div>
             </div>
         );
     }

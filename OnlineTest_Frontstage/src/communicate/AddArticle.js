@@ -35,12 +35,10 @@ class AddArticle extends Component {
 
     confirm(e) {
         console.log(e);
-        message.success('Click on Yes');
+        window.location.href="/communicate"
     }
 
     cancel(e) {
-        console.log(e);
-        message.error('Click on No');
     }
 
     render() {

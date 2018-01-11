@@ -52,7 +52,7 @@ class ReadArticle extends Component {
             <div style={{ paddingTop: '20px', paddingBottom: '20px', width: '70%',minHeight:'500px', margin: 'auto' }}>
                 <div className="article-content-box">
                     <div style={{ paddingBottom: '5px', borderBottom: '1px solid #ccc' }}>
-                        <h1 onClick={() => this.props.history.goBack()}>{this.state.title}</h1>
+                        <h1 style={{fontWeight:'700'}} onClick={() => this.props.history.goBack()}>{this.state.title}</h1>
                         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                             <div style={{ width: '5%' }}>
                                 <HeadImg text='J' />
@@ -71,11 +71,11 @@ class ReadArticle extends Component {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div style={{padding:'10px 0px'}}>
                         {this.state.content}
                     </div>
                 </div >
-                <div style={{ marginTop: '10px', padding: '10px', background: '#fff' }}>
+                <div style={{ marginTop: '10px', padding: '10px', background: '#fff',minHeight:'150px' }}>
                     <Comments artId={this.state.artId} commentNum={this.state.commentNum} />
                 </div>
 

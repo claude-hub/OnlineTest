@@ -10,7 +10,8 @@ class PaperTask extends Component {
         this.state = {
             uId: this.props.uId,
             quesList: [],
-            que: '',
+            que: [],
+            options:[],
             queIds: [],
             selectOptions: [],
             queCount: 0,
@@ -22,8 +23,11 @@ class PaperTask extends Component {
     }
     loadData() {
         taskServices.startExerciseByPId({ pId: this.props.paperId }).then((ret) => {
-            console.log(ret.data.ques)
-            this.setState({ quesList: ret.data.ques, queCount: ret.data.queCount, que: ret.data.ques[0] })
+            console.log(ret.data)
+            this.setState({ quesList: ret.data.ques, queCount: ret.data.queCount, 
+                que: ret.data.ques[0],options: ret.data.ques[0].options})
+            console.log(777)
+            console.log(this.state.options)
         }).catch((err) => {
         })
     }
@@ -44,13 +48,13 @@ class PaperTask extends Component {
                         extra={<a onClick={() => this.props.history.goBack()}>返回题库</a>}
                         style={{ width: '100%', height: '100%' }}>
                         <Checkbox.Group onChange={this.selectOption.bind(this)}>
-                            {/* {value.options.map((item, keys) => {
+                            {this.state.options.map((item, keys) => {
                                 return (
                                     <Row>
-                                        <Col ><Checkbox value={item.opId}>item.description</Checkbox></Col>
+                                        <Col ><Checkbox value={item.opId}>{item.description}</Checkbox></Col>
                                     </Row>
                                 )
-                            })} */}
+                            })}
 
                         </Checkbox.Group>,
 

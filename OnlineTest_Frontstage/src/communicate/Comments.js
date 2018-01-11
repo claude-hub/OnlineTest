@@ -57,7 +57,7 @@ class Comments extends Component {
     }
     onSubmit() {
         if (!this.state.uId) {
-            this.props.history.push('/login')
+            window.location.href="/login"
         } else {
             const params = {
                 uId: this.state.uId,
@@ -73,10 +73,8 @@ class Comments extends Component {
         }
     }
     onReply(parentId){
-        console.log(8888)
-        console.log(parentId)
         if (!this.state.uId) {
-            this.props.history.push('/login')
+            window.location.href="/login"
         } else {
             const params = {
                 uId: this.state.uId,

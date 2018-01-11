@@ -56,4 +56,5 @@
 .article-content-box{
     padding: 15px;
     background-color: #fff;
+    min-height: 230px;
 }

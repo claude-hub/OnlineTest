@@ -27,16 +27,6 @@ class Head extends Component {
     onChange(value) {
         console.log(value)
         window.location.href="/searchResult/"+value
-        // this.props.history.push(`/searchResult/${value}`)
-        // const params={
-        //     query:value,
-        //     currentPage:1
-        // }
-        // taskServices.searchQue(params).then((ret)=>{
-
-        // }).catch((err)=>{
-
-        // })
     }
     checkUserLogin() {
         if (!this.state.token) {
@@ -49,8 +39,8 @@ class Head extends Component {
         } else {
             return (
                 <div className="login_register">
-                    <Link to="/userPage" className="btn">{this.props.user_name}</Link>
-                    <Link to="/" className="btn" onClick={this.sign_out.bind(this)}>注销</Link>
+                    <Link style={{padding:'0px 10px',color:'#ccc'}} to="/userPage" >{this.props.user_name}</Link>
+                    <Link style={{color:'#ccc'}} to="/" onClick={this.sign_out.bind(this)}>注销</Link>
                 </div>
             );
         }

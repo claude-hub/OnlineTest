@@ -18,7 +18,8 @@ class SpecialExerciseTab extends Component {
     }
     loadData() {
         const params = {
-            currentPage: 1
+            currentPage: 1,
+            pageSize:4
         };
         taskServices.getSubjects(params).then((ret) => {
             this.setState({ subjects: ret.data.subList });
